@@ -10,6 +10,7 @@ Staff
 
 Student: 
 student_id (Primary Key)
+student_password
 student_first_name
 student_last_name
 student_email
@@ -29,6 +30,7 @@ staff_id
 
 Staff:
 staff_id (Primary Key)
+staff_password
 staff_first_name
 staff_last_name 
 staff_email
