@@ -1,0 +1,38 @@
+Advanced Programming 
+Student Services Portal 
+
+Database Information 
+
+Established Tables: 
+Student
+Enquiry
+Staff
+
+Student: 
+student_id (Primary Key)
+student_first_name
+student_last_name
+student_email
+student_contact_number 
+
+Enquiry:
+enquiry_id (Primary Key)
+enquiry_nature
+enquiry_complaint
+enquiry_detail
+enquiry_urgency
+enquiry_date
+enquiry_state (Resolved or Unresolved)
+Constraints (Foreign Key)
+student_id 
+staff_id
+
+Staff:
+staff_id (Primary Key)
+staff_first_name
+staff_last_name 
+staff_email
+staff_contact_number
+
+
+	
