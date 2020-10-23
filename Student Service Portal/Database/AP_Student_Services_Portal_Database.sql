@@ -40,7 +40,7 @@ Create Table Enquiry
     enquiry_complaint VARCHAR(20), 
     enquiry_detail VARCHAR(150), 
     enquiry_urgency BOOLEAN, 
-    enquiry_date DATE,
+    enquiry_date TIMESTAMP,
     enquiry_state VARCHAR(20)
 
     CONSTRAINT fk_student_id 
@@ -53,3 +53,43 @@ Create Table Enquiry
     REFERENCES Staff(staff_id)
     ON DELETE SET NULL
 );  
+
+/* All Insert Statements */ 
+INSERT INTO Student 
+(
+student_id,
+student_password,
+student_first_name,
+student_last_name,
+student_email,
+student_contact_number
+)
+VALUES
+(
+    1,
+    'Password', 
+    'Dinito', 
+    'Thompson', 
+    'dinitothompson@gmail.com', 
+    18763571273
+)
+
+/*All Update Statement*/
+UPDATE Student 
+SET student_email = 'dinitothompson2@gmail.com'
+WHERE student_id = 1
+
+/*All Select Statements*/
+SELECT * From Enquiry 
+
+/*All Alter Statements*/
+ALTER TABLE Student 
+ADD 
+CONSTRAINT fk_staff_id
+FOREIGN KEY (staff_id)
+REFERENCES Staff(staff_id)
+ON DELETE SET NULL
+
+/*All Delete Statements*/
+DELETE FROM Student
+Where student_id = 1 

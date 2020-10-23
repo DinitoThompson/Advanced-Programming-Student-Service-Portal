@@ -1,0 +1,2 @@
+https://alvinalexander.com/java/java-mysql-update-query-example/
+(Example code: How to use an Update Statement on a Database through Java) 
