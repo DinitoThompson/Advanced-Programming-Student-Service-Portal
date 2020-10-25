@@ -2,7 +2,6 @@
     Advanced Programming 
     Student Services Portal 
     Database 
-
     Group Members 
     Dinito Thompson 
     Shanice Facey 
