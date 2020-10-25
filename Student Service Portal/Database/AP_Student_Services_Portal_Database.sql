@@ -69,6 +69,7 @@ Create Table Enquiry
 SELECT * FROM Student 
 SELECT * FROM Student_Telephone
 SELECT * FROM Staff 
+Sel
 
 
 /* All Insert Statements */ 
