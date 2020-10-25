@@ -14,27 +14,41 @@ Drop Database Student_Services_Portal;
 
 Create Table Student 
 (
-    student_id INT Primary Key, 
+    student_id INT IDENTITY (1, 1) PRIMARY KEY, 
     student_first_name VARCHAR(20), 
     student_last_name VARCHAR(20), 
     student_email VARCHAR(30),
-    student_contact_number INT, 
     student_password VARCHAR(30)
+);
+
+Create Table Student_Contact
+(
+    student_id INT,
+    student_contact_number INT, 
+    PRIMARY KEY (student_id, student_contact_number), 
+    FOREIGN KEY (student_id) REFERENCES Student (student_id)
 );
 
 Create Table Staff 
 (
-    staff_id INT Primary Key, 
+    staff_id INT IDENTITY (1, 1) PRIMARY KEY, 
     staff_first_name VARCHAR(20), 
     staff_last_name VARCHAR(20), 
     staff_email VARCHAR(30),
-    staff_contact_number INT,
     staff_password VARCHAR(30)
+);
+
+Create Table Staff_Contact
+(
+    staff_id INT,
+    staff_contact_number INT, 
+    PRIMARY KEY (staff_id, staff_contact_number), 
+    FOREIGN KEY (staff_id) REFERENCES Staff (staff_id)
 );
 
 Create Table Enquiry 
 (
-    enquiry_id INT Primary Key, 
+    enquiry_id INT IDENTITY (1, 1) Primary Key, 
     enquiry_nature VARCHAR(20),
     enquiry_complaint VARCHAR(20), 
     enquiry_detail VARCHAR(150), 
@@ -45,13 +59,17 @@ Create Table Enquiry
     CONSTRAINT fk_student_id 
     FOREIGN KEY (student_id)
     REFERENCES Student (student_id)
-    ON DELETE SET NULL
 
     CONSTRAINT fk_staff_id
     FOREIGN KEY (staff_id)
     REFERENCES Staff(staff_id)
-    ON DELETE SET NULL
 );  
+
+/*Select Statements*/
+SELECT * FROM Student 
+SELECT * FROM Student_Telephone
+SELECT * FROM Staff 
+
 
 /* All Insert Statements */ 
 INSERT INTO Student 
