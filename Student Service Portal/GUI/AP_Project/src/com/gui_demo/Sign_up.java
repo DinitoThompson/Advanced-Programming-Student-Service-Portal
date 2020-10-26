@@ -55,57 +55,57 @@ public class Sign_up extends JFrame implements ActionListener {
 	        contentPane.add(lblNewUserRegister);
 
 	        JLabel lblName = new JLabel("First name");
-	        lblName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblName.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	        lblName.setBounds(128, 185, 99, 43);
 	        contentPane.add(lblName);
 
 	        JLabel lblNewLabel = new JLabel("Last name");
-	        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	        lblNewLabel.setBounds(140, 265, 99, 29);
 	        contentPane.add(lblNewLabel);
 
 	        JLabel lblEmailAddress = new JLabel("Email\r\n address");
-	        lblEmailAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblEmailAddress.setFont(new Font("Times New Roman", Font.PLAIN, 21));
 	        lblEmailAddress.setBounds(115, 330, 124, 36);
 	        contentPane.add(lblEmailAddress);
 
 	        firstname = new JTextField();
-	        firstname.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        firstname.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	        firstname.setBounds(264, 177, 228, 50);
 	        contentPane.add(firstname);
 	        firstname.setColumns(10);
 
 	        lastname = new JTextField();
-	        lastname.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        lastname.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	        lastname.setBounds(261, 250, 228, 50);
 	        contentPane.add(lastname);
 	        lastname.setColumns(10);
 
 	        email = new JTextField();
 
-	        email.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        email.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	        email.setBounds(261, 319, 228, 50);
 	        contentPane.add(email);
 	        email.setColumns(10);
 
 	        JLabel lblPassword = new JLabel("Password");
-	        lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	        lblPassword.setBounds(128, 481, 90, 24);
 	        contentPane.add(lblPassword);
 
 	        JLabel lblMobileNumber = new JLabel("Mobile number");
-	        lblMobileNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblMobileNumber.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	        lblMobileNumber.setBounds(100, 406, 139, 26);
 	        contentPane.add(lblMobileNumber);
 
 	        mob = new JTextField();
-	        mob.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        mob.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	        mob.setBounds(264, 390, 228, 50);
 	        contentPane.add(mob);
 	        mob.setColumns(10);
 
 	        passwordField = new JPasswordField();
-	        passwordField.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 	        passwordField.setBounds(264, 464, 228, 50);
 	        contentPane.add(passwordField);
 
@@ -115,17 +115,51 @@ public class Sign_up extends JFrame implements ActionListener {
 	        btnNewButton.setBorder(null);
 	        btnNewButton.addActionListener(new ActionListener() 
 	        {
-	        	public void actionPerformed(ActionEvent e) 
+	        	public void actionPerformed(java.awt.event.ActionEvent e) 
 	             { 
-	                dispose();
-	                Cover s;
-					try {
-						s = new Cover();
-						s.setVisible(true);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}    
+	                // check for any blank fields
+	                if(firstname.getText().length() == 0)
+	                {
+	                	JOptionPane.showMessageDialog(lblName, "Missing First Name");
+	                	
+	                }
+	                else if(lastname.getText().length() ==0)
+	                {
+	                	JOptionPane.showMessageDialog(lastname, "Missing Last Name");
+	                }
+	                else if(email.getText().length() == 0)
+	                {
+	                	JOptionPane.showMessageDialog(email, "Missing Email");
+	                }
+	                else if(mob.getText().length() == 0)
+	                {
+	                	JOptionPane.showMessageDialog(mob, "Missing Phone Number");
+	                }
+	                else if(passwordField.getText().length() == 0)
+	                {
+	                	JOptionPane.showMessageDialog(passwordField, "Enter Password");
+	                }
+	                else if(passwordField.getText().equals(passwordField_1.getText()) == false)
+	                {
+	                	JOptionPane.showMessageDialog(passwordField_1, "Passwords Do Not Match");
+	                }
+	                else
+	                {
+	                	// add database connection run update/add query
+	                	//https://www.youtube.com/watch?v=4CHyb3O88uM&t=1070s Time stamp 25:20
+	                    // once everything is kl they are redirected to log in
+	                	JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+	                	dispose();
+	                	Cover s;
+						try {
+							s = new Cover();
+							s.setVisible(true);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}   
+	                }
+	                 
 	            }
 	      });
 	        btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 22));
@@ -133,12 +167,12 @@ public class Sign_up extends JFrame implements ActionListener {
 	        contentPane.add(btnNewButton);
 	        
 	        JLabel lblConfirmPassword = new JLabel("Confirm Password");
-	        lblConfirmPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblConfirmPassword.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 	        lblConfirmPassword.setBounds(79, 550, 160, 24);
 	        contentPane.add(lblConfirmPassword);
 	        
 	        passwordField_1 = new JPasswordField();
-	        passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        passwordField_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 	        passwordField_1.setBounds(264, 533, 228, 50);
 	        contentPane.add(passwordField_1);
 	        

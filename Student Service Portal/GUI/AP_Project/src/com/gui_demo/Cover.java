@@ -88,7 +88,7 @@ public class Cover extends JFrame implements ActionListener {
 		});
 		txtUser.setText("ID Number");
 		txtUser.setBorder(new LineBorder(Color.BLACK, 1, true));
-		txtUser.setFont(new Font("Times New Roman", Font.ITALIC, 12));
+		txtUser.setFont(new Font("Times New Roman", Font.ITALIC, 13));
 		txtUser.setBounds(10, 10, 192, 33);
 		panel_1.add(txtUser);
 		txtUser.setColumns(10);
@@ -135,7 +135,7 @@ public class Cover extends JFrame implements ActionListener {
 		txtPassword.setText("Password");
 		((JPasswordField) txtPassword).setEchoChar((char)0);
 		txtPassword.setBorder(new LineBorder(Color.BLACK, 1, true));
-		txtPassword.setFont(new Font("Times New Roman", Font.ITALIC, 12));
+		txtPassword.setFont(new Font("Times New Roman", Font.ITALIC, 13));
 		txtPassword.setBounds(10, 10, 192, 31);
 		panel_2.add(txtPassword);
 		txtPassword.setColumns(10);
@@ -181,9 +181,25 @@ public class Cover extends JFrame implements ActionListener {
 		btnLogin.setBounds(0, 10, 97, 25);
 		btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		dispose();
-        		Student_Dashboard s = new Student_Dashboard();
-        		s.setVisible(true);
+        		
+        		//this bit check which radio button was selected then go to the respective table to check credentials
+        		if(rdbtnStudent.isSelected())
+        		{
+        			//need to check credentials, if correct do the code below if not use JOptionPane.showmessage to display incorrect info message
+        			dispose();
+        			Student_Dashboard s = new Student_Dashboard();
+            		s.setVisible(true);
+        		}
+        		else if (rdbtnStaff.isSelected())
+        				{
+        			     //run view/selected query to display all enqueries in the table on the staff dashboard frame.
+        			     // not sure how we implementing the live chat session yet
+        			     dispose();
+        			     Staff_Dashborad d = new Staff_Dashborad();
+            		     d.setVisible(true);
+        				} else {
+        					JOptionPane.showMessageDialog(lblPassword, "Select a user (Staff/Student)");
+        				}
         	}
         });
 		panel.add(btnLogin);

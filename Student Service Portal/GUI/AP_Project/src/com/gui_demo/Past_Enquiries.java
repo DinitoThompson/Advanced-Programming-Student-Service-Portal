@@ -64,6 +64,7 @@ public class Past_Enquiries extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1);
 		
 		textField = new JTextField();
+		textField.setEditable(false);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField.setColumns(10);
 		textField.setBounds(617, 289, 228, 50);
@@ -76,6 +77,7 @@ public class Past_Enquiries extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1_1);
 		
 		textField_1 = new JTextField();
+		textField_1.setEditable(false);
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_1.setColumns(10);
 		textField_1.setBounds(619, 389, 228, 50);
@@ -144,6 +146,13 @@ public class Past_Enquiries extends JFrame implements ActionListener {
 		btnCancel.setBorder(null);
 		btnCancel.setBackground(new Color(25, 25, 112));
 		btnCancel.setBounds(395, 495, 85, 21);
+		btnCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				// capture enquiry ID and run delete query ???
+			}
+		});
 		contentPane.add(btnCancel);
 		
 		JButton btnView = new JButton("View");
@@ -155,6 +164,7 @@ public class Past_Enquiries extends JFrame implements ActionListener {
 		btnView.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		dispose();
+        		//capture enquiry ID selected and run select query to display the data in the view_enquiry formS
         		View_Enquiry v = new View_Enquiry();
         		v.setVisible(true);
         	}

@@ -31,7 +31,7 @@ public class Front extends JFrame implements ActionListener {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * Launch the application, Main class
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

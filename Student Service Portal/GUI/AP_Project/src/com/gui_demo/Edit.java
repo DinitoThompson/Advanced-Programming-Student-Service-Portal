@@ -96,31 +96,31 @@ public class Edit extends JFrame implements ActionListener{
 	contentPane.add(lblFurtherDetails);
 	
 	textField = new JTextField();
-	textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField.setColumns(10);
 	textField.setBounds(330, 79, 228, 50);
 	contentPane.add(textField);
 	
 	textField_1 = new JTextField();
-	textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_1.setColumns(10);
 	textField_1.setBounds(330, 140, 228, 50);
 	contentPane.add(textField_1);
 	
 	textField_2 = new JTextField();
-	textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 	textField_2.setColumns(10);
 	textField_2.setBounds(330, 200, 228, 50);
 	contentPane.add(textField_2);
 	
 	textField_3 = new JTextField();
-	textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_3.setColumns(10);
 	textField_3.setBounds(330, 260, 228, 50);
 	contentPane.add(textField_3);
 	
 	textField_4 = new JTextField();
-	textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_4.setColumns(10);
 	textField_4.setBounds(330, 320, 228, 50);
 	contentPane.add(textField_4);
@@ -189,6 +189,15 @@ public class Edit extends JFrame implements ActionListener{
 	btnEdit.setBorder(null);
 	btnEdit.setForeground(Color.WHITE);
 	btnEdit.setBounds(447, 511, 85, 21);
+	btnEdit.addActionListener(new ActionListener()
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			// CAPTURE THE INFO AND RUN UPDATE QUERY
+			// notify user data was updated successfully using JOptionPane.showmessagedialog.
+		}
+		
+	});
 	contentPane.add(btnEdit);
 	
 	JLabel lblNewLabel = new JLabel("");
@@ -203,6 +212,7 @@ public class Edit extends JFrame implements ActionListener{
 	contentPane.add(lblName_1_1);
 	
 	textField_6 = new JTextField();
+	textField_6.setEditable(false);
 	textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
 	textField_6.setColumns(10);
 	textField_6.setBounds(634, 320, 228, 50);
@@ -215,6 +225,7 @@ public class Edit extends JFrame implements ActionListener{
 	contentPane.add(lblName_1_1_1);
 	
 	textField_7 = new JTextField();
+	textField_7.setEditable(false);
 	textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
 	textField_7.setColumns(10);
 	textField_7.setBounds(632, 417, 228, 50);

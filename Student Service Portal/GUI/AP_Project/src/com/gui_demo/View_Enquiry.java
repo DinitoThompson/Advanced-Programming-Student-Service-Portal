@@ -207,6 +207,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1);
 		
 		textField_6 = new JTextField();
+		textField_6.setEditable(false);
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_6.setColumns(10);
 		textField_6.setBounds(634, 320, 228, 50);
@@ -219,6 +220,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1_1);
 		
 		textField_7 = new JTextField();
+		textField_7.setEditable(false);
 		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_7.setColumns(10);
 		textField_7.setBounds(632, 417, 228, 50);

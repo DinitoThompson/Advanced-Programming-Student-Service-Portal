@@ -182,6 +182,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1);
 		
 		textField_6 = new JTextField();
+		textField_6.setEditable(false);
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_6.setColumns(10);
 		textField_6.setBounds(619, 322, 228, 50);
@@ -194,6 +195,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1_1);
 		
 		textField_7 = new JTextField();
+		textField_7.setEditable(false);
 		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_7.setColumns(10);
 		textField_7.setBounds(621, 412, 228, 50);
@@ -234,17 +236,30 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		btnSubmit.setBorder(null);
 		btnSubmit.setBackground(new Color(25, 25, 112));
 		btnSubmit.setBounds(481, 508, 85, 21);
+		btnSubmit.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+		     {
+					// check for any blank fields
+				// if everything is ok then add to enquiry table in database
+				//let user know their enquiry was submitted successfully
+				//clear fields
+            }
+		});
 		contentPane.add(btnSubmit);
+		
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			Submit_Enquiry frame = new Submit_Enquiry();
-			frame.setVisible(true);
-		} catch (Exception x) {
-			x.printStackTrace();
+			 Submit_Enquiry frame = new Submit_Enquiry();
+			 frame.setVisible(true);
+		} catch (Exception D) {
+			D.printStackTrace();
 		}
 		
 	}
+
+	
 }

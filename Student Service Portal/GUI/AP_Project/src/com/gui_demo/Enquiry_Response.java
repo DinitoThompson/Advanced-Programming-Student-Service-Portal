@@ -35,22 +35,6 @@ public class Enquiry_Response extends JFrame {
 	private static JScrollPane pane;
 	private JTextField textField_5;
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Enquiry_Response frame = new Enquiry_Response();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public Enquiry_Response() 
@@ -111,30 +95,35 @@ public class Enquiry_Response extends JFrame {
 		contentPane.add(lblFurtherDetails);
 		
 		textField = new JTextField();
+		textField.setEditable(false);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField.setColumns(10);
 		textField.setBounds(330, 79, 228, 50);
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
+		textField_1.setEditable(false);
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_1.setColumns(10);
 		textField_1.setBounds(330, 140, 228, 50);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
+		textField_2.setEditable(false);
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_2.setColumns(10);
 		textField_2.setBounds(330, 200, 228, 50);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
+		textField_3.setEditable(false);
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_3.setColumns(10);
 		textField_3.setBounds(330, 260, 228, 50);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField();
+		textField_4.setEditable(false);
 		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_4.setColumns(10);
 		textField_4.setBounds(330, 320, 228, 50);
@@ -143,6 +132,7 @@ public class Enquiry_Response extends JFrame {
 		pane = new JScrollPane();
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textArea = new JTextArea("If Necessarry");
+		textArea.setEditable(false);
 		textArea.addFocusListener(new FocusAdapter()
 		{
 			@Override
@@ -196,6 +186,7 @@ public class Enquiry_Response extends JFrame {
 		JButton btnEdit = new JButton("Submit Response");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// This is a mystery .... we could run an update query to capture the staff response then send an email to the student email provided??
 			}
 		});
 		btnEdit.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -224,6 +215,9 @@ public class Enquiry_Response extends JFrame {
 		btnBack.setBounds(777, 508, 85, 21);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Staff_Dashborad g = new Staff_Dashborad();
+				g.setVisible(true);
 			}
 		});
 

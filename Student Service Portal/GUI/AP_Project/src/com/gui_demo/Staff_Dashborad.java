@@ -18,9 +18,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
-public class Staff_Dashborad extends JFrame {
+@SuppressWarnings("serial")
+public class Staff_Dashborad extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -30,23 +32,6 @@ public class Staff_Dashborad extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Staff_Dashborad frame = new Staff_Dashborad();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -78,12 +63,14 @@ public class Staff_Dashborad extends JFrame {
 		contentPane.add(lblName_1_1_1);
 		
 		textField = new JTextField();
+		textField.setEnabled(false);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField.setColumns(10);
 		textField.setBounds(583, 383, 228, 50);
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_1.setColumns(10);
 		textField_1.setBounds(585, 487, 228, 50);
@@ -95,6 +82,20 @@ public class Staff_Dashborad extends JFrame {
 		btnLogOut.setBorder(null);
 		btnLogOut.setBackground(new Color(25, 25, 112));
 		btnLogOut.setBounds(661, 547, 92, 30);
+		btnLogOut.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		Front f;
+				try {
+					f = new Front();
+					f.setVisible(true);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		
+        	}
+        });
 		contentPane.add(btnLogOut);
 		
 		JLabel lblNewLabel_1 = new JLabel("All Enquiries");
@@ -216,6 +217,16 @@ public class Staff_Dashborad extends JFrame {
 		btnOpenEnquiry.setBorder(null);
 		btnOpenEnquiry.setBackground(new Color(25, 25, 112));
 		btnOpenEnquiry.setBounds(216, 670, 122, 30);
+		btnOpenEnquiry.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				dispose();
+				//capture the enquiry ID selected and display the info on the Enquiry_Response() frame.
+				Enquiry_Response v = new Enquiry_Response();
+				v.setVisible(true);
+			}
+		});
 		contentPane.add(btnOpenEnquiry);
 		
 		JButton btnFilterEnquiry = new JButton("Filter Enquiry");
@@ -229,6 +240,17 @@ public class Staff_Dashborad extends JFrame {
 		btnFilterEnquiry.setBackground(new Color(25, 25, 112));
 		btnFilterEnquiry.setBounds(417, 670, 122, 30);
 		contentPane.add(btnFilterEnquiry);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		try {
+			Staff_Dashborad frame = new Staff_Dashborad();
+			frame.setVisible(true);
+		} catch (Exception p) {
+			p.printStackTrace();
+		}
+		
 	}
 
 }

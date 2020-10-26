@@ -52,6 +52,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblStudent);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea.setBounds(709, 308, 196, 45);
 		contentPane.add(textArea);
@@ -63,6 +64,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblStudentId);
 		
 		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setEditable(false);
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
 		contentPane.add(textArea_1);
@@ -109,6 +111,13 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnNewButton_1.setBounds(0, 0, 167, 54);
+		btnNewButton_1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				// run database query to delete enquiry selected
+			}	
+		});
 		panel_1.add(btnNewButton_1);
 		
 		JPanel panel_2 = new JPanel();
@@ -125,6 +134,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				// connect database and run view/select query based on the student id to display the necessary info on the table in Past_Enquiries()
 				Past_Enquiries p;
 				try {
 					p = new Past_Enquiries();
