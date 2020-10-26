@@ -18,7 +18,7 @@ Create Table Student
     student_first_name VARCHAR(20), 
     student_last_name VARCHAR(20), 
     student_email VARCHAR(30),
-    student_password VARCHAR(30)
+    student_password NVARCHAR(60)
 );
 
 Create Table Student_Contact
@@ -69,27 +69,17 @@ Create Table Enquiry
 SELECT * FROM Student 
 SELECT * FROM Student_Telephone
 SELECT * FROM Staff 
-Sel
+SELECT * FROM Staff_Contact 
+SELECT * FROM Enquiry 
 
 
 /* All Insert Statements */ 
 INSERT INTO Student 
 (
-student_id,
-student_password,
-student_first_name,
-student_last_name,
-student_email,
-student_contact_number
-)
-VALUES
-(
-    1,
-    'Password', 
-    'Dinito', 
-    'Thompson', 
-    'dinitothompson@gmail.com', 
-    18763571273
+    student_first_name, 
+    student_last_name, 
+    student_email, 
+    student_password
 )
 
 /*All Update Statement*/
