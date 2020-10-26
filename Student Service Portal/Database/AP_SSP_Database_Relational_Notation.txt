@@ -1,12 +1,12 @@
-Advanced Programming 
-Student Services Portal 
-
-Database Information 
+AP_SSP_Database_Relational_Notation
 
 Established Tables: 
 Student
+Student_Contact
 Enquiry
 Staff
+Staff_Contact
+Respond
 
 Student: 
 student_id (Primary Key)
@@ -14,18 +14,22 @@ student_password
 student_first_name
 student_last_name
 student_email
+
+Student_Contact
+student_id (Foreign Key)
 student_contact_number 
+Primary Key (student_id, student_contact_number)
+
 
 Enquiry:
 enquiry_id (Primary Key)
+student_id (Foreign Key)
 enquiry_nature
 enquiry_complaint
 enquiry_detail
 enquiry_urgency
 enquiry_date
 enquiry_state (Resolved or Unresolved)
-Constraints (Foreign Key)
-student_id 
 
 Staff:
 staff_id (Primary Key)
@@ -33,9 +37,15 @@ staff_password
 staff_first_name
 staff_last_name 
 staff_email
+
+Staff_Contact
+staff_id (Foreign Key)
 staff_contact_number
+Primary Key (staff_id, staff_contact_number)
 
 Response
-enquiry_id
-staff_id
+enquiry_id (Foreign Key)
+student_id (Foreign Key)
+staff_id (Foreign Key)
 response_date 
+Primary Key (enquiry_id, staff_id, student_id)

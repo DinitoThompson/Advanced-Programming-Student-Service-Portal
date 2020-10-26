@@ -28,6 +28,7 @@ CREATE TABLE Student_Contact
     student_contact_number VARCHAR(20), 
 
     PRIMARY KEY (student_id, student_contact_number), 
+
     FOREIGN KEY (student_id) 
     REFERENCES Student (student_id)
 );
@@ -47,6 +48,7 @@ CREATE TABLE Staff_Contact
     staff_contact_number VARCHAR(20), 
 
     PRIMARY KEY (staff_id, staff_contact_number), 
+
     FOREIGN KEY (staff_id) 
     REFERENCES Staff (staff_id)
 );
@@ -67,19 +69,23 @@ CREATE TABLE Enquiry
     REFERENCES Student (student_id)
 );  
 
-CREATE TABLE Response
+CREATE TABLE Respond
 (
     enquiry_id INT, 
+    student_id INT,
     staff_id INT, 
-    response_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+    respond_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 
-    PRIMARY KEY (enquiry_id, staff_id), 
+    PRIMARY KEY (enquiry_id, staff_id, student_id), 
     
     FOREIGN KEY (enquiry_id)
     REFERENCES Enquiry(enquiry_id),
     
     FOREIGN KEY (staff_id)
-    REFERENCES Staff (staff_id)
+    REFERENCES Staff (staff_id), 
+
+    FOREIGN KEY (student_id)
+    REFERENCES Student (student_id)
 );
 
 /*Select Statements*/
@@ -88,7 +94,7 @@ SELECT * FROM Student_Contact
 SELECT * FROM Staff 
 SELECT * FROM Staff_Contact 
 SELECT * FROM Enquiry 
-SELECT * FROM Response 
+SELECT * FROM Respond 
 
 /*Drop Statements*/
 Drop Table Student
@@ -96,12 +102,12 @@ Drop Table Student_Contact
 Drop Table Staff
 Drop Table Staff_Contact
 Drop Table Enquiry
-Drop Table Response
+Drop Table Respond
 
 /* All Insert Statements */ 
 INSERT INTO Student 
 (
-    student_first_name, 
+    student_first_name,
     student_last_name, 
     student_email, 
     student_password
@@ -151,15 +157,17 @@ VALUES
 	1,
 	'Unresolved'
 )
-INSERT INTO Response 
+INSERT INTO Respond 
 (
 	enquiry_id, 
-	staff_id
+	staff_id, 
+    student_id
 )
 VALUES
 (
 	1, 
-	1
+	1, 
+    1
 )
 
 /*All Update Statement*/
