@@ -26,7 +26,6 @@ enquiry_date
 enquiry_state (Resolved or Unresolved)
 Constraints (Foreign Key)
 student_id 
-staff_id
 
 Staff:
 staff_id (Primary Key)
@@ -36,5 +35,7 @@ staff_last_name
 staff_email
 staff_contact_number
 
-
-	
+Response
+enquiry_id
+staff_id
+response_date 
