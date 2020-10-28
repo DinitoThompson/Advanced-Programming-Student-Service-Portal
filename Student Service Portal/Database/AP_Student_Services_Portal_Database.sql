@@ -7,7 +7,9 @@
     Shanice Facey 
     Tyree Tinka 
 */
-
+/*
+Example of it working on an Actual Repository
+*/
 Create Database Student_Services_Portal; 
 Use Student_Services_Portal; 
 Drop Database Student_Services_Portal; 
