@@ -3,7 +3,7 @@
     Student Services Portal 
     Database 
     Group Members 
-    Dinito Thompson 
+    Dinito Thompson 1801202
     Shanice Facey 
     Tyree Tinka 
 */
@@ -99,75 +99,3 @@ Drop Table Staff
 Drop Table Staff_Contact
 Drop Table Enquiry
 Drop Table Respond
-
-/* All Insert Statements */ 
-INSERT INTO Student 
-(
-    student_first_name,
-    student_last_name, 
-    student_email, 
-    student_password
-)
-VALUES
-(
-    'Dinito',
-    'Thompson', 
-    'dinitothompson@gmail.com', 
-    'DeniToSenPai'
-)
-INSERT INTO Student_Contact
-VALUES
-(
-    1, 
-    '1-876-357-1273'
-)
-INSERT INTO Staff 
-(
-    staff_first_name, 
-    staff_last_name, 
-	staff_email, 
-	staff_password
-)
-VALUES
-(
-    'Shanice', 
-    'Facey', 
-    'shanicefacey@gmail.com', 
-    'ShaNiceSenPai'
-)
-INSERT INTO Enquiry 
-(
-	student_id,
-    enquiry_nature,
-    enquiry_complaint, 
-    enquiry_detail, 
-    enquiry_urgency,
-    enquiry_state
-)
-VALUES
-(
-    1,
-	'Website', 
-	'Moodle',
-    'I am trying to log in but moodle wont allow me.',  
-	1,
-	'Unresolved'
-)
-INSERT INTO Respond 
-(
-	enquiry_id, 
-	staff_id, 
-    student_id
-)
-VALUES
-(
-	1, 
-	1, 
-    1
-)
-
-/*All Update Statement*/
-
-/*All Alter Statements*/
-
-/*All Delete Statements*/
