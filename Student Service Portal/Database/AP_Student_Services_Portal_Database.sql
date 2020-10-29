@@ -7,9 +7,7 @@
     Shanice Facey 
     Tyree Tinka 
 */
-/*
-Example of it working on an Actual Repository
-*/
+
 Create Database Student_Services_Portal; 
 Use Student_Services_Portal; 
 Drop Database Student_Services_Portal; 
@@ -17,11 +15,11 @@ Drop Database Student_Services_Portal;
 
 CREATE TABLE Student 
 (
-    student_id INT IDENTITY (1, 1) PRIMARY KEY, 
+    student_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
     student_first_name VARCHAR(20), 
     student_last_name VARCHAR(20), 
     student_email VARCHAR(30),
-    student_password NVARCHAR(60)
+    student_password VARCHAR(30)
 );
 
 CREATE TABLE Student_Contact
@@ -35,9 +33,25 @@ CREATE TABLE Student_Contact
     REFERENCES Student (student_id)
 );
 
+CREATE TABLE Enquiry 
+(
+	student_id INT,
+    enquiry_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
+    enquiry_nature VARCHAR(20),
+    enquiry_complaint VARCHAR(20), 
+    enquiry_detail VARCHAR(150), 
+    enquiry_urgency INT, 
+    enquiry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    enquiry_state VARCHAR(20),
+
+    CONSTRAINT fk_student_id 
+    FOREIGN KEY (student_id)
+    REFERENCES Student (student_id)
+);  
+
 CREATE TABLE Staff 
 (
-    staff_id INT IDENTITY (1, 1) PRIMARY KEY, 
+    staff_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
     staff_first_name VARCHAR(20), 
     staff_last_name VARCHAR(20), 
     staff_email VARCHAR(30),
@@ -55,39 +69,19 @@ CREATE TABLE Staff_Contact
     REFERENCES Staff (staff_id)
 );
 
-CREATE TABLE Enquiry 
-(
-	student_id INT,
-    enquiry_id INT IDENTITY (1, 1) Primary Key, 
-    enquiry_nature VARCHAR(20),
-    enquiry_complaint VARCHAR(20), 
-    enquiry_detail VARCHAR(150), 
-    enquiry_urgency INT, 
-    enquiry_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    enquiry_state VARCHAR(20),
-
-    CONSTRAINT fk_student_id 
-    FOREIGN KEY (student_id)
-    REFERENCES Student (student_id)
-);  
-
 CREATE TABLE Respond
 (
-    enquiry_id INT, 
-    student_id INT,
-    staff_id INT, 
+    enquiry_id INT(7),
+    staff_id INT(7), 
     respond_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 
-    PRIMARY KEY (enquiry_id, staff_id, student_id), 
+    PRIMARY KEY (enquiry_id, staff_id, respond_date), 
     
     FOREIGN KEY (enquiry_id)
     REFERENCES Enquiry(enquiry_id),
     
     FOREIGN KEY (staff_id)
-    REFERENCES Staff (staff_id), 
-
-    FOREIGN KEY (student_id)
-    REFERENCES Student (student_id)
+    REFERENCES Staff(staff_id)
 );
 
 /*Select Statements*/

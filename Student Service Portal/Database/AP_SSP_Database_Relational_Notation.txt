@@ -45,7 +45,6 @@ Primary Key (staff_id, staff_contact_number)
 
 Response
 enquiry_id (Foreign Key)
-student_id (Foreign Key)
 staff_id (Foreign Key)
 response_date 
-Primary Key (enquiry_id, staff_id, student_id)
+Primary Key (enquiry_id, staff_id)
