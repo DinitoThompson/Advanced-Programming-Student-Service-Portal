@@ -31,6 +31,11 @@ enquiry_urgency
 enquiry_date
 enquiry_state (Resolved or Unresolved)
 
+Enquiry_Response: 
+enquiry_id
+enquiry_response 
+
+
 Staff:
 staff_id (Primary Key)
 staff_password
