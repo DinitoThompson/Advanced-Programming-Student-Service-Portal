@@ -39,15 +39,26 @@ CREATE TABLE Enquiry
     enquiry_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
     enquiry_nature VARCHAR(20),
     enquiry_complaint VARCHAR(20), 
-    enquiry_detail VARCHAR(150), 
-    enquiry_urgency INT, 
+    enquiry_detail VARCHAR(150),
     enquiry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    enquiry_state VARCHAR(20),
+    enquiry_state VARCHAR(20) DEFAULT 'Unresolved',
 
     CONSTRAINT fk_student_id 
     FOREIGN KEY (student_id)
     REFERENCES Student (student_id)
 );  
+
+CREATE TABLE Enquiry_Response
+(
+    enquiry_id INT, 
+    enquiry_response VARCHAR(50), 
+    enquiry_response_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    PRIMARY KEY (enquiry_id, enquiry_response_date), 
+
+    FOREIGN KEY (enquiry_id) 
+    REFERENCES Enquiry (enquiry_id)
+); 
 
 CREATE TABLE Staff 
 (

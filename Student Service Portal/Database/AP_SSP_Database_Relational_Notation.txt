@@ -27,13 +27,13 @@ student_id (Foreign Key)
 enquiry_nature
 enquiry_complaint
 enquiry_detail
-enquiry_urgency
 enquiry_date
 enquiry_state (Resolved or Unresolved)
 
 Enquiry_Response: 
 enquiry_id
 enquiry_response 
+enquiry_response_date
 
 
 Staff:
