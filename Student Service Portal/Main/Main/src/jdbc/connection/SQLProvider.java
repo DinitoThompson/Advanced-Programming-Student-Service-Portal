@@ -1,6 +1,7 @@
 package jdbc.connection;
 
 import java.sql.*;
+import com.gui_demo.*;
 import javax.swing.JButton;
 
 public class SQLProvider 
@@ -9,14 +10,14 @@ public class SQLProvider
 	private Statement stmt = null;
 	private ResultSet result = null;
 	private PreparedStatement prepStmt = null;
-	private boolean numOfAffectedRows = 0;
+	private int numOfAffectedRows = 0;
 	
 	public SQLProvider(Connection dbConn)
 	{
 		this.dbConn = dbConn;
 	}
 	
-	public void SignUp(JButton btnNewButton)
+	public void SignUp(int sign, )
 	{
 		switch()
 		{
@@ -26,85 +27,164 @@ public class SQLProvider
 		}
 	}
 	
-	public Login()
+	public boolean Login(int log, int id, String pw)
 	{
-		switch(staff or student)
+		String pass;
+		int stud_id;
+		
+		switch(log)
+		{
+		case 1: // STUDENT
+			String selectSQL = "SELECT student_id, student_password FROM Student WHERE student_id =" + id;
+			try {
+				stmt = (Statement) dbConn.createStatement();
+				result = stmt.executeQuery(selectSQL);
+				while(result.next())
+				{
+					stud_id = result.getInt("s_id");
+					pass = result.getString("pass");
+				}
+				if (id == stud_id)
+				{
+					if (pw == pass)
+					{
+						return true;
+					}
+				}else{
+					return false;
+				}
+			}catch(SQLException e){
+				System.out.println("Error getting data .....  " + e.getMessage());
+			}
+			break;
+			
+		case 2: // STAFF
+			String selectSQL2 = "SELECT staff_id, staff_password FROM Staff WHERE staff_id =" + id;
+			try {
+				stmt = (Statement) dbConn.createStatement();
+				result = stmt.executeQuery(selectSQL);
+				while(result.next())
+				{
+					stud_id = result.getInt("s_id");
+					pass = result.getString("pass");
+				}
+				if (id == stud_id)
+				{
+					if (pw == pass)
+					{
+						return true;
+					}
+				}else{
+					return false;
+				}
+			}catch(SQLException e){
+				System.out.println("Error getting data .....  " + e.getMessage());
+			}
+			break;
+		}
 	}
 	
 	//	STUDENT FUNCTIONS
-	public void StudentDashboardEnquiryList(int id)//FIND OUT IF CLASS IS NEEDED
+	public ResultSet StudentDashboardEnquiryList(int id)//FIND OUT IF CLASS IS NEEDED
 	{
 		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + id; //FINISH THIS STATEMENT
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			stmt.execute(selectSQL);
+			result = stmt.executeQuery(selectSQL);
 		}catch(SQLException e)
 		{
 			System.out.println("Error getting data .....  " + e.getMessage());
 		}
+		return result;
 	}
 	
-	public void ViewStudentEnquiry(int s_id, int e_id)
+	public ResultSet ViewStudentEnquiry(int s_id, int e_id)
 	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id;
+		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id + "&& student_id = " + s_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			stmt.execute(selectSQL);
+			result = stmt.executeQuery(selectSQL);
+		}catch(SQLException e) {
+			System.out.println("Error getting data ....." + e.getMessage());
+		}
+		return result;
+	}
+	
+	public int CancelStudentEnquiry(int e_id) // RUNS DELETE BASED OFF STUDENT
+	{
+		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + e_i;
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(deleteSQL);
+			return numOfAffectedRows;
 		}catch(SQLException e) {
 			System.out.println("Error getting data ....." + e.getMessage());
 		}
 	}
 	
-	public boolean CancelStudentEnquiry(int e_id) // RUNS DELETE BASED OFF STUDENT
+	public boolean SubmitEnquiry(String En_name, String En_Email, int En_mobile, String complaint, String En_nature, String En_further)
 	{
-		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + e_id;
+		String insertSQL = "INSERT INTO Enquiry VALUES (" + En_name + En_Email + En_mobile +  complaint + En_nature + En_further + ");";
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.execute(deleteSQL);
-			return (numOfAffectedRows = 1)
-		}catch(SQLException e) {
+			numOfAffectedRows = stmt.executeUpdate(insertSQL);
+			return(numOfAffectedRows == 1);
+		}catch(SQLException e) { 
 			System.out.println("Error getting data ....." + e.getMessage());
 		}
+		return false;
 	}
 	
-	public SubmitEnquiry()
+	public void EditEnquiry(int id) //RUNS UPDATE BASED OFF ENQUIRY ID
 	{
-		
-	}
-	
-	public EditEnquiry(enqiry id) //RUNS UPDATE BASED OFF ENQUIRY ID
-	{
-		
+		String selectSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
+		String UpdateSQL = 
 	}
 	
 	//STAFF FUNCTIONS
 	
-	public void ViewALLenquiries()
+	public ResultSet ViewALLenquiries()
 	{
 		String selectSQL = "SELECT * FROM Enquiry";
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			stmt.execute(selectSQL);
+			result = stmt.executeQuery(selectSQL);
 		}catch(SQLException e)
 		{
 			System.out.println("Error getting data .....  " + e.getMessage());
 		}
+		return result;
 	}
 	
-	public ViewAllResolved()
+	
+	public ResultSet viewEnquiry(int id)
 	{
 		
 	}
 	
-	public ViewAllUnresolved()
+	public ResultSet ViewEnquiryByState(int Case)
 	{
+		String selectSQL;
+		switch(Case)
+		{
+		case 1: // RESOLVED
+			selectSQL = "SELECT * FROM Enquiry WHERE enquiry_state = Resolved";
+			break;
+		case 2: // UNRESOLVED
+			selectSQL = "SELECT * FROM Enquiry WHERE enquiry_state = Unresolved";
+			break;
+		}
 		
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			result = stmt.executeQuery(selectSQL);	
+		}catch(SQLException e)
+		{
+			System.out.println("Error getting data .....  " + e.getMessage());
+		}
+		return result;
 	}
 	
-	public viewEnquiry(enquiry id)
-	{
-		
-	}
 	
 	public SubmitResponse() 
 	{
