@@ -11,23 +11,44 @@ public class SQLProvider
 	private ResultSet result = null;
 	private PreparedStatement prepStmt = null;
 	private int numOfAffectedRows = 0;
+	private Sign_up s;
 	
 	public SQLProvider(Connection dbConn)
 	{
 		this.dbConn = dbConn;
 	}
 	
-	public void SignUp(int sign, )
+	public boolean insertStudentUser(Sign_up s)
 	{
-		switch()
+		String insertSql = "INSERT INTO student_services_portal.student (firstname, lastname, email, phone)"
+				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPhone()+"')";
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(insertSql);
+			return (numOfAffectedRows == 1);
+		}catch(SQLException e)
 		{
-			case:
-				
-				break;
+			System.out.println("Error Inserting .....  " + e.getMessage());
 		}
+		return false;
 	}
 	
-	public boolean Login(int log, int id, String pw)
+	public boolean insertStaffUser(Sign_up s)
+	{
+		String insertstaffSql = "INSERT INTO student_services_portal.staff (firstname, lastname, email, phone)"
+				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPhone()+"')";
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(insertstaffSql);
+			return (numOfAffectedRows == 1);
+		}catch(SQLException e)
+		{
+			System.out.println("Error Inserting .....  " + e.getMessage());
+		}
+		return false;
+	}
+	
+	/*public boolean Login(int log, int id, String pw)
 	{
 		String pass;
 		int stud_id;
@@ -82,7 +103,7 @@ public class SQLProvider
 			}
 			break;
 		}
-	}
+	}*/
 	
 	//	STUDENT FUNCTIONS
 	public ResultSet StudentDashboardEnquiryList(int id)//FIND OUT IF CLASS IS NEEDED
@@ -110,16 +131,17 @@ public class SQLProvider
 		return result;
 	}
 	
-	public int CancelStudentEnquiry(int e_id) // RUNS DELETE BASED OFF STUDENT
+	public boolean CancelStudentEnquiry(int e_id) // RUNS DELETE BASED OFF STUDENT
 	{
-		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + e_i;
+		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + e_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(deleteSQL);
-			return numOfAffectedRows;
+			return (numOfAffectedRows ==1);
 		}catch(SQLException e) {
 			System.out.println("Error getting data ....." + e.getMessage());
 		}
+		return false;
 	}
 	
 	public boolean SubmitEnquiry(String En_name, String En_Email, int En_mobile, String complaint, String En_nature, String En_further)
@@ -138,7 +160,7 @@ public class SQLProvider
 	public void EditEnquiry(int id) //RUNS UPDATE BASED OFF ENQUIRY ID
 	{
 		String selectSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
-		String UpdateSQL = 
+		//String UpdateSQL = 
 	}
 	
 	//STAFF FUNCTIONS
@@ -157,12 +179,12 @@ public class SQLProvider
 	}
 	
 	
-	public ResultSet viewEnquiry(int id)
+	/*public ResultSet viewEnquiry(int id)
 	{
 		
-	}
+	}*/
 	
-	public ResultSet ViewEnquiryByState(int Case)
+	/*public ResultSet ViewEnquiryByState(int Case)
 	{
 		String selectSQL;
 		switch(Case)
@@ -183,12 +205,12 @@ public class SQLProvider
 			System.out.println("Error getting data .....  " + e.getMessage());
 		}
 		return result;
-	}
+	}*/
 	
 	
-	public SubmitResponse() 
+	/*public SubmitResponse() 
 	{
 		
-	}
+	}*/
 	
 }

@@ -25,6 +25,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -180,26 +185,146 @@ public class Cover extends JFrame implements ActionListener {
 		btnLogin.setBackground(new Color(25, 25, 112));
 		btnLogin.setBounds(0, 10, 97, 25);
 		btnLogin.addActionListener(new ActionListener() {
+			
         	public void actionPerformed(ActionEvent e) {
         		
         		//this bit check which radio button was selected then go to the respective table to check credentials
         		if(rdbtnStudent.isSelected())
         		{
         			//need to check credentials, if correct do the code below if not use JOptionPane.showmessage to display incorrect info message
-        			dispose();
-        			Student_Dashboard s = new Student_Dashboard();
-            		s.setVisible(true);
+        			try {
+						Class.forName("com.mysql.jdbc.Driver").newInstance();
+						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+                        
+        			}catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InstantiationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+        			if(txtUser.getText().isEmpty() || txtPassword.getText().isEmpty())
+        			{
+        				JOptionPane.showMessageDialog(btnLogin, "ID or Password Blank");
+        			}
+        			else
+        			{
+						try {
+							
+							Class.forName("com.mysql.jdbc.Driver").newInstance();
+							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+							PreparedStatement pas = conn.prepareStatement("select * from student where student_id = ? and student_password = ?");
+						    pas.setString(1, txtUser.getText());
+						    pas.setString(2, txtPassword.getText());
+						    ResultSet rs = pas.executeQuery();
+						    
+						    if(rs.next())
+						    {
+						    	dispose();
+						    	Student_Dashboard s = new Student_Dashboard();
+			            		s.setVisible(true);
+						    }
+						    else
+						    {
+						    	JOptionPane.showMessageDialog(btnLogin, "ID or Password Incorrect");
+						        txtUser.setText("");
+						        txtPassword.setText("");
+						        txtUser.requestFocus();
+						    }
+						    
+	   
+						    
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (InstantiationException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IllegalAccessException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+        				
+        			}	
+        			
         		}
         		else if (rdbtnStaff.isSelected())
         				{
         			     //run view/selected query to display all enqueries in the table on the staff dashboard frame.
         			     // not sure how we implementing the live chat session yet
-        			     dispose();
-        			     Staff_Dashborad d = new Staff_Dashborad();
-            		     d.setVisible(true);
-        				} else {
-        					JOptionPane.showMessageDialog(lblPassword, "Select a user (Staff/Student)");
-        				}
+        			try {
+						Class.forName("com.mysql.jdbc.Driver").newInstance();
+						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+                        
+        			}catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InstantiationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+        			if(txtUser.getText().isEmpty() || txtPassword.getText().isEmpty())
+        			{
+        				JOptionPane.showMessageDialog(btnLogin, "ID or Password Blank");
+        			}
+        			else
+        			{
+						try {
+							
+							Class.forName("com.mysql.jdbc.Driver").newInstance();
+							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+							PreparedStatement pas = conn.prepareStatement("select * from staff where staff_id = ? and staff_password = ?");
+						    pas.setString(1, txtUser.getText());
+						    pas.setString(2, txtPassword.getText());
+						    ResultSet rs = pas.executeQuery();
+						    
+						    if(rs.next())
+						    {
+						    	dispose();
+						    	Staff_Dashborad s = new Staff_Dashborad();
+			            		s.setVisible(true);
+						    }
+						    else
+						    {
+						    	JOptionPane.showMessageDialog(btnLogin, "ID or Password Incorrect");
+						        txtUser.setText("");
+						        txtPassword.setText("");
+						        txtUser.requestFocus();
+						    }
+						    
+	   
+						    
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (InstantiationException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IllegalAccessException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+        				
+        			}	
+        		}
         	}
         });
 		panel.add(btnLogin);

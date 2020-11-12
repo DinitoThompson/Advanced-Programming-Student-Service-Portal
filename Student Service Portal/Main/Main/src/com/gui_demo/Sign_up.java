@@ -1,26 +1,31 @@
 package com.gui_demo;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
-import java.awt.Color;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
 import javax.swing.border.LineBorder;
+
+import jdbc.connection.CreateDB;
+import jdbc.connection.SQLProvider;
 
 public class Sign_up extends JFrame implements ActionListener {
 
@@ -36,6 +41,15 @@ public class Sign_up extends JFrame implements ActionListener {
 	    private JPasswordField passwordField;
 	    private JButton btnNewButton;
 	    private JPasswordField passwordField_1;
+	    
+	    int ID;
+	    String Fname;
+    	String Lname;
+    	String Email;
+    	String Phone;
+    	
+    	Connection dbConn = null;
+	    PreparedStatement pat;
 	    
 	    public Sign_up()
 	    {
@@ -109,6 +123,26 @@ public class Sign_up extends JFrame implements ActionListener {
 	        passwordField.setBounds(264, 464, 228, 50);
 	        contentPane.add(passwordField);
 
+	        JRadioButton rdbtnStudent = new JRadioButton();
+	        rdbtnStudent.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-student-male-30.png")));
+	        rdbtnStudent.setText("Student");
+	        rdbtnStudent.setHorizontalAlignment(SwingConstants.CENTER);
+	        rdbtnStudent.setBackground(Color.WHITE);
+	        rdbtnStudent.setBounds(259, 617, 88, 30);
+	        contentPane.add(rdbtnStudent);
+	        
+	        JRadioButton rdbtnStaff = new JRadioButton("Staff");
+	        rdbtnStaff.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-people-26.png")));
+	        rdbtnStaff.setHorizontalAlignment(SwingConstants.CENTER);
+	        rdbtnStaff.setBackground(Color.WHITE);
+	        rdbtnStaff.setBounds(396, 617, 93, 30);
+	        contentPane.add(rdbtnStaff);
+	        
+	        JButton B = new JButton();
+			ButtonGroup G1 = new ButtonGroup();
+			G1.add(rdbtnStudent);
+			G1.add(rdbtnStaff);
+			
 	        btnNewButton = new JButton("Sign up");
 	        btnNewButton.setForeground(Color.WHITE);
 	        btnNewButton.setBackground(new Color(25, 25, 112));
@@ -143,21 +177,152 @@ public class Sign_up extends JFrame implements ActionListener {
 	                {
 	                	JOptionPane.showMessageDialog(passwordField_1, "Passwords Do Not Match");
 	                }
-	                else
+	                else if(rdbtnStudent.isSelected())
 	                {
-	                	// add database connection run update/add query
-	                	//https://www.youtube.com/watch?v=4CHyb3O88uM&t=1070s Time stamp 25:20
-	                    // once everything is kl they are redirected to log in
-	                	JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+	                	dispose();
+	                	Cover s;
+						try {	
+							Connection dbConn = null;
+							System.out.println("connecting to Database ...." + "jdbc:mysql://localhost:3306/student_services_portal");
+							Class.forName("com.mysql.jdbc.Driver").newInstance();
+							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+							// connect to database
+							if(conn != null)
+							{
+								System.out.println("Connected Successfully!!!");	
+							} 
+							s = new Cover();
+							s.setVisible(true);
+						   } catch (SQLException e1) {
+								JOptionPane.showMessageDialog(null, 
+										"Setting up Database and table", 
+										"DB Connection Status", JOptionPane.WARNING_MESSAGE);
+								try 
+								{
+									dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","");
+									CreateDB db = new CreateDB(dbConn);
+									System.out.println("sucessful create");
+									//Call method to create database & table
+									boolean dbIsCreated = db.createDataBaseAndTable();
+									if (dbIsCreated == true) 
+									{ //If database created successfully
+										JOptionPane.showMessageDialog(null, 
+												"Connected to Database", 
+												"DB Connection Status", JOptionPane.INFORMATION_MESSAGE);
+									}
+									Sign_up sign = new Sign_up(Fname,Lname,Email,Phone);
+									SQLProvider sql = new SQLProvider(dbConn);
+									boolean created = sql.insertStudentUser(sign);
+									if (created == true) { //If database created successfully
+										JOptionPane.showMessageDialog(null, 
+												"Contact record Created!!!!", 
+												"Contact Creation", JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+
+									s = new Cover();
+									s.setVisible(true);
+									}	
+							      }catch (SQLException e11) {
+									System.out.println("HELP: " + e11.getMessage());
+								  }catch(RuntimeException o) {
+								    System.out.println("Database doesn't exist");
+								  }catch (IOException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+								
+						} catch (InstantiationException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IllegalAccessException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
+						
+	                }else if(rdbtnStaff.isSelected())
+	                {
 	                	dispose();
 	                	Cover s;
 						try {
+							Class.forName("com.mysql.jbdc.Driver").newInstance();
+							Connection conn = DriverManager.getConnection("jbdc:mysql://localhost:3306/student_services_portal","root","");
+							if(conn != null)
+							{
+								System.out.println("Connected Successfully!!!");
+								
+							}
 							s = new Cover();
 							s.setVisible(true);
-						} catch (IOException e1) {
+					   	}catch(SQLException e1)
+							{
+					   		   JOptionPane.showMessageDialog(null, 
+									"Setting up Database and table", 
+									"DB Connection Status", JOptionPane.WARNING_MESSAGE);
+					   		try 
+							{
+								dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","");
+								CreateDB db = new CreateDB(dbConn);
+								System.out.println("sucessful create");
+								//Call method to create database & table
+								boolean dbIsCreated = db.createDataBaseAndTable();
+								if (dbIsCreated == true) 
+								{ //If database created successfully
+									JOptionPane.showMessageDialog(null, 
+											"Connected to Database", 
+											"DB Connection Status", JOptionPane.INFORMATION_MESSAGE);
+								}
+								Sign_up sign = new Sign_up(Fname,Lname,Email,Phone);
+								SQLProvider sql = new SQLProvider(dbConn);
+								boolean created = sql.insertStaffUser(sign);
+								if (created == true) { //If database created successfully
+									JOptionPane.showMessageDialog(null, 
+											"Contact record Created!!!!", 
+											"Contact Creation", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+
+								s = new Cover();
+								s.setVisible(true);
+								}	
+						      }catch (SQLException e11) {
+								System.out.println("HELP: " + e11.getMessage());
+							  } catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+							}
+						
+							/*PreparedStatement pat = conn.prepareStatement("insert into staff(staff_first_name,staff_last_name,staff_email,staff_password)values(?,?,?,?)");
+							pat = conn.prepareStatement("insert into staff_contact(number)values(?");
+							pat.setString(1,firstname.getText());
+							pat.setString(2,lastname.getText());
+							pat.setString(3,email.getText());
+							pat.setString(4,passwordField_1.getText());
+							PreparedStatement pa = conn.prepareStatement("insert into staff_contact(staff_contact_number)values(?)");
+							pa.setString(1, mob.getText());
+							pa.executeUpdate();
+							int o = pat.executeUpdate();
+							
+							 if (o > 0)
+			                 {
+									JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+
+			                 }else {
+			                	 System.out.println("Registration failed!!");
+			                 }
+							s = new Cover();
+							s.setVisible(true);*/
+						catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}   
+						}    
+	                	
 	                }
 	                 
 	            }
@@ -203,21 +368,6 @@ public class Sign_up extends JFrame implements ActionListener {
 	        btnBack.setBounds(257, 677, 90, 36);
 	        contentPane.add(btnBack);
 	        
-	        JRadioButton rdbtnStudent = new JRadioButton();
-	        rdbtnStudent.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-student-male-30.png")));
-	        rdbtnStudent.setText("Student");
-	        rdbtnStudent.setHorizontalAlignment(SwingConstants.CENTER);
-	        rdbtnStudent.setBackground(Color.WHITE);
-	        rdbtnStudent.setBounds(259, 617, 88, 30);
-	        contentPane.add(rdbtnStudent);
-	        
-	        JRadioButton rdbtnStaff = new JRadioButton("Staff");
-	        rdbtnStaff.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-people-26.png")));
-	        rdbtnStaff.setHorizontalAlignment(SwingConstants.CENTER);
-	        rdbtnStaff.setBackground(Color.WHITE);
-	        rdbtnStaff.setBounds(396, 617, 93, 30);
-	        contentPane.add(rdbtnStaff);
-	        
 	        JLabel label_1 = new JLabel("");
 	        label_1.setIcon(new ImageIcon(Sign_up.class.getResource("/res/utech.jpg")));
 	        label_1.setBounds(539, 87, 221, 270);
@@ -228,6 +378,48 @@ public class Sign_up extends JFrame implements ActionListener {
 	        lblNewLabel_1.setBounds(539, 500, 276, 238);
 	        contentPane.add(lblNewLabel_1);
      }
+	    public int getID() {
+			return ID;
+		}
+
+		public void setID(int iD) {
+			ID = iD;
+		}
+
+		public String getFname() {
+			return Fname = firstname.getText();
+		}
+		public void setFname(String fname) {
+			Fname = fname=firstname.getText();
+		}
+		public String getLname() {
+			return Lname= lastname.getText();
+		}
+		public void setLname(String lname) {
+			Lname = lname =lastname.getText();
+		}
+		public String getEmail() {
+			return Email = email.getText();
+		}
+		public void setEmail(String mail) {
+			Email = mail = email.getText();
+		}
+		public String getPhone() {
+			return Phone = mob.getText();
+		}
+		public void setPhone(String phone) {
+			Phone = phone = mob.getText();
+		}
+		
+
+public Sign_up(String fname, String lname, String email, String phone) throws HeadlessException {
+			super();
+			Fname = fname;
+			Lname = lname;
+			Email = email;
+			Phone = phone;
+		}
+	    
 @Override
 public void actionPerformed(ActionEvent e) {
 	try {
