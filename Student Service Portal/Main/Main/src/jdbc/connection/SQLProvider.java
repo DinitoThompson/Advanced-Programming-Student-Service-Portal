@@ -1,6 +1,9 @@
 package jdbc.connection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gui_demo.*;
 import javax.swing.JButton;
 
@@ -211,6 +214,77 @@ public class SQLProvider
 	/*public SubmitResponse() 
 	{
 		
-	}*/
+	}*/ // shanice's might be working idk
+	
+	public Sign_up selectStudentUser(int id)
+	 {
+		 String selectsql = "SELECT *FROM student_services_portal.student WHERE id = '" +id;
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 result = stmt.executeQuery(selectsql);
+			 while(result.next())
+			 {
+				s= new Sign_up();
+				//s.setId(result.getInt(1));
+				s.setFname(result.getString(2));;
+				s.setLname(result.getString(3));;
+				s.setEmail(result.getString(4));
+				s.setPhone(result.getString(5));;
+			  return s;
+				
+			 } 
+		 }catch(SQLException e)
+			{
+				System.out.println("Error Selecting .....: " + e.getMessage());
+			}
+		 return null;
+	 }
+	public List<Sign_up> selectAllStudent()
+	 {
+		 List<Sign_up> contactList = new ArrayList<Sign_up>();
+		 String selectSql = "SELECT * FROM student_services_portal.student where 1 = 1";
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 result = stmt.executeQuery(selectSql);
+			 while (result.next())
+			 {
+				 s = new Sign_up(result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+				 s.setID(result.getInt(1));
+			     contactList.add(s);
+			 }	
+			 return contactList;
+		  }catch(SQLException e)
+			{
+				System.out.println("Error selecting All: " + e.getMessage());
+			}
+		 		return null;
+	 }
+	public boolean updateStudent(int id)
+	 {
+		 String updateSql = "UPDATE student SET student_email = 'testupdate@ymail.com' where id = "+ id;
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 numOfAffectedRows = stmt.executeUpdate(updateSql);
+			 return(numOfAffectedRows ==1);
+		 }catch(SQLException e)
+			{
+				System.out.println("Error Updating: " + e.getMessage());
+			}
+		 		return false;
+	 }
+	public boolean deleteStudent(int id)
+   {
+  	 String deleteSql = "DELETE student.* FROM student where id = "+ id ;
+  	 try {
+  		 stmt = (Statement) dbConn.createStatement();
+  		 numOfAffectedRows = stmt.executeUpdate(deleteSql);
+  		 return(numOfAffectedRows ==1);
+  	 }catch(SQLException e)
+			{
+				System.out.println("Error Deleting: " + e.getMessage());
+			}
+  	 return false;
+   }	
+	
 	
 }

@@ -55,10 +55,10 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		label.setBounds(0, 0, 209, 200);
 		contentPane.add(label);
 		
-		JLabel lblSubmittedEnquiries = new JLabel("Submitted Enquiries");
+		JLabel lblSubmittedEnquiries = new JLabel("Submitted Enquiry");
 		lblSubmittedEnquiries.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSubmittedEnquiries.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-		lblSubmittedEnquiries.setBounds(299, 10, 209, 45);
+		lblSubmittedEnquiries.setBounds(338, 10, 209, 45);
 		contentPane.add(lblSubmittedEnquiries);
 		
 		JLabel lblName_1 = new JLabel("Name");
@@ -173,11 +173,11 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		textField_5.setBounds(27, 488, 228, 50);
 		contentPane.add(textField_5);
 		
-		JRadioButton rdbtnUrgent = new JRadioButton("Urgent");
-		rdbtnUrgent.setIcon(new ImageIcon(View_Enquiry.class.getResource("/res/icons8-urgent-message-24.png")));
+		JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
+		rdbtnUrgent.setIcon(null);
 		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnUrgent.setBackground(Color.WHITE);
-		rdbtnUrgent.setBounds(308, 511, 105, 21);
+		rdbtnUrgent.setBounds(308, 511, 139, 21);
 		contentPane.add(rdbtnUrgent);
 		
 		JButton btnEdit = new JButton("Edit");
@@ -185,7 +185,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		btnEdit.setBackground(new Color(25, 25, 112));
 		btnEdit.setBorder(null);
 		btnEdit.setForeground(Color.WHITE);
-		btnEdit.setBounds(447, 511, 85, 21);
+		btnEdit.setBounds(473, 508, 85, 21);
 		btnEdit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		dispose();
@@ -251,6 +251,5 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		} catch (Exception f) {
 			f.printStackTrace();
 		}
-		
 	}
-}
+}	

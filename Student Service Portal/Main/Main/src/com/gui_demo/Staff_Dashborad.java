@@ -31,7 +31,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 	private JTable table_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTable table_2;
 	/**
 	 * Create the frame.
 	 */
@@ -101,11 +101,11 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		JLabel lblNewLabel_1 = new JLabel("All Enquiries");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 24));
-		lblNewLabel_1.setBounds(155, 10, 319, 30);
+		lblNewLabel_1.setBounds(229, 10, 319, 30);
 		contentPane.add(lblNewLabel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(120, 73, 407, 214);
+		scrollPane.setBounds(222, 73, 326, 164);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -116,26 +116,29 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 			new Object[][] {
 			},
 			new String[] {
-				"Unresolved", "Resolved", "Nature", "Date"
+				"Resolved", "Nature", "Date"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Boolean.class, Boolean.class, Long.class, String.class
+				Short.class, Long.class, Long.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 			boolean[] columnEditables = new boolean[] {
-				true, false, false, false
+				false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setResizable(false);
 		scrollPane.setViewportView(table);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(120, 370, 414, 187);
+		scrollPane_1.setBounds(224, 511, 329, 187);
 		contentPane.add(scrollPane_1);
 		
 		table_1 = new JTable();
@@ -164,44 +167,32 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		JLabel lblNewLabel_2 = new JLabel("All Live Sessions");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 24));
-		lblNewLabel_2.setBounds(120, 310, 404, 50);
+		lblNewLabel_2.setBounds(171, 451, 404, 50);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblName_1_1_2 = new JLabel("Session ID");
 		lblName_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1_1_2.setBounds(10, 567, 155, 43);
+		lblName_1_1_2.setBounds(20, 540, 155, 43);
 		contentPane.add(lblName_1_1_2);
 		
 		JLabel lblName_1_1_2_1 = new JLabel("Enquiry ID");
 		lblName_1_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1_1_2_1.setBounds(200, 567, 155, 43);
+		lblName_1_1_2_1.setBounds(20, 145, 155, 43);
 		contentPane.add(lblName_1_1_2_1);
-		
-		JLabel lblName_1_1_2_2 = new JLabel("Enquiry Type");
-		lblName_1_1_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName_1_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1_1_2_2.setBounds(393, 567, 155, 43);
-		contentPane.add(lblName_1_1_2_2);
 		
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_2.setColumns(10);
-		textField_2.setBounds(10, 610, 165, 50);
+		textField_2.setBounds(10, 608, 165, 50);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_3.setColumns(10);
-		textField_3.setBounds(194, 610, 165, 50);
+		textField_3.setBounds(10, 187, 165, 50);
 		contentPane.add(textField_3);
-		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField_4.setColumns(10);
-		textField_4.setBounds(393, 610, 165, 50);
-		contentPane.add(textField_4);
 		
 		JButton btnJoinSession = new JButton("Join Session");
 		btnJoinSession.setForeground(Color.WHITE);
@@ -216,7 +207,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		btnOpenEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnOpenEnquiry.setBorder(null);
 		btnOpenEnquiry.setBackground(new Color(25, 25, 112));
-		btnOpenEnquiry.setBounds(216, 670, 122, 30);
+		btnOpenEnquiry.setBounds(20, 247, 122, 30);
 		btnOpenEnquiry.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
@@ -229,17 +220,35 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		});
 		contentPane.add(btnOpenEnquiry);
 		
-		JButton btnFilterEnquiry = new JButton("Filter Enquiry");
-		btnFilterEnquiry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(222, 268, 331, 174);
+		contentPane.add(scrollPane_2);
+		
+		table_2 = new JTable();
+		table_2.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Unresolved", "Nature", "Date"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Short.class, Long.class, Long.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, true, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
-		btnFilterEnquiry.setForeground(Color.WHITE);
-		btnFilterEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnFilterEnquiry.setBorder(null);
-		btnFilterEnquiry.setBackground(new Color(25, 25, 112));
-		btnFilterEnquiry.setBounds(417, 670, 122, 30);
-		contentPane.add(btnFilterEnquiry);
+		table_2.getColumnModel().getColumn(0).setResizable(false);
+		table_2.getColumnModel().getColumn(1).setResizable(false);
+		table_2.getColumnModel().getColumn(2).setResizable(false);
+		scrollPane_2.setViewportView(table_2);
 	}
 
 	@Override
@@ -252,5 +261,4 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		}
 		
 	}
-
 }
