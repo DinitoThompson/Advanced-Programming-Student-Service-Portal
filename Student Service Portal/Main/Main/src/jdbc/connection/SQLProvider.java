@@ -17,7 +17,8 @@ public class SQLProvider
 	{
 		this.dbConn = dbConn;
 	}
-	
+
+	// SIGN UP FUNCTIONS
 	public boolean insertStudentUser(Sign_up s)
 	{
 		String insertSql = "INSERT INTO student_services_portal.student (firstname, lastname, email, phone)"
@@ -32,7 +33,7 @@ public class SQLProvider
 		}
 		return false;
 	}
-	
+
 	public boolean insertStaffUser(Sign_up s)
 	{
 		String insertstaffSql = "INSERT INTO student_services_portal.staff (firstname, lastname, email, phone)"
@@ -46,6 +47,21 @@ public class SQLProvider
 			System.out.println("Error Inserting .....  " + e.getMessage());
 		}
 		return false;
+	}
+
+	// STUDENT FUNCTIONS 
+
+	// SELECT STATEMENTS 
+	public ResultSet ViewStudentEnquiry(int s_id, int e_id)
+	{
+		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id + "&& student_id = " + s_id;
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			result = stmt.executeQuery(selectSQL);
+		}catch(SQLException e) {
+			System.out.println("Error getting data ....." + e.getMessage());
+		}
+		return result;
 	}
 	
 	/*public boolean Login(int log, int id, String pw)
@@ -119,17 +135,7 @@ public class SQLProvider
 		return result;
 	}
 	
-	public ResultSet ViewStudentEnquiry(int s_id, int e_id)
-	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id + "&& student_id = " + s_id;
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);
-		}catch(SQLException e) {
-			System.out.println("Error getting data ....." + e.getMessage());
-		}
-		return result;
-	}
+	
 	
 	public boolean CancelStudentEnquiry(int e_id) // RUNS DELETE BASED OFF STUDENT
 	{
