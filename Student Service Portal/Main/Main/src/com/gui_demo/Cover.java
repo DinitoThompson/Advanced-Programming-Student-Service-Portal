@@ -30,6 +30,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -40,11 +41,24 @@ import java.awt.Rectangle;
 import java.awt.Point;
 import javax.swing.border.MatteBorder;
 
+import jdbc.connection.SQLProvider;
+
 public class Cover extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtUser;
 	private JTextField txtPassword;
+	Submit_Enquiry sign = new Submit_Enquiry();
+	String ID;
+	
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -191,6 +205,7 @@ public class Cover extends JFrame implements ActionListener {
         		//this bit check which radio button was selected then go to the respective table to check credentials
         		if(rdbtnStudent.isSelected())
         		{
+        			ID = txtUser.getText();
         			//need to check credentials, if correct do the code below if not use JOptionPane.showmessage to display incorrect info message
         			try {
 						Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -226,7 +241,11 @@ public class Cover extends JFrame implements ActionListener {
 						    
 						    if(rs.next())
 						    {
-						    	dispose();
+						    	dispose(); // needs to be fixed!!!!!!!!1
+						    	
+							    /*sign = new Submit_Enquiry(sign.e_id,sign.e_state,sign.E_nature);
+								SQLProvider sql = new SQLProvider(conn);
+							    List<Submit_Enquiry> created = sql.selectAllEnquiry(sign);*/
 						    	Student_Dashboard s = new Student_Dashboard();
 			            		s.setVisible(true);
 						    }
@@ -325,6 +344,9 @@ public class Cover extends JFrame implements ActionListener {
         				
         			}	
         		}
+        		else {
+					JOptionPane.showMessageDialog(lblPassword, "Select a user (Staff/Student)");
+				}
         	}
         });
 		panel.add(btnLogin);

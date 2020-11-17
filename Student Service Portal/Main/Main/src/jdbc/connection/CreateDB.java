@@ -49,13 +49,15 @@ private Connection dbConn = null;
 				+ "`enquiry_urgency` INT NOT NULL  , "
 				+ "`enquiry_date`  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "
 				+ "`enquiry_state` VARCHAR(20) NOT NULL , "
-				+ "PRIMARY KEY (`enquiry_id`) ENGINE = InnoDB";
+				+ "PRIMARY KEY (`enquiry_id`)) ENGINE = InnoDB";
 		
-		String ResponseSql = "CREATE TABLE student_services_portal.`respond` ( "
-				+ "`enquiry_id` Int NOT NULL , "
-				+ "`staff_id` INT NOT NULL , "
-				+ "`respond_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , "
-				+ "PRIMARY KEY (`student_id`, `enquiry_id`, `staff_id`) ENGINE = InnoDB";
+		String Response1Sql = "CREATE TABLE student_services_portal.`respond` ( "
+
+			    + "	`enquiry_id` Int NOT NULL , "
+			    + "	`staff_id` INT NOT NULL , "
+			    + "	`respond_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , "
+			    + "	PRIMARY KEY (`enquiry_id`, `staff_id`)) ENGINE = InnoDB";
+
 		
 		/*+ "FOREIGN KEY (`student_id`) ,"
 		+ "REFERENCES `Student` (`student_id`)"
@@ -77,11 +79,12 @@ private Connection dbConn = null;
 			stmt.execute(dbSql, 0);
 			stmt.execute(useSql, 0);
 			stmt.execute(tableSql, 0);
+			stmt = (Statement) dbConn.createStatement();
 			stmt.execute(StaffSql,0);
 			stmt.execute(Student_ContSql, 0);
 			stmt.execute(Staff_ContSql, 0);
 			stmt.execute(EnquirySql, 0);
-			stmt.execute(ResponseSql, 0);
+			stmt.execute(Response1Sql, 0);
 			//If the program comes here database and table creation went well
 			System.out.println("created successfully");
 			return true;

@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -17,11 +18,16 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import jdbc.connection.SQLProvider;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Student_Dashboard extends JFrame implements ActionListener {
@@ -128,15 +134,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				// connect database and run view/select query based on the student id to display the necessary info on the table in Past_Enquiries()
 				Past_Enquiries p;
-				try {
-					p = new Past_Enquiries();
-					p.setVisible(true);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				p = new Past_Enquiries();
+				p.setVisible(true);
 				
 			}
 		});
@@ -244,7 +244,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, Long.class
+				Object.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -261,6 +261,8 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		table.getColumnModel().getColumn(2).setResizable(false);
 		scrollPane.setViewportView(table);
 		
+		
+		
 		JLabel lblAllEnquiries = new JLabel("All Enquiries");
 		lblAllEnquiries.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAllEnquiries.setFont(new Font("Times New Roman", Font.PLAIN, 24));
@@ -273,6 +275,14 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 				// run database query to delete enquiry selected
 			}	
 		});
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
 	}
 
 	@Override

@@ -10,10 +10,12 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -21,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
@@ -35,6 +38,9 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	String e_id;
+	String e_state;
+	String E_nature;
 	/**
 	 * Create the frame.
 	 */
@@ -130,6 +136,8 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		textField_4.setBounds(339, 310, 228, 50);
 		contentPane.add(textField_4);
 		
+		E_nature = textField_4.getText();
+		
 		textField_5 = new JTextField();
 		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_5.setColumns(10);
@@ -200,6 +208,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		textField_7.setColumns(10);
 		textField_7.setBounds(621, 412, 228, 50);
 		contentPane.add(textField_7);
+		e_id = textField_7.getText();
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.setForeground(Color.WHITE);
@@ -250,6 +259,40 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(btnSubmit);
 		
 	}
+	
+	public String getE_id() {
+		return e_id;
+	}
+
+	public void setE_id(String e_id) {
+		this.e_id = e_id;
+	}
+
+	public String getE_state() {
+		return e_state;
+	}
+
+	public void setE_state(String e_state) {
+		this.e_state = e_state;
+	}
+
+	public String getE_nature() {
+		return E_nature;
+	}
+
+	public void setE_nature(String e_nature) {
+		E_nature = e_nature;
+	}
+	
+	
+
+	public Submit_Enquiry(String e_id, String e_state, String e_nature) throws HeadlessException {
+		super();
+		this.e_id = e_id;
+		this.e_state = e_state;
+		E_nature = e_nature;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
@@ -260,6 +303,6 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		}
 		
 	}
-
+	
 	
 }

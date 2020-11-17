@@ -47,8 +47,10 @@ public class Sign_up extends JFrame implements ActionListener {
 	String Lname;
 	String Email;
 	String Phone;
+	String password;
     
-    Connection dbConn = null;
+   
+	Connection dbConn = null;
     PreparedStatement pat;
    // PreparedStatement pat1;
     
@@ -152,6 +154,13 @@ public class Sign_up extends JFrame implements ActionListener {
         {
         	public void actionPerformed(java.awt.event.ActionEvent e) 
              { 
+        		ID = 1701438;
+        		Fname = firstname.getText();
+        		Lname = lastname.getText();
+        		Email = email.getText();
+        		Phone = mob.getText();
+        		password = passwordField.getText();
+        		
                 // check for any blank fields
                 if(firstname.getText().length() == 0)
                 {
@@ -191,9 +200,10 @@ public class Sign_up extends JFrame implements ActionListener {
 						if(conn != null)
 						{
 							System.out.println("Connected Successfully!!!");
-							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone);
-							SQLProvider sql = new SQLProvider(dbConn);
+							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
+							SQLProvider sql = new SQLProvider(conn);
 							boolean created = sql.insertStudentUser(sign);
+							boolean create = sql.insertStudentContact(sign);
 							if (created == true) {
 								JOptionPane.showMessageDialog(null, 
 										"Contact record Created!!!!", 
@@ -223,9 +233,10 @@ public class Sign_up extends JFrame implements ActionListener {
 											"Connected to Database", 
 											"DB Connection Status", JOptionPane.INFORMATION_MESSAGE);
 								}
-								Sign_up sign = new Sign_up(Fname,Lname,Email,Phone);
+								Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
 								SQLProvider sql = new SQLProvider(dbConn);
 								boolean created = sql.insertStudentUser(sign);
+								boolean create = sql.insertStudentContact(sign);
 								if (created == true) { //If database created successfully
 									JOptionPane.showMessageDialog(null, 
 											"Contact record Created!!!!", 
@@ -271,9 +282,11 @@ public class Sign_up extends JFrame implements ActionListener {
 						if(conn != null)
 						{
 							System.out.println("Connected Successfully!!!");
-							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone);
-							SQLProvider sql = new SQLProvider(dbConn);
+							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
+							SQLProvider sql = new SQLProvider(conn);
 							boolean created = sql.insertStaffUser(sign);
+							boolean create = sql.insertStaffContact(sign);
+
 							if (created == true) {
 								JOptionPane.showMessageDialog(null, 
 										"Contact record Created!!!!", 
@@ -305,9 +318,11 @@ public class Sign_up extends JFrame implements ActionListener {
 										"Connected to Database", 
 										"DB Connection Status", JOptionPane.INFORMATION_MESSAGE);
 							}
-							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone);
+							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
 							SQLProvider sql = new SQLProvider(dbConn);
-							boolean created = sql.insertStudentUser(sign);
+							boolean created = sql.insertStaffUser(sign);
+							boolean create = sql.insertStaffContact(sign);
+
 							if (created == true) { //If database created successfully
 								JOptionPane.showMessageDialog(null, 
 										"Contact record Created!!!!", 
@@ -400,46 +415,58 @@ public class Sign_up extends JFrame implements ActionListener {
 	}
 
 	public String getFname() {
-		return Fname = firstname.getText();
+		return Fname;
 	}
 	public void setFname(String fname) {
-		Fname = fname=firstname.getText();
+		Fname = fname;
 	}
 	public String getLname() {
-		return Lname= lastname.getText();
+		return Lname;
 	}
 	public void setLname(String lname) {
-		Lname = lname =lastname.getText();
+		Lname = lname;
 	}
 	public String getEmail() {
-		return Email = email.getText();
+		return Email;
 	}
 	public void setEmail(String mail) {
-		Email = mail = email.getText();
+		Email = mail;
 	}
 	public String getPhone() {
-		return Phone = mob.getText();
+		return Phone;
 	}
 	public void setPhone(String phone) {
-		Phone = phone = mob.getText();
+		Phone = phone;
 	}
-	
+	 public String getPassword() {
+			return password;
+		}
 
-public Sign_up(String fname, String lname, String email, String phone) throws HeadlessException {
+		public void setPassword(String password) {
+			this.password = password;
+		}
+	
+     public Sign_up(String fname, String lname, String email, String phone, String pass) throws HeadlessException {
 		super();
 		Fname = fname;
 		Lname = lname;
 		Email = email;
 		Phone = phone;
+		password = pass;
+	}
+    
+
+     public Sign_up(int i, String string2, String string3) {
+		// TODO Auto-generated constructor stub
 	}
 
-@Override
-public void actionPerformed(ActionEvent e) {
-try {
-	Sign_up frame = new Sign_up();
-	frame.setVisible(true);
-} catch (Exception c) {
-	c.printStackTrace();
-}
-}
+	@Override
+     public void actionPerformed(ActionEvent e) {
+     try {
+	     Sign_up frame = new Sign_up();
+	     frame.setVisible(true);
+     } catch (Exception c) {
+	   c.printStackTrace();
+      }
+   }
 }

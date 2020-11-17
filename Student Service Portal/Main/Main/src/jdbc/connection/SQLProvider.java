@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.gui_demo.*;
 import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class SQLProvider 
 {
@@ -15,6 +17,7 @@ public class SQLProvider
 	private PreparedStatement prepStmt = null;
 	private int numOfAffectedRows = 0;
 	private Sign_up s;
+	private Submit_Enquiry sign;
 	
 	public SQLProvider(Connection dbConn)
 	{
@@ -24,8 +27,8 @@ public class SQLProvider
 	// SIGN UP FUNCTIONS
 	public boolean insertStudentUser(Sign_up s)
 	{
-		String insertSql = "INSERT INTO student_services_portal.student (firstname, lastname, email, phone)"
-				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPhone()+"')";
+		String insertSql = "INSERT INTO student_services_portal.student (student_first_name, student_last_name, student_email, student_password)"
+				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertSql);
@@ -36,14 +39,40 @@ public class SQLProvider
 		}
 		return false;
 	}
+	public boolean insertStudentContact(Sign_up s)
+	{
+		String insertSql1 = "INSERT INTO student_services_portal.student_contact (student_contact_number)" + "values('"+s.getPhone()+"')";
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(insertSql1);
+			return (numOfAffectedRows == 1);
+		}catch(SQLException e)
+		{
+			System.out.println("Error Inserting .....  " + e.getMessage());
+		}
+		return false;
+	}
 
 	public boolean insertStaffUser(Sign_up s)
 	{
-		String insertstaffSql = "INSERT INTO student_services_portal.staff (firstname, lastname, email, phone)"
-				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPhone()+"')";
+		String insertstaffSql = "INSERT INTO student_services_portal.staff (staff_first_name, staff_last_name, staff_email, staff_password)"
+				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertstaffSql);
+			return (numOfAffectedRows == 1);
+		}catch(SQLException e)
+		{
+			System.out.println("Error Inserting .....  " + e.getMessage());
+		}
+		return false;
+	}
+	public boolean insertStaffContact(Sign_up s)
+	{
+		String insertstaffSql1 = "INSERT INTO student_services_portal.staff_contact (staff_contact_number)" + "values('"+s.getPhone()+"')";
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(insertstaffSql1);
 			return (numOfAffectedRows == 1);
 		}catch(SQLException e)
 		{
@@ -254,7 +283,7 @@ public class SQLProvider
 			 result = stmt.executeQuery(selectSql);
 			 while (result.next())
 			 {
-				 s = new Sign_up(result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+				 s = new Sign_up(result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6));
 				 s.setID(result.getInt(1));
 			     contactList.add(s);
 			 }	
@@ -291,6 +320,43 @@ public class SQLProvider
 			}
   	 return false;
    }	
-	
+	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
+	 {
+		 List<Submit_Enquiry> enquiryList = new ArrayList<Submit_Enquiry>();
+		 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 result = stmt.executeQuery(selectSql);
+			 while (result.next())
+			 {
+				 s = new Sign_up(result.getInt(2),result.getString(7),result.getString(3));
+				 //s.setID(result.getInt(1));
+			     enquiryList.add(sign);
+			     show_enquiry();
+			     
+			 }	
+			 return enquiryList;
+		  }catch(SQLException e)
+			{
+				System.out.println("Error selecting All: " + e.getMessage());
+			}
+		 		return null;
+	 }
+	public void show_enquiry()
+	{
+		Student_Dashboard s = new Student_Dashboard(); 
+		JTable table = s.getTable();
+		ArrayList<Submit_Enquiry> List = new ArrayList();
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		Object[] row = new Object[3];
+		for (int i =0; i<List.size(); i++)
+		{
+			row[0] = List.get(i).getE_id();
+			row[1] = List.get(i).getE_state();
+			row[2] = List.get(i).getE_nature();
+			model.addRow(row);
+		}
+	}*/
+
 	
 }
