@@ -204,6 +204,7 @@ public class Sign_up extends JFrame implements ActionListener {
 							s.setVisible(true);
 							}
 						} 
+						/*Sumn*/
 						 
 					   } catch (SQLException e1) {
 							JOptionPane.showMessageDialog(null, 

@@ -114,7 +114,7 @@ public class Front extends JFrame implements ActionListener {
 		btnContinue.setBounds(0, 0, 132, 41);
 		panel.add(btnContinue);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
