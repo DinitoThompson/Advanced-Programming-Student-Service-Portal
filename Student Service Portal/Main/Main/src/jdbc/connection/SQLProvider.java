@@ -140,9 +140,9 @@ public class SQLProvider
 	
 	
 	
-	public boolean CancelStudentEnquiry(int e_id) // RUNS DELETE BASED OFF STUDENT
+	public boolean CancelStudentEnquiry(int enquiry_id) // RUNS DELETE BASED OFF STUDENT
 	{
-		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + e_id;
+		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(deleteSQL);
