@@ -129,19 +129,7 @@ public class SQLProvider
 		String selectSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
 		//String UpdateSQL = 
 	}
-	
-	//STAFF FUNCTIONS
-	
-	
-	
-	
-	/*public ResultSet viewEnquiry(int id)
-	{
-		
-	}*/
-	
-	
-	
+
 	
 	/*public SubmitResponse() 
 	{
@@ -193,7 +181,7 @@ public class SQLProvider
 		 		return null;
 	}
 
-	public boolean updateStudent(int id)
+	public boolean updateStudent(int id) //????
 	{
 		 String updateSql = "UPDATE student SET student_email = 'testupdate@ymail.com' where id = "+ id;
 		 try {
@@ -221,46 +209,31 @@ public class SQLProvider
   	 return false;
     }	
 
-    public ArrayList<Enquiry> StudentEnquiryTable(int student_id)
+    public ArrayList<Enquiry> StudentEnquiryTable(int student_id)// USED FOR STUDENT ENQUIRY TABLE
 	{
 		ArrayList<Enquiry> enquiryTable = new ArrayList<>();
 		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;
 		try {
-			stmt = dbConn.createStatement();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			Statement stmt = (Statement) conn.createStatement();
 			result = stmt.executeQuery(selectSQL);
 			Enquiry s;
 			while (result.next())
 			{
 				s = new Enquiry(result.getInt(2), result.getString(7), result.getString(3));
-				enquiryTable.add(s); // change table from submit_enquiry to the Enquiry class and place it on the student_dashboard frame as an internal frame .....
+				enquiryTable.add(s); 
 			}
 		}catch(SQLException e){
 			System.out.println("Error getting data: " + e.getMessage());
+		}catch(Exception e)
+		{
+			System.out.println(": " + e.getMessage());
 		}
 		return enquiryTable;
 	}
 
-	public ArrayList<Enquiry> ViewAllEnquiries()
-	{
-		ArrayList<Enquiry> staffEnquiryTable = new ArrayList<>();
-		String selectSQL = "SELECT * FROM Enquiry";
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);
-			Enquiry s;
-			while (result.next())
-			{
-				s = new Enquiry(result.getInt(2), result.getString(7), result.getString(3));
-				staffEnquiryTable.add(s);
-			}
-		}catch(SQLException e)
-		{
-			System.out.println("Error getting data .....  " + e.getMessage());
-		}
-		return staffEnquiryTable;
-	}
-
-	public ArrayList<Enquiry> EnquiryList()
+	public ArrayList<Enquiry> EnquiryList()//USED FOR STAFF ENQUIRY TABLE
 	{
 		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
 		 try {
