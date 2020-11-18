@@ -295,11 +295,12 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		try {
 			Student_Dashboard frame = new Student_Dashboard();
 			frame.setVisible(true);
+
 			JTable table = getTable();
-			ArrayList<Submit_Enquiry> List = sql.StudentEnquiryTable(id);
+			ArrayList<Enquiry> List = sql.StudentEnquiryTable(id);
 			DefaultTableModel model = (DefaultTableModel)table.getModel();
 			Object[] row = new Object[3];
-			for (int i = 0; i<List.size(); i++)
+			for (int i = 0; i < List.size(); i++)
 			{
 				row[0] = List.get(i).getE_id();
 				row[1] = List.get(i).getE_state();

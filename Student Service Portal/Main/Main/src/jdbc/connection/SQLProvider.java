@@ -28,7 +28,7 @@ public class SQLProvider
 	public boolean insertStudentUser(Sign_up s)
 	{
 		String insertSql = "INSERT INTO student_services_portal.student (student_first_name, student_last_name, student_email, student_password)"
-				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
+							+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertSql);
@@ -39,6 +39,7 @@ public class SQLProvider
 		}
 		return false;
 	}
+
 	public boolean insertStudentContact(Sign_up s)
 	{
 		String insertSql1 = "INSERT INTO student_services_portal.student_contact (student_contact_number)" + "values('"+s.getPhone()+"')";
@@ -67,6 +68,7 @@ public class SQLProvider
 		}
 		return false;
 	}
+
 	public boolean insertStaffContact(Sign_up s)
 	{
 		String insertstaffSql1 = "INSERT INTO student_services_portal.staff_contact (staff_contact_number)" + "values('"+s.getPhone()+"')";
@@ -96,7 +98,213 @@ public class SQLProvider
 		return result;
 	}
 	
-	/*public boolean Login(int log, int id, String pw)
+	
+	
+	
+	
+	public boolean CancelStudentEnquiry(int enquiry_id) // RUNS DELETE BASED OFF STUDENT
+	{
+		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(deleteSQL);
+			return (numOfAffectedRows ==1);
+		}catch(SQLException e) {
+			System.out.println("Error getting data ....." + e.getMessage());
+		}
+		return false;
+	}
+	
+	public boolean SubmitEnquiry(String En_name, String En_Email, int En_mobile, String complaint, String En_nature, String En_further)
+	{
+		String insertSQL = "INSERT INTO Enquiry VALUES (" + En_name + En_Email + En_mobile +  complaint + En_nature + En_further + ");";
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(insertSQL);
+			return(numOfAffectedRows == 1);
+		}catch(SQLException e) { 
+			System.out.println("Error getting data ....." + e.getMessage());
+		}
+		return false;
+	}
+	
+	public void EditEnquiry(int id) //RUNS UPDATE BASED OFF ENQUIRY ID
+	{
+		String selectSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
+		//String UpdateSQL = 
+	}
+	
+	//STAFF FUNCTIONS
+	
+	
+	
+	
+	/*public ResultSet viewEnquiry(int id)
+	{
+		
+	}*/
+	
+	
+	
+	
+	/*public SubmitResponse() 
+	{
+		
+	}*/ // shanice's might be working idk
+	
+	public Sign_up selectStudentUser(int id)
+	 {
+		 String selectsql = "SELECT *FROM student_services_portal.student WHERE id = '" +id;
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 result = stmt.executeQuery(selectsql);
+			 while(result.next())
+			 {
+				s= new Sign_up();
+				//s.setId(result.getInt(1));
+				s.setFname(result.getString(2));;
+				s.setLname(result.getString(3));;
+				s.setEmail(result.getString(4));
+				s.setPhone(result.getString(5));;
+			  return s;
+				
+			 } 
+		 }catch(SQLException e)
+			{
+				System.out.println("Error Selecting .....: " + e.getMessage());
+			}
+		 return null;
+	 }
+
+	public List<Sign_up> selectAllStudent()
+	{
+		 List<Sign_up> contactList = new ArrayList<Sign_up>();
+		 String selectSql = "SELECT * FROM student_services_portal.student where 1 = 1";
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 result = stmt.executeQuery(selectSql);
+			 while (result.next())
+			 {
+				 s = new Sign_up(result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6));
+				 s.setID(result.getInt(1));
+			     contactList.add(s);
+			 }	
+			 return contactList;
+		  }catch(SQLException e)
+			{
+				System.out.println("Error selecting All: " + e.getMessage());
+			}
+		 		return null;
+	}
+
+	public boolean updateStudent(int id)
+	{
+		 String updateSql = "UPDATE student SET student_email = 'testupdate@ymail.com' where id = "+ id;
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 numOfAffectedRows = stmt.executeUpdate(updateSql);
+			 return(numOfAffectedRows ==1);
+		 }catch(SQLException e)
+			{
+				System.out.println("Error Updating: " + e.getMessage());
+			}
+		 		return false;
+	}
+
+	public boolean deleteStudent(int id)
+    {
+  	 String deleteSql = "DELETE student.* FROM student where id = "+ id ;
+  	 try {
+  		 stmt = (Statement) dbConn.createStatement();
+  		 numOfAffectedRows = stmt.executeUpdate(deleteSql);
+  		 return(numOfAffectedRows ==1);
+  	 }catch(SQLException e)
+			{
+				System.out.println("Error Deleting: " + e.getMessage());
+			}
+  	 return false;
+    }	
+
+    public ArrayList<Enquiry> StudentEnquiryTable(int student_id)
+	{
+		ArrayList<Enquiry> enquiryTable = new ArrayList<>();
+		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;
+		try {
+			stmt = dbConn.createStatement();
+			result = stmt.executeQuery(selectSQL);
+			Enquiry s;
+			while (result.next())
+			{
+				s = new Enquiry(result.getInt(2), result.getString(7), result.getString(3));
+				enquiryTable.add(s); // change table from submit_enquiry to the Enquiry class and place it on the student_dashboard frame as an internal frame .....
+			}
+		}catch(SQLException e){
+			System.out.println("Error getting data: " + e.getMessage());
+		}
+		return enquiryTable;
+	}
+
+	public ArrayList<Enquiry> ViewAllEnquiries()
+	{
+		ArrayList<Enquiry> staffEnquiryTable = new ArrayList<>();
+		String selectSQL = "SELECT * FROM Enquiry";
+		try {
+			stmt = (Statement) dbConn.createStatement();
+			result = stmt.executeQuery(selectSQL);
+			Enquiry s;
+			while (result.next())
+			{
+				s = new Enquiry(result.getInt(2), result.getString(7), result.getString(3));
+				staffEnquiryTable.add(s);
+			}
+		}catch(SQLException e)
+		{
+			System.out.println("Error getting data .....  " + e.getMessage());
+		}
+		return staffEnquiryTable;
+	}
+	
+	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
+	 {
+		 List<Submit_Enquiry> enquiryList = new ArrayList<Submit_Enquiry>();
+		 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+		 try {
+			 stmt = (Statement) dbConn.createStatement();
+			 result = stmt.executeQuery(selectSql);
+			 while (result.next())
+			 {
+				 s = new Sign_up(result.getInt(2),result.getString(7),result.getString(3));
+				 //s.setID(result.getInt(1));
+			     enquiryList.add(sign);
+			     show_enquiry();
+			     
+			 }	
+			 return enquiryList;
+		  }catch(SQLException e)
+			{
+				System.out.println("Error selecting All: " + e.getMessage());
+			}
+		 		return null;
+	 }
+
+	public void show_enquiry()
+	{
+		Student_Dashboard s = new Student_Dashboard(); 
+		JTable table = s.getTable();
+		ArrayList<Submit_Enquiry> List = new ArrayList();
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		Object[] row = new Object[3];
+		for (int i =0; i<List.size(); i++)
+		{
+			row[0] = List.get(i).getE_id();
+			row[1] = List.get(i).getE_state();
+			row[2] = List.get(i).getE_nature();
+			model.addRow(row);
+		}
+	}*/
+}
+
+/*public boolean Login(int log, int id, String pw)
 	{
 		String pass;
 		int stud_id;
@@ -154,7 +362,7 @@ public class SQLProvider
 	}*/
 	
 	//	STUDENT FUNCTIONS
-	public ResultSet StudentDashboardEnquiryList(int id)//FIND OUT IF CLASS IS NEEDED
+	/*public ResultSet StudentDashboardEnquiryList(int id)
 	{
 		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + id; //FINISH THIS STATEMENT
 		try {
@@ -165,63 +373,8 @@ public class SQLProvider
 			System.out.println("Error getting data .....  " + e.getMessage());
 		}
 		return result;
-	}
-	
-	
-	
-	public boolean CancelStudentEnquiry(int enquiry_id) // RUNS DELETE BASED OFF STUDENT
-	{
-		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.executeUpdate(deleteSQL);
-			return (numOfAffectedRows ==1);
-		}catch(SQLException e) {
-			System.out.println("Error getting data ....." + e.getMessage());
-		}
-		return false;
-	}
-	
-	public boolean SubmitEnquiry(String En_name, String En_Email, int En_mobile, String complaint, String En_nature, String En_further)
-	{
-		String insertSQL = "INSERT INTO Enquiry VALUES (" + En_name + En_Email + En_mobile +  complaint + En_nature + En_further + ");";
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.executeUpdate(insertSQL);
-			return(numOfAffectedRows == 1);
-		}catch(SQLException e) { 
-			System.out.println("Error getting data ....." + e.getMessage());
-		}
-		return false;
-	}
-	
-	public void EditEnquiry(int id) //RUNS UPDATE BASED OFF ENQUIRY ID
-	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
-		//String UpdateSQL = 
-	}
-	
-	//STAFF FUNCTIONS
-	
-	public ResultSet ViewALLenquiries()
-	{
-		String selectSQL = "SELECT * FROM Enquiry";
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);
-		}catch(SQLException e)
-		{
-			System.out.println("Error getting data .....  " + e.getMessage());
-		}
-		return result;
-	}
-	
-	
-	/*public ResultSet viewEnquiry(int id)
-	{
-		
 	}*/
-	
+
 	/*public ResultSet ViewEnquiryByState(int Case)
 	{
 		String selectSQL;
@@ -244,139 +397,3 @@ public class SQLProvider
 		}
 		return result;
 	}*/
-	
-	
-	/*public SubmitResponse() 
-	{
-		
-	}*/ // shanice's might be working idk
-	
-	public Sign_up selectStudentUser(int id)
-	 {
-		 String selectsql = "SELECT *FROM student_services_portal.student WHERE id = '" +id;
-		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 result = stmt.executeQuery(selectsql);
-			 while(result.next())
-			 {
-				s= new Sign_up();
-				//s.setId(result.getInt(1));
-				s.setFname(result.getString(2));;
-				s.setLname(result.getString(3));;
-				s.setEmail(result.getString(4));
-				s.setPhone(result.getString(5));;
-			  return s;
-				
-			 } 
-		 }catch(SQLException e)
-			{
-				System.out.println("Error Selecting .....: " + e.getMessage());
-			}
-		 return null;
-	 }
-	public List<Sign_up> selectAllStudent()
-	 {
-		 List<Sign_up> contactList = new ArrayList<Sign_up>();
-		 String selectSql = "SELECT * FROM student_services_portal.student where 1 = 1";
-		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 result = stmt.executeQuery(selectSql);
-			 while (result.next())
-			 {
-				 s = new Sign_up(result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6));
-				 s.setID(result.getInt(1));
-			     contactList.add(s);
-			 }	
-			 return contactList;
-		  }catch(SQLException e)
-			{
-				System.out.println("Error selecting All: " + e.getMessage());
-			}
-		 		return null;
-	 }
-	public boolean updateStudent(int id)
-	 {
-		 String updateSql = "UPDATE student SET student_email = 'testupdate@ymail.com' where id = "+ id;
-		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 numOfAffectedRows = stmt.executeUpdate(updateSql);
-			 return(numOfAffectedRows ==1);
-		 }catch(SQLException e)
-			{
-				System.out.println("Error Updating: " + e.getMessage());
-			}
-		 		return false;
-	 }
-	public boolean deleteStudent(int id)
-   {
-  	 String deleteSql = "DELETE student.* FROM student where id = "+ id ;
-  	 try {
-  		 stmt = (Statement) dbConn.createStatement();
-  		 numOfAffectedRows = stmt.executeUpdate(deleteSql);
-  		 return(numOfAffectedRows ==1);
-  	 }catch(SQLException e)
-			{
-				System.out.println("Error Deleting: " + e.getMessage());
-			}
-  	 return false;
-   }	
-
-   public ArrayList<Submit_Enquiry> StudentEnquiryTable(int student_id)
-	{
-		ArrayList<Submit_Enquiry> enquiryTable = new ArrayList<>();
-		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;
-		try {
-			stmt = dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);
-			Enquiry s;
-			while (result.next())
-			{
-				s = new Enquiry(result.getInt(2), result.getString(7), result.getString(3));
-				enquiryTable.add(s); // change table from submit_enquiry to the Enquiry class and place it on the student_dashboard frame as an internal frame .....
-			}
-		}catch(SQLException e){
-			System.out.println("Error getting data: " + e.getMessage());
-		}
-		return enquiryTable;
-	}
-	
-	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
-	 {
-		 List<Submit_Enquiry> enquiryList = new ArrayList<Submit_Enquiry>();
-		 String selectSql = "SELECT * FROM student_services_portal.enquiry";
-		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 result = stmt.executeQuery(selectSql);
-			 while (result.next())
-			 {
-				 s = new Sign_up(result.getInt(2),result.getString(7),result.getString(3));
-				 //s.setID(result.getInt(1));
-			     enquiryList.add(sign);
-			     show_enquiry();
-			     
-			 }	
-			 return enquiryList;
-		  }catch(SQLException e)
-			{
-				System.out.println("Error selecting All: " + e.getMessage());
-			}
-		 		return null;
-	 }
-	public void show_enquiry()
-	{
-		Student_Dashboard s = new Student_Dashboard(); 
-		JTable table = s.getTable();
-		ArrayList<Submit_Enquiry> List = new ArrayList();
-		DefaultTableModel model = (DefaultTableModel)table.getModel();
-		Object[] row = new Object[3];
-		for (int i =0; i<List.size(); i++)
-		{
-			row[0] = List.get(i).getE_id();
-			row[1] = List.get(i).getE_state();
-			row[2] = List.get(i).getE_nature();
-			model.addRow(row);
-		}
-	}*/
-
-	
-}
