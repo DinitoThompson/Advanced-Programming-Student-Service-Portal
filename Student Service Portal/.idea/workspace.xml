@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="daa50b91-4294-49d0-b235-0397b8cbce4c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.project" beforeDir="false" afterPath="$PROJECT_DIR$/../.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/mysql-connector-java-5.1.49/src/doc/sources/.project" beforeDir="false" afterPath="$PROJECT_DIR$/Database/mysql-connector-java-5.1.49/src/doc/sources/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Student_Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Student_Dashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/CreateDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/CreateDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/SQLProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/SQLProvider.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1kTQcNmtbjiGSjhhcxTw1SkQ3dP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="daa50b91-4294-49d0-b235-0397b8cbce4c" name="Default Changelist" comment="" />
+      <created>1605722181261</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605722181261</updated>
+      <workItem from="1605722182787" duration="30000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
