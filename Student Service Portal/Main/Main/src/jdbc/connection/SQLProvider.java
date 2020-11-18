@@ -98,9 +98,6 @@ public class SQLProvider
 		return result;
 	}
 
-	
-	
-	
 	public boolean CancelStudentEnquiry(int enquiry_id) // RUNS DELETE BASED OFF STUDENT
 	{
 		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
@@ -262,8 +259,9 @@ public class SQLProvider
 		}
 		return staffEnquiryTable;
 	}
+
 	public ArrayList<Enquiry> EnquiryList()
-	 {
+	{
 		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
 		 try {
 			 Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -285,8 +283,6 @@ public class SQLProvider
 			}
 		 return EnquiryList;
 	 }
-	
-
 }
 
 	
