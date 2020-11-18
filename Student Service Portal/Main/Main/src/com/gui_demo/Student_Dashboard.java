@@ -34,11 +34,13 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 
 
 	private JPanel contentPane;
+	private String id;
 	PreparedStatement pst;
 	Connection conn;
 	Cover c;
 	private JTextField textField;
 	private JTable table;
+	SQLProvider sql;
 
 	/**
 	 * Create the frame.
@@ -86,6 +88,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
 		//textArea_1.setText(c.getId());
+		id = textArea_1.getText();
 		contentPane.add(textArea_1);
 		
 		JPanel panel = new JPanel();
@@ -290,9 +293,20 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		try {
 			Student_Dashboard frame = new Student_Dashboard();
 			frame.setVisible(true);
+			JTable table = getTable();
+			
+			ArrayList<Submit_Enquiry> List = sql.StudentEnquiryTable(id);
+			DefaultTableModel model = (DefaultTableModel)table.getModel();
+			Object[] row = new Object[3];
+			for (int i = 0; i<List.size(); i++)
+			{
+				row[0] = List.get(i).getE_id();
+				row[1] = List.get(i).getE_state();
+				row[2] = List.get(i).getE_nature();
+				model.addRow(row);
+			}
 		} catch (Exception D) {
 			D.printStackTrace();
-		}
-		
+		}	
 	}
 }

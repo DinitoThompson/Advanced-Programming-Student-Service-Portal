@@ -320,6 +320,25 @@ public class SQLProvider
 			}
   	 return false;
    }	
+
+   public ArrayList<Submit_Enquiry> StudentEnquiryTable(String student_id)
+	{
+		ArrayList<Submit_Enquiry> enquiryTable = new ArrayList<>();
+		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;
+		try {
+			stmt = dbConn.createStatement();
+			result = stmt.executeQuery(selectSQL);
+			Submit_Enquiry s;
+			while (result.next())
+			{
+				s = new Submit_Enquiry(result.getInt(2), result.getString(7), result.getString(3));
+				enquiryTable.add(s);
+			}
+		}catch(SQLException e){
+			System.out.println("Error getting data: " + e.getMessage());
+		}
+		return enquiryTable;
+	}
 	
 	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
 	 {
