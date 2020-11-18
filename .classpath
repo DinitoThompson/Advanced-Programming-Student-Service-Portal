@@ -9,7 +9,7 @@
 	<classpathentry kind="lib" path="Student Service Portal/Main/Main/jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="Student Service Portal/Main/Main/jgoodies-forms-1.8.0.jar"/>
 	<classpathentry kind="lib" path="Student Service Portal/Main/Main/miglayout15-swing.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DeniToSaMa/Desktop/Advanced-Programming-Student-Service-Portal/Student Service Portal/Database/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49.jar"/>
-	<classpathentry kind="lib" path="C:/Users/DeniToSaMa/Desktop/Advanced-Programming-Student-Service-Portal/Student Service Portal/Database/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49-bin.jar"/>
+	<classpathentry kind="lib" path="E:/Users/shani/Downloads/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49.jar"/>
+	<classpathentry kind="lib" path="E:/Users/shani/Downloads/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49-bin.jar"/>
 	<classpathentry kind="output" path="Student Service Portal/Main/Main/bin"/>
 </classpath>

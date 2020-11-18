@@ -320,6 +320,7 @@ public class SQLProvider
 			}
   	 return false;
    }	
+	
 	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
 	 {
 		 List<Submit_Enquiry> enquiryList = new ArrayList<Submit_Enquiry>();

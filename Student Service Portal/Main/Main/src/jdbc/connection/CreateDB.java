@@ -10,6 +10,7 @@ private Connection dbConn = null;
 	public CreateDB(Connection dbConn){
 		this.dbConn = dbConn;				
 	}
+	// DINITO ADD THE FOREIGN KEY CONSTRAINTS !!!!! - SINCERLY SHAN
 	
 	   public boolean createDataBaseAndTable() {
 		String dbSql = "CREATE DATABASE student_services_portal";
@@ -59,19 +60,7 @@ private Connection dbConn = null;
 			    + "	PRIMARY KEY (`enquiry_id`, `staff_id`)) ENGINE = InnoDB";
 
 		
-		/*+ "FOREIGN KEY (`student_id`) ,"
-		+ "REFERENCES `Student` (`student_id`)"
-	
-		+ "FOREIGN KEY (`staff_id`),"
-		+ "REFERENCES `Staff` (`staff_id`)"
 
-		+ "FOREIGN KEY (`student_id`),"
-		+ "REFERENCES `Student` (`student_id`)
-		
-		+ "FOREIGN KEY (`enquiry_id`),"
-		+ "REFERENCES `Enquiry` (`enquiry_id`),"
-		+ "FOREIGN KEY (`staff_id`),"
-		+ "REFERENCES `Staff`(`staff_id`)*/
 		
 		Statement stmt;
 		try {
