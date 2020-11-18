@@ -32,7 +32,7 @@ public class Edit extends JFrame implements ActionListener{
 	private JTextField textField_4;
 	private static JTextArea textArea;
 	private static JScrollPane pane;
-	private JTextField textField_5;
+	protected static JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	/**
@@ -168,6 +168,7 @@ public class Edit extends JFrame implements ActionListener{
 	
 	textField_5 = new JTextField();
 	textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_5.setEditable(false);
 	textField_5.setColumns(10);
 	textField_5.setBounds(27, 488, 228, 50);
 	contentPane.add(textField_5);
@@ -240,9 +241,9 @@ public class Edit extends JFrame implements ActionListener{
 	btnBack.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			Past_Enquiries p;
+			Student_Dashboard  p;
 			try {
-				p = new Past_Enquiries();
+				p = new Student_Dashboard ();
 				p.setVisible(true);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

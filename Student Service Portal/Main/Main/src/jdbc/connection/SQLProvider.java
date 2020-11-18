@@ -98,6 +98,13 @@ public class SQLProvider
 		return result;
 	}
 	
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+	
+=======
+>>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
+>>>>>>> Stashed changes
 	
 	
 	
@@ -225,6 +232,12 @@ public class SQLProvider
   	 return false;
     }	
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+	public ArrayList<Enquiry> EnquiryList()
+=======
+>>>>>>> Stashed changes
     public ArrayList<Enquiry> StudentEnquiryTable(int student_id)
 	{
 		ArrayList<Enquiry> enquiryTable = new ArrayList<>();
@@ -265,27 +278,34 @@ public class SQLProvider
 	}
 	
 	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
+>>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
 	 {
-		 List<Submit_Enquiry> enquiryList = new ArrayList<Submit_Enquiry>();
-		 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
 		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 result = stmt.executeQuery(selectSql);
+			 Class.forName("com.mysql.jdbc.Driver").newInstance();
+			 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+			 Statement stmt = (Statement) conn.createStatement();
+			 ResultSet result = stmt.executeQuery(selectSql);
+			 Enquiry enq;
 			 while (result.next())
 			 {
-				 s = new Sign_up(result.getInt(2),result.getString(7),result.getString(3));
+				 enq = new Enquiry(result.getInt(2),result.getString(7),result.getString(3));
 				 //s.setID(result.getInt(1));
-			     enquiryList.add(sign);
-			     show_enquiry();
-			     
-			 }	
-			 return enquiryList;
-		  }catch(SQLException e)
+			     EnquiryList.add(enq);
+		 }	
+			 
+		  }catch(Exception e)
 			{
 				System.out.println("Error selecting All: " + e.getMessage());
 			}
-		 		return null;
+		 return EnquiryList;
 	 }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 
 	public void show_enquiry()
 	{
@@ -360,6 +380,10 @@ public class SQLProvider
 			break;
 		}
 	}*/
+<<<<<<< Updated upstream
+=======
+>>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
+>>>>>>> Stashed changes
 	
 	//	STUDENT FUNCTIONS
 	/*public ResultSet StudentDashboardEnquiryList(int id)

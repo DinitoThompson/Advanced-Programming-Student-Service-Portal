@@ -105,7 +105,7 @@ public class Cover extends JFrame implements ActionListener {
 				}
 			}
 		});
-		txtUser.setText("ID Number");
+		//txtUser.setText("ID Number");
 		txtUser.setBorder(new LineBorder(Color.BLACK, 1, true));
 		txtUser.setFont(new Font("Times New Roman", Font.ITALIC, 13));
 		txtUser.setBounds(10, 10, 192, 33);
@@ -204,8 +204,7 @@ public class Cover extends JFrame implements ActionListener {
         		
         		//this bit check which radio button was selected then go to the respective table to check credentials
         		if(rdbtnStudent.isSelected())
-        		{
-        			ID = txtUser.getText();
+        		{	
         			//need to check credentials, if correct do the code below if not use JOptionPane.showmessage to display incorrect info message
         			try {
 						Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -241,12 +240,8 @@ public class Cover extends JFrame implements ActionListener {
 						    
 						    if(rs.next())
 						    {
-						    	dispose(); // needs to be fixed!!!!!!!!1
-						    	
-							    /*sign = new Submit_Enquiry(sign.e_id,sign.e_state,sign.E_nature);
-								SQLProvider sql = new SQLProvider(conn);
-							    List<Submit_Enquiry> created = sql.selectAllEnquiry(sign);*/
-						    	Student_Dashboard s = new Student_Dashboard();
+						    	dispose(); 
+							   Student_Dashboard s = new Student_Dashboard();
 			            		s.setVisible(true);
 						    }
 						    else
