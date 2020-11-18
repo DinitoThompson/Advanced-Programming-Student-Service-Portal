@@ -1,0 +1,41 @@
+package com.gui_demo;
+
+import java.awt.HeadlessException;
+
+public class Enquiry {
+	int e_id;
+	String e_state;
+	String E_nature;
+	
+
+	public  Enquiry(int e_id, String e_state, String e_nature) throws HeadlessException {
+		this.e_id = e_id;
+		this.e_state = e_state;
+		E_nature = e_nature;
+	}
+
+	public int getE_id() {
+		return e_id;
+	}
+
+	public void setE_id(int e_id) {
+		this.e_id = e_id;
+	}
+
+	public String getE_state() {
+		return e_state;
+	}
+
+	public void setE_state(String e_state) {
+		this.e_state = e_state;
+	}
+
+	public String getE_nature() {
+		return E_nature;
+	}
+
+	public void setE_nature(String e_nature) {
+		E_nature = e_nature;
+	}	
+
+}

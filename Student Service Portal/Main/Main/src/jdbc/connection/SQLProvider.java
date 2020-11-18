@@ -321,18 +321,18 @@ public class SQLProvider
   	 return false;
    }	
 
-   public ArrayList<Submit_Enquiry> StudentEnquiryTable(String student_id)
+   public ArrayList<Submit_Enquiry> StudentEnquiryTable(int student_id)
 	{
 		ArrayList<Submit_Enquiry> enquiryTable = new ArrayList<>();
 		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;
 		try {
 			stmt = dbConn.createStatement();
 			result = stmt.executeQuery(selectSQL);
-			Submit_Enquiry s;
+			Enquiry s;
 			while (result.next())
 			{
-				s = new Submit_Enquiry(result.getInt(2), result.getString(7), result.getString(3));
-				enquiryTable.add(s);
+				s = new Enquiry(result.getInt(2), result.getString(7), result.getString(3));
+				enquiryTable.add(s); // change table from submit_enquiry to the Enquiry class and place it on the student_dashboard frame as an internal frame .....
 			}
 		}catch(SQLException e){
 			System.out.println("Error getting data: " + e.getMessage());

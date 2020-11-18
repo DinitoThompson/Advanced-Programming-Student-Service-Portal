@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -34,13 +35,13 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 
 
 	private JPanel contentPane;
-	private String id;
+	private int id;
 	PreparedStatement pst;
 	Connection conn;
 	Cover c;
 	private JTextField textField;
 	private JTable table;
-	SQLProvider sql;
+	SQLProvider sql = new SQLProvider(conn);
 
 	/**
 	 * Create the frame.
@@ -88,7 +89,8 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
 		//textArea_1.setText(c.getId());
-		id = textArea_1.getText();
+		id = Integer.parseInt(textArea_1.getText());
+		
 		contentPane.add(textArea_1);
 		
 		JPanel panel = new JPanel();
@@ -238,7 +240,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		scrollPane.setBounds(228, 119, 448, 355);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable(); // this table should be an internal frame that has a table from the enquiry classS
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -280,7 +282,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		});
 	}
 
-	public JTable getTable() {
+	public JTable getTable() { 
 		return table;
 	}
 
@@ -294,7 +296,6 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			Student_Dashboard frame = new Student_Dashboard();
 			frame.setVisible(true);
 			JTable table = getTable();
-			
 			ArrayList<Submit_Enquiry> List = sql.StudentEnquiryTable(id);
 			DefaultTableModel model = (DefaultTableModel)table.getModel();
 			Object[] row = new Object[3];
