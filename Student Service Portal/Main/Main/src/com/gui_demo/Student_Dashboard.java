@@ -330,26 +330,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			Student_Dashboard frame = new Student_Dashboard();
-			frame.setVisible(true);
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-			
-=======
->>>>>>> Stashed changes
-
-			JTable table = getTable();
-			ArrayList<Enquiry> List = sql.StudentEnquiryTable(id);
-			DefaultTableModel model = (DefaultTableModel)table.getModel();
-			Object[] row = new Object[3];
-			for (int i = 0; i < List.size(); i++)
-			{
-				row[0] = List.get(i).getE_id();
-				row[1] = List.get(i).getE_state();
-				row[2] = List.get(i).getE_nature();
-				model.addRow(row);
-			}
->>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
+             frame.setVisible(true);
 		} catch (Exception D) {
 			D.printStackTrace();
 		}	
