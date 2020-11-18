@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 public class Past_Responses extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	protected static JTextField textField;
 	private JTable table;
 
 	/**
@@ -50,7 +50,7 @@ public class Past_Responses extends JFrame {
 	 * Create the frame.
 	 */
 	public Past_Responses() {
-		setTitle("Past_Enquiry");
+		setTitle("Past_Responses");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 897, 564);
 		contentPane = new JPanel();
@@ -75,6 +75,7 @@ public class Past_Responses extends JFrame {
 		contentPane.add(pane_1);
 		
 		JTextArea txtrNoResponseMade = new JTextArea("No Response made");
+		txtrNoResponseMade.setEditable(false);
 		txtrNoResponseMade.setBorder(new LineBorder(Color.BLACK));
 		pane_1.setViewportView(txtrNoResponseMade);
 		
@@ -121,6 +122,7 @@ public class Past_Responses extends JFrame {
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField.setEditable(false);
 		textField.setColumns(10);
 		textField.setBounds(0, 462, 208, 50);
 		contentPane.add(textField);

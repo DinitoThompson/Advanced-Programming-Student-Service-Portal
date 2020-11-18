@@ -97,8 +97,7 @@ public class SQLProvider
 		}
 		return result;
 	}
-	
-	
+
 	
 	
 	
@@ -263,137 +262,31 @@ public class SQLProvider
 		}
 		return staffEnquiryTable;
 	}
-	
-	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
+	public ArrayList<Enquiry> EnquiryList()
 	 {
-		 List<Submit_Enquiry> enquiryList = new ArrayList<Submit_Enquiry>();
-		 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
 		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 result = stmt.executeQuery(selectSql);
+			 Class.forName("com.mysql.jdbc.Driver").newInstance();
+			 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+			 Statement stmt = (Statement) conn.createStatement();
+			 ResultSet result = stmt.executeQuery(selectSql);
+			 Enquiry enq;
 			 while (result.next())
 			 {
-				 s = new Sign_up(result.getInt(2),result.getString(7),result.getString(3));
+				 enq = new Enquiry(result.getInt(2),result.getString(7),result.getString(3));
 				 //s.setID(result.getInt(1));
-			     enquiryList.add(sign);
-			     show_enquiry();
-			     
-			 }	
-			 return enquiryList;
-		  }catch(SQLException e)
+			     EnquiryList.add(enq);
+		 }	
+			 
+		  }catch(Exception e)
 			{
 				System.out.println("Error selecting All: " + e.getMessage());
 			}
-		 		return null;
+		 return EnquiryList;
 	 }
+	
 
-	public void show_enquiry()
-	{
-		Student_Dashboard s = new Student_Dashboard(); 
-		JTable table = s.getTable();
-		ArrayList<Submit_Enquiry> List = new ArrayList();
-		DefaultTableModel model = (DefaultTableModel)table.getModel();
-		Object[] row = new Object[3];
-		for (int i =0; i<List.size(); i++)
-		{
-			row[0] = List.get(i).getE_id();
-			row[1] = List.get(i).getE_state();
-			row[2] = List.get(i).getE_nature();
-			model.addRow(row);
-		}
-	}*/
 }
 
-/*public boolean Login(int log, int id, String pw)
-	{
-		String pass;
-		int stud_id;
-		
-		switch(log)
-		{
-		case 1: // STUDENT
-			String selectSQL = "SELECT student_id, student_password FROM Student WHERE student_id =" + id;
-			try {
-				stmt = (Statement) dbConn.createStatement();
-				result = stmt.executeQuery(selectSQL);
-				while(result.next())
-				{
-					stud_id = result.getInt("s_id");
-					pass = result.getString("pass");
-				}
-				if (id == stud_id)
-				{
-					if (pw == pass)
-					{
-						return true;
-					}
-				}else{
-					return false;
-				}
-			}catch(SQLException e){
-				System.out.println("Error getting data .....  " + e.getMessage());
-			}
-			break;
-			
-		case 2: // STAFF
-			String selectSQL2 = "SELECT staff_id, staff_password FROM Staff WHERE staff_id =" + id;
-			try {
-				stmt = (Statement) dbConn.createStatement();
-				result = stmt.executeQuery(selectSQL);
-				while(result.next())
-				{
-					stud_id = result.getInt("s_id");
-					pass = result.getString("pass");
-				}
-				if (id == stud_id)
-				{
-					if (pw == pass)
-					{
-						return true;
-					}
-				}else{
-					return false;
-				}
-			}catch(SQLException e){
-				System.out.println("Error getting data .....  " + e.getMessage());
-			}
-			break;
-		}
-	}*/
 	
-	//	STUDENT FUNCTIONS
-	/*public ResultSet StudentDashboardEnquiryList(int id)
-	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + id; //FINISH THIS STATEMENT
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);
-		}catch(SQLException e)
-		{
-			System.out.println("Error getting data .....  " + e.getMessage());
-		}
-		return result;
-	}*/
-
-	/*public ResultSet ViewEnquiryByState(int Case)
-	{
-		String selectSQL;
-		switch(Case)
-		{
-		case 1: // RESOLVED
-			selectSQL = "SELECT * FROM Enquiry WHERE enquiry_state = Resolved";
-			break;
-		case 2: // UNRESOLVED
-			selectSQL = "SELECT * FROM Enquiry WHERE enquiry_state = Unresolved";
-			break;
-		}
-		
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);	
-		}catch(SQLException e)
-		{
-			System.out.println("Error getting data .....  " + e.getMessage());
-		}
-		return result;
-	}*/

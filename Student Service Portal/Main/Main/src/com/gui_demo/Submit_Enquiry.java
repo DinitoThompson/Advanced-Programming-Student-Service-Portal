@@ -213,9 +213,9 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Past_Enquiries p;
+				Student_Dashboard p;
 				try {
-					p = new Past_Enquiries();
+					p = new Student_Dashboard ();
 					p.setVisible(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

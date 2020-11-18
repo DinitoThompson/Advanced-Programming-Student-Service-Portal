@@ -19,14 +19,20 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.jdbc.Statement;
+
 import jdbc.connection.SQLProvider;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -35,13 +41,11 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 
 
 	private JPanel contentPane;
-	private int id;
 	PreparedStatement pst;
 	Connection conn;
 	Cover c;
 	private JTextField textField;
-	private JTable table;
-	SQLProvider sql = new SQLProvider(conn);
+	JTable table;
 
 	/**
 	 * Create the frame.
@@ -89,8 +93,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
 		//textArea_1.setText(c.getId());
-		id = Integer.parseInt(textArea_1.getText());
-		
+				
 		contentPane.add(textArea_1);
 		
 		JPanel panel = new JPanel();
@@ -139,9 +142,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Past_Enquiries p;
-				p = new Past_Enquiries();
-				p.setVisible(true);
+				View_Enquiry v = new View_Enquiry();
+				View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it to the enquiry Id fiels in view_enquiry frame
+				v.setVisible(true);
 				
 			}
 		});
@@ -158,6 +161,14 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnEditEnquiry.setBackground(new Color(25, 25, 112));
 		btnEditEnquiry.setBorder(null);
 		btnEditEnquiry.setBounds(10, 0, 157, 54);
+		btnEditEnquiry.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		Edit s = new Edit();
+        		Edit.textField_5.setText(textField.getText());
+        		s.setVisible(true);
+        	}
+        });
 		panel_2.add(btnEditEnquiry);
 		
 		JPanel panel_2_1 = new JPanel();
@@ -201,6 +212,13 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton_1.setBackground(new Color(25, 25, 112));
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		btnNewButton_1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				// run database query to delete enquiry selected
+			}	
+		});	
 		
 		JButton btnViewResonses = new JButton("View resonses");
 		btnViewResonses.setForeground(Color.WHITE);
@@ -215,6 +233,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 				Past_Responses s;
 				try {
 					s = new Past_Responses();
+					Past_Responses.textField.setText(textField.getText());
 					s.setVisible(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -228,6 +247,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textField.setBorder(new LineBorder(Color.BLACK, 1, true));
 		textField.setBounds(10, 296, 167, 39);
 		contentPane.add(textField);
+		textField.setEditable(false);
 		textField.setColumns(10);
 		
 		JLabel lblEnquiryId = new JLabel("Enquiry Id");
@@ -261,52 +281,56 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 				return columnEditables[column];
 			}
 		});
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel model = (DefaultTableModel)table.getModel();
+				int selectedRowIndex = table.getSelectedRow();
+				textField.setText(model.getValueAt(selectedRowIndex, 0).toString());
+			}
+		});
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setResizable(false);
 		scrollPane.setViewportView(table);
 		
-		
+		try {
+			show_enquiry(); // shows all enquiry for the student currently logged in 
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		JLabel lblAllEnquiries = new JLabel("All Enquiries");
 		lblAllEnquiries.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAllEnquiries.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		lblAllEnquiries.setBounds(365, 64, 175, 31);
 		contentPane.add(lblAllEnquiries);
-		btnNewButton_1.addActionListener(new ActionListener()
+	
+	}
+	
+	
+	public void show_enquiry() throws SQLException
+	{
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ArrayList<Enquiry> List = sql.EnquiryList();
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		Object[] row = new Object[3];
+		for (int i =0; i<List.size(); i++)
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				// run database query to delete enquiry selected
-			}	
-		});
-	}
-
-	public JTable getTable() { 
-		return table;
-	}
-
-	public void setTable(JTable table) {
-		this.table = table;
+			row[0] = List.get(i).getE_id();
+			row[1] = List.get(i).getE_state();
+			row[2] = List.get(i).getE_nature();
+			model.addRow(row);
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
 			Student_Dashboard frame = new Student_Dashboard();
-			frame.setVisible(true);
-
-			JTable table = getTable();
-			ArrayList<Enquiry> List = sql.StudentEnquiryTable(id);
-			DefaultTableModel model = (DefaultTableModel)table.getModel();
-			Object[] row = new Object[3];
-			for (int i = 0; i < List.size(); i++)
-			{
-				row[0] = List.get(i).getE_id();
-				row[1] = List.get(i).getE_state();
-				row[2] = List.get(i).getE_nature();
-				model.addRow(row);
-			}
+             frame.setVisible(true);
 		} catch (Exception D) {
 			D.printStackTrace();
 		}	

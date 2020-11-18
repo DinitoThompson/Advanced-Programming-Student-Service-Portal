@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -21,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 
@@ -34,10 +36,11 @@ public class View_Enquiry extends JFrame implements ActionListener {
 	private JTextField textField_4;
 	private static JTextArea textArea;
 	private static JScrollPane pane;
-	private JTextField textField_5;
+     static JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
-    /**
+	Student_Dashboard s;
+	/**
 	 * Create the frame.
 	 */
 	public View_Enquiry() {
@@ -100,18 +103,21 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField.setColumns(10);
 		textField.setBounds(330, 79, 228, 50);
+		textField.setEditable(false);
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_1.setColumns(10);
 		textField_1.setBounds(330, 140, 228, 50);
+		textField_1.setEditable(false);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_2.setColumns(10);
 		textField_2.setBounds(330, 200, 228, 50);
+		textField_2.setEditable(false);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
@@ -119,16 +125,19 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		textField_3.setColumns(10);
 		textField_3.setBounds(330, 260, 228, 50);
 		contentPane.add(textField_3);
+		textField_3.setEditable(false);
 		
 		textField_4 = new JTextField();
 		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_4.setColumns(10);
 		textField_4.setBounds(330, 320, 228, 50);
 		contentPane.add(textField_4);
+		textField_4.setEditable(false);
 		
 		pane = new JScrollPane();
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textArea = new JTextArea("If Necessarry");
+		textArea.setEditable(false);
 		textArea.addFocusListener(new FocusAdapter()
 		{
 			@Override
@@ -171,6 +180,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_5.setColumns(10);
 		textField_5.setBounds(27, 488, 228, 50);
+		textField_5.setEditable(false);
 		contentPane.add(textField_5);
 		
 		JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
@@ -190,6 +200,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
         	public void actionPerformed(ActionEvent e) {
         		dispose();
         		Edit s = new Edit();
+        		Edit.textField_5.setText(textField_5.getText());
         		s.setVisible(true);
         	}
         });

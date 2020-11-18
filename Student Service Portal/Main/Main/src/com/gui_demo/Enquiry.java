@@ -37,5 +37,7 @@ public class Enquiry {
 	public void setE_nature(String e_nature) {
 		E_nature = e_nature;
 	}	
+	
+	
 
 }
