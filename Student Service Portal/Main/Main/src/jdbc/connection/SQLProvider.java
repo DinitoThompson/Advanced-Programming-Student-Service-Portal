@@ -97,15 +97,7 @@ public class SQLProvider
 		}
 		return result;
 	}
-	
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-	
-=======
->>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
->>>>>>> Stashed changes
-	
+
 	
 	
 	
@@ -232,12 +224,6 @@ public class SQLProvider
   	 return false;
     }	
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-	public ArrayList<Enquiry> EnquiryList()
-=======
->>>>>>> Stashed changes
     public ArrayList<Enquiry> StudentEnquiryTable(int student_id)
 	{
 		ArrayList<Enquiry> enquiryTable = new ArrayList<>();
@@ -276,9 +262,7 @@ public class SQLProvider
 		}
 		return staffEnquiryTable;
 	}
-	
-	/*public List<Submit_Enquiry> selectAllEnquiry(Submit_Enquiry sign)
->>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
+	public ArrayList<Enquiry> EnquiryList()
 	 {
 		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
 		 try {
@@ -301,123 +285,8 @@ public class SQLProvider
 			}
 		 return EnquiryList;
 	 }
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
+	
 
-	public void show_enquiry()
-	{
-		Student_Dashboard s = new Student_Dashboard(); 
-		JTable table = s.getTable();
-		ArrayList<Submit_Enquiry> List = new ArrayList();
-		DefaultTableModel model = (DefaultTableModel)table.getModel();
-		Object[] row = new Object[3];
-		for (int i =0; i<List.size(); i++)
-		{
-			row[0] = List.get(i).getE_id();
-			row[1] = List.get(i).getE_state();
-			row[2] = List.get(i).getE_nature();
-			model.addRow(row);
-		}
-	}*/
 }
 
-/*public boolean Login(int log, int id, String pw)
-	{
-		String pass;
-		int stud_id;
-		
-		switch(log)
-		{
-		case 1: // STUDENT
-			String selectSQL = "SELECT student_id, student_password FROM Student WHERE student_id =" + id;
-			try {
-				stmt = (Statement) dbConn.createStatement();
-				result = stmt.executeQuery(selectSQL);
-				while(result.next())
-				{
-					stud_id = result.getInt("s_id");
-					pass = result.getString("pass");
-				}
-				if (id == stud_id)
-				{
-					if (pw == pass)
-					{
-						return true;
-					}
-				}else{
-					return false;
-				}
-			}catch(SQLException e){
-				System.out.println("Error getting data .....  " + e.getMessage());
-			}
-			break;
-			
-		case 2: // STAFF
-			String selectSQL2 = "SELECT staff_id, staff_password FROM Staff WHERE staff_id =" + id;
-			try {
-				stmt = (Statement) dbConn.createStatement();
-				result = stmt.executeQuery(selectSQL);
-				while(result.next())
-				{
-					stud_id = result.getInt("s_id");
-					pass = result.getString("pass");
-				}
-				if (id == stud_id)
-				{
-					if (pw == pass)
-					{
-						return true;
-					}
-				}else{
-					return false;
-				}
-			}catch(SQLException e){
-				System.out.println("Error getting data .....  " + e.getMessage());
-			}
-			break;
-		}
-	}*/
-<<<<<<< Updated upstream
-=======
->>>>>>> e3c285d2681f9701cb096f5c596431fabd227ba7
->>>>>>> Stashed changes
 	
-	//	STUDENT FUNCTIONS
-	/*public ResultSet StudentDashboardEnquiryList(int id)
-	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + id; //FINISH THIS STATEMENT
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);
-		}catch(SQLException e)
-		{
-			System.out.println("Error getting data .....  " + e.getMessage());
-		}
-		return result;
-	}*/
-
-	/*public ResultSet ViewEnquiryByState(int Case)
-	{
-		String selectSQL;
-		switch(Case)
-		{
-		case 1: // RESOLVED
-			selectSQL = "SELECT * FROM Enquiry WHERE enquiry_state = Resolved";
-			break;
-		case 2: // UNRESOLVED
-			selectSQL = "SELECT * FROM Enquiry WHERE enquiry_state = Unresolved";
-			break;
-		}
-		
-		try {
-			stmt = (Statement) dbConn.createStatement();
-			result = stmt.executeQuery(selectSQL);	
-		}catch(SQLException e)
-		{
-			System.out.println("Error getting data .....  " + e.getMessage());
-		}
-		return result;
-	}*/
