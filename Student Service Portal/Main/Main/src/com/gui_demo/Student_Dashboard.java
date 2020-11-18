@@ -40,13 +40,13 @@ import java.awt.event.ActionEvent;
 public class Student_Dashboard extends JFrame implements ActionListener {
 
 
+	protected static JTextArea TextArea_1;
 	private JPanel contentPane;
 	PreparedStatement pst;
 	Connection conn;
 	Cover c;
 	private JTextField textField;
 	JTable table;
-
 	/**
 	 * Create the frame.
 	 */
@@ -92,7 +92,6 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea_1.setEditable(false);
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
-		//textArea_1.setText(c.getId());
 				
 		contentPane.add(textArea_1);
 		

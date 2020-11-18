@@ -202,9 +202,11 @@ public class Cover extends JFrame implements ActionListener {
 			
         	public void actionPerformed(ActionEvent e) {
         		
+        		
         		//this bit check which radio button was selected then go to the respective table to check credentials
         		if(rdbtnStudent.isSelected())
         		{	
+        			
         			//need to check credentials, if correct do the code below if not use JOptionPane.showmessage to display incorrect info message
         			try {
 						Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -234,15 +236,18 @@ public class Cover extends JFrame implements ActionListener {
 							Class.forName("com.mysql.jdbc.Driver").newInstance();
 							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 							PreparedStatement pas = conn.prepareStatement("select * from student where student_id = ? and student_password = ?");
-						    pas.setString(1, txtUser.getText());
+							String id = txtUser.getText();
+							pas.setString(1, id);
 						    pas.setString(2, txtPassword.getText());
 						    ResultSet rs = pas.executeQuery();
 						    
 						    if(rs.next())
 						    {
+						    	
 						    	dispose(); 
-							   Student_Dashboard s = new Student_Dashboard();
-			            		s.setVisible(true);
+							    Student_Dashboard s = new Student_Dashboard().TextArea_1.setText(id);
+							    // !!!!!WE NEED FI GET THE ID FROM THE COVER FRAME LOGIN AND PUT IT IN THE STUDENT ID TEXTFEILD ON THE DASHBOARD!!!!!
+			            	    s.setVisible(true);
 						    }
 						    else
 						    {
