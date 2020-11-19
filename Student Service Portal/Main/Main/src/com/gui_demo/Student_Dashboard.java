@@ -89,6 +89,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblStudentId);
 		
 		JTextArea textArea_1 = new JTextArea();
+		//textArea_1.setText();
 		textArea_1.setEditable(false);
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);

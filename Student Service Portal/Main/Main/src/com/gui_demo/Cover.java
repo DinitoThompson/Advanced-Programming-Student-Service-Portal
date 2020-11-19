@@ -236,8 +236,7 @@ public class Cover extends JFrame implements ActionListener {
 							Class.forName("com.mysql.jdbc.Driver").newInstance();
 							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 							PreparedStatement pas = conn.prepareStatement("select * from student where student_id = ? and student_password = ?");
-							String id = txtUser.getText();
-							pas.setString(1, id);
+							pas.setString(1, txtUser.getText());
 						    pas.setString(2, txtPassword.getText());
 						    ResultSet rs = pas.executeQuery();
 						    
@@ -245,7 +244,7 @@ public class Cover extends JFrame implements ActionListener {
 						    {
 						    	
 						    	dispose(); 
-							    Student_Dashboard s = new Student_Dashboard().TextArea_1.setText(id);
+							    Student_Dashboard s = new Student_Dashboard();
 							    // !!!!!WE NEED FI GET THE ID FROM THE COVER FRAME LOGIN AND PUT IT IN THE STUDENT ID TEXTFEILD ON THE DASHBOARD!!!!!
 			            	    s.setVisible(true);
 						    }

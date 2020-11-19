@@ -20,12 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daa50b91-4294-49d0-b235-0397b8cbce4c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.project" beforeDir="false" afterPath="$PROJECT_DIR$/../.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database/mysql-connector-java-5.1.49/src/doc/sources/.project" beforeDir="false" afterPath="$PROJECT_DIR$/Database/mysql-connector-java-5.1.49/src/doc/sources/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Cover.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Student_Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/com/gui_demo/Student_Dashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/CreateDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/CreateDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/SQLProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/bin/jdbc/connection/SQLProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/src/com/gui_demo/Cover.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/src/com/gui_demo/Cover.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main/src/com/gui_demo/Student_Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main/src/com/gui_demo/Student_Dashboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1605722181261</updated>
       <workItem from="1605722182787" duration="30000" />
+      <workItem from="1605747407976" duration="7000" />
     </task>
     <servers />
   </component>
@@ -72,5 +74,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
