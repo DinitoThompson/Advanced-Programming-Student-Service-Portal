@@ -14,70 +14,77 @@ private Connection dbConn = null;
 	// Dinito: DONE, THIS SHOULD WORK WELL (^_^)
 	
 	   public boolean createDataBaseAndTable() {
-		String createDatabase = "CREATE DATABASE student_services_portal";
-		String useDatabase = "USE student_services_portal";
-		
+
+		String createDatabase = "Create Database student_services_portal"; 
+		String useDatabase = "Use student_services_portal";  
+
 		String StudentTable = 
-			"CREATE TABLE student_services_portal.student ( "
-			+ "student_id INT(7) NOT NULL AUTO_INCREMENT , "
-			+ "student_first_name VARCHAR(20) NOT NULL , "
-			+ "student_last_name VARCHAR(25) NOT NULL , "
-			+ "student_email VARCHAR(30) NOT NULL , "
-			+ "student_password VARCHAR(60) NOT NULL  , "
-			+ "PRIMARY KEY (student_id)) ENGINE = InnoDB";
+		"CREATE TABLE student ( \r\n" + 
+		"		student_id INT(7) NOT NULL AUTO_INCREMENT, \r\n" + 
+		"		student_first_name VARCHAR(20), \r\n" + 
+		"		student_last_name VARCHAR(20), \r\n" + 
+		"		student_email VARCHAR(30), \r\n" + 
+		"		student_password VARCHAR(30), \r\n" + 
+		"		PRIMARY KEY (student_id));";
 
 		String StudentContactTable = 
-			"CREATE TABLE student_services_portal.student_contact ( "
-			+ "student_id INT(7) NOT NULL, "
-			+ "student_contact_number VARCHAR(20) NOT NULL DEFAULT \'0(876) 000-0000\', "
-			+ "CONSTRAINT fk_student_id"
-			+ "FOREIGN KEY (student_id)"
-			+ "REFERENCES Student (student_id)"
-			+ "PRIMARY KEY (student_id, student_contact_number)) ENGINE = InnoDB";
+		"CREATE TABLE student_contact \r\n" + 
+		"		(\r\n" + 
+		"		student_id INT, \r\n" + 
+		"		student_contact_number VARCHAR(20), \r\n" + 
+		"		FOREIGN KEY (student_id)\r\n" + 
+		"		REFERENCES student (student_id),\r\n" + 
+		"		PRIMARY KEY (student_id, student_contact_number));\r\n"; 
 
-		String StaffTable = 
-			"CREATE TABLE student_services_portal.staff ( "
-			+ "staff_id INT(7) NOT NULL AUTO_INCREMENT , "
-			+ "staff_first_name VARCHAR(20) NOT NULL , "
-			+ "staff_last_name VARCHAR(20) NOT NULL , "
-			+ "staff_email VARCHAR(30) NOT NULL , "
-			+ "staff_password VARCHAR(60) NOT NULL ' , "
-			+ "PRIMARY KEY (staff_id)) ENGINE = InnoDB";
-
-		String StaffContactTable = 
-			"CREATE TABLE student_services_portal.staff_contact ( "
-			+ "staff_id INT(7) NOT NULL, "
-			+ "staff_contact_number VARCHAR(20) NOT NULL DEFAULT \'0(876) 000-0000\', "
-			+ "CONSTRAINT fk_staff_id"
-			+ "FOREIGN KEY (staff_id)"
-			+ "REFERENCES Staff (staff_id)"
-			+ "PRIMARY KEY (staff_id, staff_contact_number))  ENGINE = InnoDB";
-	
 		String EnquiryTable = 
-			"CREATE TABLE student_services_portal.enquiry ( "
-			+ "student_id INT(7) NOT NULL  , "
-			+ "enquiry_id Int(7) NOT NULL AUTO_INCREMENT, "
-			+ "enquiry_nature VARCHAR(20) NOT NULL , "
-			+ "enquiry_complaint VARCHAR(20) NOT NULL , "
-			+ "enquiry_detail VARCHAR(150) NOT NULL ' , "
-			+ "enquiry_urgency INT NOT NULL  , "
-			+ "enquiry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
-			+ "enquiry_state VARCHAR(20) DEFAULT 'Unresolved' , "
-			+ "CONSTRAINT fk_student_id"
-			+ "FOREIGN KEY (student_id)"
-			+ "REFERENCES Student (student_id)"
-			+ "PRIMARY KEY (enquiry_id)) ENGINE = InnoDB";
+		"CREATE TABLE enquiry ( \r\n" + 
+		"		student_id INT, \r\n" + 
+		"		enquiry_id INT(7) NOT NULL AUTO_INCREMENT,\r\n" + 
+		"		enquiry_nature VARCHAR(20), \r\n" + 
+		"		enquiry_complaint VARCHAR(20),\r\n" + 
+		"		enquiry_detail VARCHAR(150), \r\n" + 
+		"		enquiry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\r\n" + 
+		"		enquiry_state VARCHAR(20) DEFAULT 'Unresolved', \r\n" + 
+		"		FOREIGN KEY (student_id)\r\n" + 
+		"		REFERENCES Student (student_id), \r\n" + 
+		"		PRIMARY KEY(enquiry_id));";
 		
 		String EnquiryResponseTable = 
-			"CREATE TABLE student_services_portal.respond ( "
-			+ "enquiry_id INT(7) NOT NULL , "
-			+ "staff_id INT(7) NOT NULL , "
-			+ "respond_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , "
-			+ "FOREIGN KEY (enquiry_id)"
-			+ "REFERENCES enquiry(enquiry_id)"
-			+ "FOREIGN KEY (staff_id)"
-			+ "REFERENCES staff(staff_id)"
-			+ "PRIMARY KEY (enquiry_id, staff_id)) ENGINE = InnoDB";
+		"CREATE TABLE enquiry_response ( \r\n" + 
+		"		enquiry_id INT, \r\n" + 
+		"		enquiry_response VARCHAR(50), \r\n" + 
+		"		enquiry_response_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, \r\n" + 
+		"		FOREIGN KEY (enquiry_id)\r\n" + 
+		"		REFERENCES Enquiry (enquiry_id),\r\n" + 
+		"		PRIMARY KEY (enquiry_id, enquiry_response_date));";
+
+		String StaffTable = 
+		"CREATE TABLE staff ( \r\n" + 
+		"		staff_id INT(7) AUTO_INCREMENT,\r\n" + 
+		"		staff_first_name VARCHAR(20), \r\n" + 
+		"		staff_last_name VARCHAR(20), \r\n" + 
+		"		staff_email VARCHAR(30),  \r\n" + 
+		"		staff_password VARCHAR(30),\r\n" + 
+		"		PRIMARY KEY(staff_id));";
+
+		String StaffContactTable = 
+		"CREATE TABLE staff_contact ( \r\n" + 
+		"		staff_id INT, \r\n" + 
+		"		staff_contact_number VARCHAR(20), \r\n" + 
+		"		FOREIGN KEY (staff_id)\r\n" + 
+		"		REFERENCES Staff (staff_id),\r\n" + 
+		"		PRIMARY KEY (staff_id, staff_contact_number));";
+		
+		String StaffRespond = 
+		"CREATE TABLE respond ( \r\n" + 
+		"		enquiry_id INT(7),\r\n" + 
+		"		staff_id INT(7), \r\n" + 
+		"		respond_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n" + 
+		"		FOREIGN KEY (enquiry_id)\r\n" + 
+		"		REFERENCES Enquiry(enquiry_id), \r\n" + 
+		"		FOREIGN KEY (staff_id)\r\n" + 
+		"		REFERENCES Staff(staff_id),\r\n" + 
+		"		PRIMARY KEY (enquiry_id, staff_id, respond_date));";
 
 		Statement stmt;
 		try {
@@ -90,6 +97,7 @@ private Connection dbConn = null;
 			stmt.execute(StaffContactTable, 0);
 			stmt.execute(EnquiryTable, 0);
 			stmt.execute(EnquiryResponseTable, 0);
+			stmt.execute(StaffRespond, 0); 
 			
 			//If the program comes here database and table creation went well
 			System.out.println("Database Created...");

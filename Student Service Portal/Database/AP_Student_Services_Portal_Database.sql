@@ -7,13 +7,10 @@
     Shanice Facey 
     Tyree Tinka 
 */
+Create Database student_services_portal; 
+Use student_services_portal;  
 
-Create Database Student_Services_Portal; 
-Use Student_Services_Portal; 
-Drop Database Student_Services_Portal; 
-
-
-CREATE TABLE Student 
+CREATE TABLE student 
 (
     student_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
     student_first_name VARCHAR(20), 
@@ -22,7 +19,7 @@ CREATE TABLE Student
     student_password VARCHAR(30)
 );
 
-CREATE TABLE Student_Contact
+CREATE TABLE student_contact
 (
     student_id INT,
     student_contact_number VARCHAR(20), 
@@ -30,10 +27,10 @@ CREATE TABLE Student_Contact
     PRIMARY KEY (student_id, student_contact_number), 
 
     FOREIGN KEY (student_id) 
-    REFERENCES Student (student_id)
+    REFERENCES student (student_id)
 );
 
-CREATE TABLE Enquiry 
+CREATE TABLE enquiry 
 (
 	student_id INT,
     enquiry_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
@@ -47,8 +44,7 @@ CREATE TABLE Enquiry
     FOREIGN KEY (student_id)
     REFERENCES Student (student_id)
 );  
-
-CREATE TABLE Enquiry_Response
+CREATE TABLE enquiry_response
 (
     enquiry_id INT, 
     enquiry_response VARCHAR(50), 
@@ -60,7 +56,7 @@ CREATE TABLE Enquiry_Response
     REFERENCES Enquiry (enquiry_id)
 ); 
 
-CREATE TABLE Staff 
+CREATE TABLE staff 
 (
     staff_id INT(7) PRIMARY KEY AUTO_INCREMENT, 
     staff_first_name VARCHAR(20), 
@@ -69,7 +65,7 @@ CREATE TABLE Staff
     staff_password VARCHAR(30)
 );
 
-CREATE TABLE Staff_Contact
+CREATE TABLE staff_contact
 (
     staff_id INT,
     staff_contact_number VARCHAR(20), 
@@ -80,7 +76,7 @@ CREATE TABLE Staff_Contact
     REFERENCES Staff (staff_id)
 );
 
-CREATE TABLE Respond
+CREATE TABLE respond
 (
     enquiry_id INT(7),
     staff_id INT(7), 
@@ -94,6 +90,8 @@ CREATE TABLE Respond
     FOREIGN KEY (staff_id)
     REFERENCES Staff(staff_id)
 );
+
+
 
 /*Select Statements*/
 SELECT * FROM Student 
