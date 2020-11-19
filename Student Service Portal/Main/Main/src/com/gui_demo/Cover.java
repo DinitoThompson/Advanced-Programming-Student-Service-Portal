@@ -108,6 +108,7 @@ public class Cover extends JFrame implements ActionListener {
 		//txtUser.setText("ID Number");
 		txtUser.setBorder(new LineBorder(Color.BLACK, 1, true));
 		txtUser.setFont(new Font("Times New Roman", Font.ITALIC, 13));
+		setID(txtUser.getText());
 		txtUser.setBounds(10, 10, 192, 33);
 		panel_1.add(txtUser);
 		txtUser.setColumns(10);
@@ -243,8 +244,9 @@ public class Cover extends JFrame implements ActionListener {
 						    if(rs.next())
 						    {
 						    	
-						    	dispose(); 
+						    	//dispose(); 
 							    Student_Dashboard s = new Student_Dashboard();
+
 							    // !!!!!WE NEED FI GET THE ID FROM THE COVER FRAME LOGIN AND PUT IT IN THE STUDENT ID TEXTFEILD ON THE DASHBOARD!!!!!
 			            	    s.setVisible(true);
 						    }
