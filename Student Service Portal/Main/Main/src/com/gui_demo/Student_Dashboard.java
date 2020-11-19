@@ -47,6 +47,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	Cover c;
 	private JTextField textField;
 	JTable table;
+	SQLProvider sql;
 	/**
 	 * Create the frame.
 	 */
@@ -89,7 +90,6 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblStudentId);
 		
 		JTextArea textArea_1 = new JTextArea();
-		//textArea_1.setText();
 		textArea_1.setEditable(false);
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
@@ -217,6 +217,11 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e)
 			{
 				// run database query to delete enquiry selected
+				boolean isDeleted  = false;
+				if (isDeleted != sql.deleteEnquiry(Integer.parseInt(textField.getText())))
+				{
+					JOptionPane.showMessageDialog(null, "SUCESSFULLY DELETED", "DELETED RECORD", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}	
 		});	
 		
@@ -295,7 +300,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		scrollPane.setViewportView(table);
 		
 		try {
-			show_enquiry(Integer.parseInt(textArea_1.getText())); // shows all enquiry for the student currently logged in 
+			show_enquiry(textArea_1.getText()); // shows all enquiry for the student currently logged in 
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -310,11 +315,12 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	}
 	
 	
-	public void show_enquiry(int id) throws SQLException
+	public void show_enquiry(String id) throws SQLException
 	{
+		int ID = Integer.parseInt(id)
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 		SQLProvider sql = new SQLProvider(conn);
-		ArrayList<Enquiry> List = sql.StudentEnquiryTable(id);
+		ArrayList<Enquiry> List = sql.StudentEnquiryTable(ID);
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
 		Object[] row = new Object[3];
 		for (int i =0; i<List.size(); i++)
