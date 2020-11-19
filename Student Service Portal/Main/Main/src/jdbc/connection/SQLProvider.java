@@ -209,7 +209,7 @@ public class SQLProvider
   	 return false;
     }	
 
-    public ArrayList<Enquiry> StudentEnquiryTable(int student_id)// USED FOR STUDENT ENQUIRY TABLE
+    public ArrayList<Enquiry> StudentEnquiryTable(String student_id)// USED FOR STUDENT ENQUIRY TABLE
 	{
 		ArrayList<Enquiry> enquiryTable = new ArrayList<>();
 		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;

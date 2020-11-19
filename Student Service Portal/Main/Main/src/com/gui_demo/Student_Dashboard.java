@@ -89,10 +89,10 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblStudentId);
 		
 		JTextArea textArea_1 = new JTextArea();
-		//textArea_1.setText();
 		textArea_1.setEditable(false);
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
+		textArea_1.setText(c.getID());
 				
 		contentPane.add(textArea_1);
 		
@@ -250,6 +250,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textField.setEditable(false);
 		textField.setColumns(10);
 		
+		
 		JLabel lblEnquiryId = new JLabel("Enquiry Id");
 		lblEnquiryId.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnquiryId.setFont(new Font("Times New Roman", Font.PLAIN, 24));
@@ -295,7 +296,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		scrollPane.setViewportView(table);
 		
 		try {
-			show_enquiry(Integer.parseInt(textArea_1.getText())); // shows all enquiry for the student currently logged in 
+			show_enquiry(textArea_1.getText()); 
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -310,8 +311,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	}
 	
 	
-	public void show_enquiry(int id) throws SQLException
+	public void show_enquiry(String id) throws SQLException
 	{
+		
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 		SQLProvider sql = new SQLProvider(conn);
 		ArrayList<Enquiry> List = sql.StudentEnquiryTable(id);
