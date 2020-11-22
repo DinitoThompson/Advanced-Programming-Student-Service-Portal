@@ -142,12 +142,11 @@ public class SQLProvider
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(updateSQL);
-			return(numOfAffectedRows ==1);
 		}catch(SQLException e)
 		   {
 			   System.out.println("Error Updating: " + e.getMessage());
 		   }
-				return false;
+		   return(numOfAffectedRows ==1);
 	} 
 	
 	
@@ -247,11 +246,16 @@ public class SQLProvider
 	 }
 
 	 // =============== UNFINISHED FUNCTIONS =============
-
-	 public void EditEnquiry(int id) //RUNS UPDATE BASED OFF ENQUIRY ID
+	public boolean EditEnquiry2(int id, Enquiry en) //RUNS UPDATE BASED OFF ENQUIRY ID
 	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
-		//String UpdateSQL = 
+		String updateSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
+		try{
+			stmt = (Statement) dbConn.createStatement();
+			numOfAffectedRows = stmt.executeUpdate(updateSQL);
+		}catch(SQLException e){
+			System.out.println("Error Updating: " + e.getMessage());
+		}
+		return (numOfAffectedRows == 1);
 	}
 }
 
