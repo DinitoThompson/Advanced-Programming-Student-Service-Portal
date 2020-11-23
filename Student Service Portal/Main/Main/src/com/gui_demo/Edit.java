@@ -159,7 +159,7 @@ public class Edit extends JFrame implements ActionListener{
 	textField_5.setBounds(27, 488, 228, 50);
 	contentPane.add(textField_5);
 	
-	JRadioButton rdbtnUrgent = new JRadioButton("Urgent");
+	JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
 	rdbtnUrgent.setIcon(new ImageIcon(View_Enquiry.class.getResource("/res/icons8-urgent-message-24.png")));
 	rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 	rdbtnUrgent.setBackground(Color.WHITE);

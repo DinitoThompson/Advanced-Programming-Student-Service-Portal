@@ -1,6 +1,8 @@
 package com.gui_demo;
 
 import java.awt.BorderLayout;
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -30,6 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
 import javax.swing.JButton;
@@ -208,6 +211,18 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnUrgent.setBackground(Color.WHITE);
 		rdbtnUrgent.setBounds(310, 509, 155, 21);
+		rdbtnUrgent.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnUrgent.isSelected())
+				{
+					Client_Chat c = new Client_Chat();
+					c.setVisible(true);
+			    }
+			}
+			
+		});
 		contentPane.add(rdbtnUrgent);
 		
 		JButton btnSubmit = new JButton("Submit");
