@@ -28,8 +28,9 @@ public class SQLProvider
 
 	public boolean insertStudentUser(Sign_up s) //USED TO ENTER STUDENTS INTO THE DATABSE (FINISHED)
 	{
-		String insertSql = "INSERT INTO student_services_portal.student (student_first_name, student_last_name, student_email, student_password)"
-							+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
+		String insertSql = "INSERT INTO student_services_portal.student (student_id, student_first_name, student_last_name, student_email, student_password)"
+							+"values('"+s.getID()+"', '"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
+		
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertSql);
@@ -43,7 +44,7 @@ public class SQLProvider
 
 	public boolean insertStudentContact(Sign_up s) //USED TO ENTER CONTACTS FOR STUDENTS (FINISHED)
 	{
-		String insertSql1 = "INSERT INTO student_services_portal.student_contact (student_contact_number)" + "values('"+s.getPhone()+"')";
+		String insertSql1 = "INSERT INTO student_services_portal.student_contact (student_id, student_contact_number)" + "values('"+s.getID()+"', '"+s.getPhone()+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertSql1);
@@ -54,11 +55,11 @@ public class SQLProvider
 		}
 		return false;
 	}
-
+	
 	public boolean insertStaffUser(Sign_up s) //USED TO ENTER STAFF INTO THE DATABSE (FINISHED)
 	{
-		String insertstaffSql = "INSERT INTO student_services_portal.staff (staff_first_name, staff_last_name, staff_email, staff_password)"
-				+"values('"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
+		String insertstaffSql = "INSERT INTO student_services_portal.staff (staff_id, staff_first_name, staff_last_name, staff_email, staff_password)"
+								+"values('"+s.getID()+"', '"+s.getFname()+"','"+s.getLname()+"','"+s.getEmail()+"','"+s.getPassword()+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertstaffSql);
@@ -72,7 +73,7 @@ public class SQLProvider
 
 	public boolean insertStaffContact(Sign_up s)//USED TO ENTER CONTACTS FOR STAFF (FINISHED)
 	{
-		String insertstaffSql1 = "INSERT INTO student_services_portal.staff_contact (staff_contact_number)" + "values('"+s.getPhone()+"')";
+		String insertstaffSql1 = "INSERT INTO student_services_portal.staff_contact (staff_id, staff_contact_number)" + "values('"+s.getID()+"', '"+s.getPhone()+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertstaffSql1);
@@ -83,6 +84,7 @@ public class SQLProvider
 		}
 		return false;
 	}
+	
 	// ============= LOG IN FUNCTIONS ================
 
 	public Sign_up selectStudentUser(int id)
@@ -123,9 +125,10 @@ public class SQLProvider
 		return result;
 	}
 	
-	public boolean SubmitEnquiry(String En_name, String En_Email, int En_mobile, String complaint, String En_nature, String En_further)
+	public boolean SubmitEnquiry(String student_id, String enquiry_nature, String enquiry_complaint, String enquiry_detail)
 	{
-		String insertSQL = "INSERT INTO Enquiry VALUES (" + En_name + En_Email + En_mobile +  complaint + En_nature + En_further + ");";
+		String insertSQL = "INSERT INTO student_services_portal.enquiry (student_id, enquiry_nature, enquiry_complaint, enquiry_detail) "
+				+ "VALUES ('"+student_id+"', '"+enquiry_nature+"', '"+enquiry_complaint+"', '"+enquiry_detail+"')";
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			numOfAffectedRows = stmt.executeUpdate(insertSQL);
@@ -150,7 +153,7 @@ public class SQLProvider
 	} 
 	
 	
-
+	/*
 	public ArrayList<Sign_up> selectAllStudent() //SELECTS ALL STUDENTS IN THE DATABASE(TO BE CHECKED)
 	{
 		 ArrayList<Sign_up> contactList = new ArrayList<Sign_up>();
@@ -160,8 +163,7 @@ public class SQLProvider
 			 result = stmt.executeQuery(selectSql);
 			 while (result.next())
 			 {
-				 s = new Sign_up(result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6));
-				 s.setID(result.getInt(1));
+				 s = new Sign_up(result.getString(1), result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6));
 			     contactList.add(s);
 			 }	
 		  }catch(SQLException e)
@@ -170,7 +172,9 @@ public class SQLProvider
 			}
 			return contactList;
 	}
+	*/
 
+	/*
 	public boolean updateStudent(int id) //????
 	{
 		 String updateSql = "UPDATE student SET student_email = 'testupdate@ymail.com' where id = "+ id;
@@ -183,9 +187,9 @@ public class SQLProvider
 				System.out.println("Error Updating: " + e.getMessage());
 			}
 		 		return false;
-	}
+	} */
 
-	public boolean CancelStudentEnquiry(int enquiry_id) // RUNS DELETE BASED OFF STUDENT (TO BE CHECKED)
+	public boolean CancelStudentEnquiry(String enquiry_id) // RUNS DELETE BASED OFF STUDENT (TO BE CHECKED)
 	{
 		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
 		try {
@@ -244,19 +248,59 @@ public class SQLProvider
 			}
 		 return EnquiryList;
 	 }
+	
 
-	 // =============== UNFINISHED FUNCTIONS =============
-	public boolean EditEnquiry2(int id, Enquiry en) //RUNS UPDATE BASED OFF ENQUIRY ID
+	
+	
+
+	 // =============== ENQUIRY FUNCTIONS =============
+	/*public ArrayList<Enquiry> EditEnquiry(String enquiry_id) //RUNS UPDATE BASED OFF ENQUIRY ID
 	{
-		String updateSQL = "SELECT * FROM Enquiry WHERE Enquiry_id = " + id;
+		ArrayList<Enquiry> EditEnquiryList = new ArrayList<>(); 
 		try{
+			String SelectSQL = "SELECT enquiry_nature, enquiry_complaint, enquiry_detail FROM enquiry WHERE enquiry_id = " + enquiry_id;
 			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.executeUpdate(updateSQL);
+			ResultSet result = stmt.executeQuery(SelectSQL);
+			Enquiry e; 
+			while (result.next())
+			{
+				e = new Enquiry(result.getString(3), result.getString(4), result.getString(5)); 
+				EditEnquiryList.add(e); 
+			}
 		}catch(SQLException e){
 			System.out.println("Error Updating: " + e.getMessage());
 		}
-		return (numOfAffectedRows == 1);
-	}
-}
-
+		return EditEnquiryList; 
+	}*/
 	
+	public ResultSet EditEnquiry(String enquiry_id) //RUNS UPDATE BASED OFF ENQUIRY ID
+	{
+		try{
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			prepStmt = conn.prepareStatement("SELECT * FROM `enquiry` WHERE enquiry_id = 26 "); 
+			ResultSet result = null; 
+			result = prepStmt.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Error Updating: " + e.getMessage());
+		}
+		return result;
+	}
+
+
+public String SelectStudentName (String student_id)
+{
+	String selectNameSQL = "SELECT student_first_name, student_last_name From student WHERE student_id = " + student_id; 
+	String studentName = ""; 
+	try {
+		stmt = (Statement) dbConn.createStatement();
+		result = stmt.executeQuery(selectNameSQL); 
+		//studentName = result.getString(2) + result.getString(3); 
+	} catch (SQLException e)
+	{
+		System.out.println("Error Updating: " + e.getMessage());
+	}
+	
+	return studentName; 
+ }
+
+}

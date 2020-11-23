@@ -48,7 +48,7 @@ public class Cover extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField txtUser;
 	private JTextField txtPassword;
-	Submit_Enquiry sign = new Submit_Enquiry();
+	//Submit_Enquiry sign = new Submit_Enquiry(txtUser.getText());
 	String ID;
 	
 	public String getID() {
@@ -100,8 +100,7 @@ public class Cover extends JFrame implements ActionListener {
 			{
 				if(txtUser.getText().equals(""))
 				{
-					txtUser.setText("ID Number");
-										
+					txtUser.setText("ID Number");					
 				}
 			}
 		});
@@ -210,6 +209,7 @@ public class Cover extends JFrame implements ActionListener {
         			
         			//need to check credentials, if correct do the code below if not use JOptionPane.showmessage to display incorrect info message
         			try {
+        				// Checks to see if Database Exist
 						Class.forName("com.mysql.jdbc.Driver").newInstance();
 						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
                         
@@ -233,6 +233,7 @@ public class Cover extends JFrame implements ActionListener {
         			else
         			{
 						try {
+							// Connects to database  
 							
 							Class.forName("com.mysql.jdbc.Driver").newInstance();
 							Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
@@ -242,12 +243,9 @@ public class Cover extends JFrame implements ActionListener {
 						    ResultSet rs = pas.executeQuery();
 						    
 						    if(rs.next())
-						    {
-						    	
-						    	//dispose(); 
-							    Student_Dashboard s = new Student_Dashboard();
-
-							    // !!!!!WE NEED FI GET THE ID FROM THE COVER FRAME LOGIN AND PUT IT IN THE STUDENT ID TEXTFEILD ON THE DASHBOARD!!!!!
+						    { 
+							    Student_Dashboard s = new Student_Dashboard(txtUser.getText());
+							    dispose();
 			            	    s.setVisible(true);
 						    }
 						    else

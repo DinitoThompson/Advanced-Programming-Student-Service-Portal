@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -15,6 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -24,25 +29,43 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import jdbc.connection.SQLProvider;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 public class Submit_Enquiry extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private String login_id; 
 	
+	PreparedStatement pst;
+	Connection conn;
+	Cover c;
+	//SQLProvider SQL;
+	
+	public void setLoginId (String login_id)
+	{
+		this.login_id = login_id; 
+	}
+	public String getLoginId ()
+	{
+		return this.login_id; 
+	}
 	/**
 	 * Create the frame.
 	 */
-	public Submit_Enquiry() {
+	public Submit_Enquiry(String login_id) {
+		
+		setLoginId(login_id);
+		
 		setTitle("Submit Enquiry");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 889, 593);
@@ -63,23 +86,6 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		lblStudentServicesEnquiry.setBounds(281, 10, 328, 45);
 		contentPane.add(lblStudentServicesEnquiry);
 		
-		JLabel lblName_1 = new JLabel("Name");
-		lblName_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1.setBounds(262, 65, 80, 43);
-		contentPane.add(lblName_1);
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblEmail.setBounds(262, 138, 80, 26);
-		contentPane.add(lblEmail);
-		
-		JLabel lblMobileNumber = new JLabel("Mobile number");
-		lblMobileNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMobileNumber.setBounds(203, 206, 139, 26);
-		contentPane.add(lblMobileNumber);
-		
 		JLabel lblComplaint = new JLabel("Complaint");
 		lblComplaint.setHorizontalAlignment(SwingConstants.CENTER);
 		lblComplaint.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -98,30 +104,6 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		lblFurtherDetails.setBounds(190, 387, 139, 26);
 		contentPane.add(lblFurtherDetails);
 		
-		JLabel lblEnquiryId = new JLabel("Enquiry ID");
-		lblEnquiryId.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEnquiryId.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-		lblEnquiryId.setBounds(101, 452, 144, 26);
-		contentPane.add(lblEnquiryId);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField.setColumns(10);
-		textField.setBounds(339, 65, 228, 50);
-		contentPane.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField_1.setColumns(10);
-		textField_1.setBounds(339, 130, 228, 50);
-		contentPane.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField_2.setColumns(10);
-		textField_2.setBounds(339, 190, 228, 50);
-		contentPane.add(textField_2);
-		
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_3.setColumns(10);
@@ -134,11 +116,6 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		textField_4.setBounds(339, 310, 228, 50);
 		contentPane.add(textField_4);
 		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField_5.setColumns(10);
-		textField_5.setBounds(58, 488, 228, 50);
-		contentPane.add(textField_5);
 		
 		JScrollPane pane = new JScrollPane();
 		pane.setBackground(Color.WHITE);
@@ -215,7 +192,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 				dispose();
 				Student_Dashboard p;
 				try {
-					p = new Student_Dashboard ();
+					p = new Student_Dashboard(getLoginId());
 					p.setVisible(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -227,11 +204,10 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		btnBack.setBounds(725, 511, 85, 21);
 		contentPane.add(btnBack);
 		
-		JRadioButton rdbtnUrgent = new JRadioButton("Urgent");
-		rdbtnUrgent.setIcon(new ImageIcon(Submit_Enquiry.class.getResource("/res/icons8-urgent-message-24.png")));
+		JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
 		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnUrgent.setBackground(Color.WHITE);
-		rdbtnUrgent.setBounds(320, 509, 105, 21);
+		rdbtnUrgent.setBounds(310, 509, 155, 21);
 		contentPane.add(rdbtnUrgent);
 		
 		JButton btnSubmit = new JButton("Submit");
@@ -245,10 +221,29 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e)
 		     {
-					// check for any blank fields
-				// if everything is ok then add to enquiry table in database
-				//let user know their enquiry was submitted successfully
-				//clear fields
+				
+				try {
+					Connection conn;
+					conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+					SQLProvider sql = new SQLProvider(conn);
+					boolean SubmitedEnquiry = sql.SubmitEnquiry(getLoginId(), textField_4.getText(), textField_3.getText(), textArea.getText());
+					
+					if (SubmitedEnquiry)
+					{
+						JOptionPane.showMessageDialog(null, "Enquiry Submitted !", "Status", JOptionPane.INFORMATION_MESSAGE);
+						Student_Dashboard p = new Student_Dashboard(getLoginId());
+						dispose(); 
+						p.setVisible(true);
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Enquiry NOT Submitted !", "Status", JOptionPane.INFORMATION_MESSAGE);
+					Student_Dashboard p = new Student_Dashboard(getLoginId());
+					dispose(); 
+					p.setVisible(true);
+				}
+				
             }
 		});
 		contentPane.add(btnSubmit);
@@ -260,7 +255,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			 Submit_Enquiry frame = new Submit_Enquiry();
+			 Submit_Enquiry frame = new Submit_Enquiry(getLoginId());
 			 frame.setVisible(true);
 		} catch (Exception D) {
 			D.printStackTrace();

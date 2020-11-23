@@ -42,15 +42,33 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 
 	protected static JTextArea TextArea_1;
 	private JPanel contentPane;
+	private JTextField textField;
+	
+	private String login_id; 
+	
 	PreparedStatement pst;
 	Connection conn;
 	Cover c;
-	private JTextField textField;
+	//SQLProvider SQL;
+	
+	
 	JTable table;
 	/**
 	 * Create the frame.
 	 */
-	public Student_Dashboard() {
+	
+	public void setLoginId (String login_id)
+	{
+		this.login_id = login_id; 
+	}
+	public String getLoginId ()
+	{
+		return this.login_id; 
+	}
+	public Student_Dashboard(String login_id) {
+		
+		setLoginId(login_id); 
+		
 		setTitle("DASHBOARD");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 929, 599);
@@ -80,7 +98,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea.setBounds(709, 308, 196, 45);
+		//textArea.setText(SQL.SelectStudentName(getLoginId()));
 		contentPane.add(textArea);
+		
 		
 		JLabel lblStudentId = new JLabel("Student ID");
 		lblStudentId.setHorizontalAlignment(SwingConstants.CENTER);
@@ -92,8 +112,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea_1.setEditable(false);
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
-		textArea_1.setText(c.getID());
-				
+		textArea_1.setText(getLoginId());
 		contentPane.add(textArea_1);
 		
 		JPanel panel = new JPanel();
@@ -141,8 +160,8 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton.setBorder(null);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				View_Enquiry v = new View_Enquiry(getLoginId());
 				dispose();
-				View_Enquiry v = new View_Enquiry();
 				View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it to the enquiry Id fiels in view_enquiry frame
 				v.setVisible(true);
 				
@@ -163,8 +182,8 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnEditEnquiry.setBounds(10, 0, 157, 54);
 		btnEditEnquiry.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Edit s = new Edit(getLoginId());
         		dispose();
-        		Edit s = new Edit();
         		Edit.textField_5.setText(textField.getText());
         		s.setVisible(true);
         	}
@@ -189,7 +208,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 				dispose();
 				Submit_Enquiry s;
 				try {
-					s = new Submit_Enquiry();
+					s = new Submit_Enquiry(getLoginId());
 					s.setVisible(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -216,7 +235,29 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// run database query to delete enquiry selected
+				try {
+				Connection conn;
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+				SQLProvider sql = new SQLProvider(conn);
+				
+				boolean DeletedEnquiry = sql.CancelStudentEnquiry(textField.getText()); 
+				
+				if (DeletedEnquiry)
+				{
+					JOptionPane.showMessageDialog(null, "Enquiry Deleted !", "Status", JOptionPane.INFORMATION_MESSAGE);
+					Student_Dashboard p = new Student_Dashboard(getLoginId());
+					dispose(); 
+					p.setVisible(true);
+				}
+				
+				} 
+				catch (SQLException e1)
+				{
+					JOptionPane.showMessageDialog(null, "Enquiry NOT Deleted !", "Status", JOptionPane.INFORMATION_MESSAGE);
+					Student_Dashboard p = new Student_Dashboard(getLoginId());
+					dispose(); 
+					p.setVisible(true);
+				}
 			}	
 		});	
 		
@@ -232,7 +273,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 				dispose();
 				Past_Responses s;
 				try {
-					s = new Past_Responses();
+					s = new Past_Responses(getLoginId());
 					Past_Responses.textField.setText(textField.getText());
 					s.setVisible(true);
 				} catch (Exception e1) {
@@ -313,10 +354,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	
 	public void show_enquiry(String id) throws SQLException
 	{
-		
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 		SQLProvider sql = new SQLProvider(conn);
-		ArrayList<Enquiry> List = sql.StudentEnquiryTable(id);
+		ArrayList<Enquiry> List = sql.StudentEnquiryTable(getLoginId());
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
 		Object[] row = new Object[3];
 		for (int i =0; i<List.size(); i++)
@@ -331,7 +371,8 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			Student_Dashboard frame = new Student_Dashboard();
+			Student_Dashboard frame = new Student_Dashboard(getLoginId());
+			TextArea_1.setText(getLoginId());
              frame.setVisible(true);
 		} catch (Exception D) {
 			D.printStackTrace();

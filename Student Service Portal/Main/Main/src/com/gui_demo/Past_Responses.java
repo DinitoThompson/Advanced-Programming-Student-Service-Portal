@@ -24,32 +24,27 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Past_Responses extends JFrame {
+public class Past_Responses extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	protected static JTextField textField;
 	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Past_Responses frame = new Past_Responses();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private String login_id; 
+	
+	public void setLoginId (String login_id)
+	{
+		this.login_id = login_id; 
+	}
+	public String getLoginId ()
+	{
+		return this.login_id; 
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Past_Responses() {
+	public Past_Responses(String login_id) {
+		setLoginId(login_id); 
 		setTitle("Past_Responses");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 897, 564);
@@ -88,7 +83,7 @@ public class Past_Responses extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		dispose();
-        		Student_Dashboard s = new Student_Dashboard();
+        		Student_Dashboard s = new Student_Dashboard(getLoginId());
         		s.setVisible(true);
         	}
         });
@@ -156,4 +151,15 @@ public class Past_Responses extends JFrame {
 		scrollPane.setViewportView(table);
 		repaint();
 	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+			try {
+				Past_Responses frame = new Past_Responses(getLoginId());
+				frame.setVisible(true);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+	}
+	
 }

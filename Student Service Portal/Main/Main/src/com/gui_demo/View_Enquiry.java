@@ -39,11 +39,24 @@ public class View_Enquiry extends JFrame implements ActionListener {
      static JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private String login_id; 
 	Student_Dashboard s;
 	/**
 	 * Create the frame.
 	 */
-	public View_Enquiry() {
+	public void setLoginId (String login_id)
+	{
+		this.login_id = login_id; 
+	}
+	public String getLoginId ()
+	{
+		return this.login_id; 
+	}
+
+	public View_Enquiry(String login_id) {
+		
+		setLoginId(login_id); 
+		
 		setTitle("View Enquiry");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 886, 585);
@@ -198,8 +211,8 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		btnEdit.setBounds(473, 508, 85, 21);
 		btnEdit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Edit s = new Edit(getLoginId ());
         		dispose();
-        		Edit s = new Edit();
         		Edit.textField_5.setText(textField_5.getText());
         		s.setVisible(true);
         	}
@@ -245,8 +258,8 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		btnBack.setBounds(718, 511, 85, 21);
 		btnBack.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Student_Dashboard s = new Student_Dashboard(getLoginId());
         		dispose();
-        		Student_Dashboard s = new Student_Dashboard();
         		s.setVisible(true);
         	}
         });
@@ -257,7 +270,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			View_Enquiry frame = new View_Enquiry();
+			View_Enquiry frame = new View_Enquiry(getLoginId());
 			frame.setVisible(true);
 		} catch (Exception f) {
 			f.printStackTrace();

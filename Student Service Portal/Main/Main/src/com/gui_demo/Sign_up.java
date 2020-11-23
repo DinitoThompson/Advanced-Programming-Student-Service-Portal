@@ -34,6 +34,7 @@ public class Sign_up extends JFrame implements ActionListener {
 	 */
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+    private JTextField id; 
     private JTextField firstname;
     private JTextField lastname;
     private JTextField email;
@@ -42,7 +43,7 @@ public class Sign_up extends JFrame implements ActionListener {
     private JButton btnNewButton;
     private JPasswordField passwordField_1;
    
-    int ID;
+    String ID; 
     String Fname;
 	String Lname;
 	String Email;
@@ -68,8 +69,13 @@ public class Sign_up extends JFrame implements ActionListener {
 
         JLabel lblNewUserRegister = new JLabel("Sign up Details");
         lblNewUserRegister.setFont(new Font("Times New Roman", Font.PLAIN, 42));
-        lblNewUserRegister.setBounds(261, 70, 325, 50);
+        lblNewUserRegister.setBounds(254, 50, 325, 50);
         contentPane.add(lblNewUserRegister);
+        
+        JLabel lblID = new JLabel("ID");
+        lblID.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+        lblID.setBounds(200, 104, 99, 43);
+        contentPane.add(lblID);
 
         JLabel lblName = new JLabel("First name");
         lblName.setFont(new Font("Times New Roman", Font.PLAIN, 22));
@@ -84,7 +90,13 @@ public class Sign_up extends JFrame implements ActionListener {
         JLabel lblEmailAddress = new JLabel("Email\r\n address");
         lblEmailAddress.setFont(new Font("Times New Roman", Font.PLAIN, 21));
         lblEmailAddress.setBounds(115, 330, 124, 36);
-        contentPane.add(lblEmailAddress);
+        contentPane.add(lblEmailAddress); 
+        
+        id = new JTextField();
+        id.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+        id.setBounds(267, 104, 228, 50);
+        contentPane.add(id);
+        id.setColumns(10);
 
         firstname = new JTextField();
         firstname.setFont(new Font("Times New Roman", Font.PLAIN, 13));
@@ -99,7 +111,6 @@ public class Sign_up extends JFrame implements ActionListener {
         lastname.setColumns(10);
 
         email = new JTextField();
-
         email.setFont(new Font("Times New Roman", Font.PLAIN, 13));
         email.setBounds(261, 319, 228, 50);
         contentPane.add(email);
@@ -154,7 +165,7 @@ public class Sign_up extends JFrame implements ActionListener {
         {
         	public void actionPerformed(java.awt.event.ActionEvent e) 
              { 
-        		ID = 1701438;
+        		ID = id.getText(); 
         		Fname = firstname.getText();
         		Lname = lastname.getText();
         		Email = email.getText();
@@ -162,10 +173,13 @@ public class Sign_up extends JFrame implements ActionListener {
         		password = passwordField.getText();
         		
                 // check for any blank fields
-                if(firstname.getText().length() == 0)
+        		if(id.getText().length() == 0)
                 {
-                	JOptionPane.showMessageDialog(lblName, "Missing First Name");
-                	
+                	JOptionPane.showMessageDialog(lblName, "Missing ID");	
+                }
+        		else if(firstname.getText().length() == 0)
+                {
+                	JOptionPane.showMessageDialog(lblName, "Missing First Name");	
                 }
                 else if(lastname.getText().length() ==0)
                 {
@@ -193,38 +207,40 @@ public class Sign_up extends JFrame implements ActionListener {
                 	Cover s;
 					try {	
 						//Connection dbConn = null;
-						System.out.println("connecting to Database ...." + "jdbc:mysql://localhost:3306/student_services_portal");
+						System.out.println("Connecting to Database ...." + "jdbc:mysql://localhost:3306/student_services_portal");
 						Class.forName("com.mysql.jdbc.Driver").newInstance();
 						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 						// connect to database
 						if(conn != null)
 						{
 							System.out.println("Connected Successfully!!!");
-							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
+							Sign_up sign = new Sign_up(ID, Fname,Lname,Email,Phone,password);
 							SQLProvider sql = new SQLProvider(conn);
-							boolean created = sql.insertStudentUser(sign);
-							boolean create = sql.insertStudentContact(sign);
-							if (created == true) {
+							boolean student_created = sql.insertStudentUser(sign);
+							boolean student_contact_created = sql.insertStudentContact(sign);
+							
+							if (student_created && student_contact_created) 
+							{
 								JOptionPane.showMessageDialog(null, 
-										"Contact record Created!!!!", 
-										"Contact Creation", JOptionPane.INFORMATION_MESSAGE);
-								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+										"Student Record Created !!", 
+										"Student Creation", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, Please Login...");
 							
 							s = new Cover();
 							s.setVisible(true);
 							}
-						} 
-						/*Sumn*/
-						 
+			
+						}  
 					   } catch (SQLException e1) {
 							JOptionPane.showMessageDialog(null, 
 									"Setting up Database and table", 
-									"DB Connection Status", JOptionPane.WARNING_MESSAGE);
+									"Database Connection Status", JOptionPane.WARNING_MESSAGE);
 							try 
 							{
 								dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","");
 								CreateDB db = new CreateDB(dbConn);
-								System.out.println("sucessful create");
+								System.out.println("Database Success");
+								
 								//Call method to create database & table
 								boolean dbIsCreated = db.createDataBaseAndTable();
 								if (dbIsCreated == true) 
@@ -233,21 +249,26 @@ public class Sign_up extends JFrame implements ActionListener {
 											"Connected to Database", 
 											"DB Connection Status", JOptionPane.INFORMATION_MESSAGE);
 								}
-								Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
+								Sign_up sign = new Sign_up(ID, Fname,Lname,Email,Phone,password);
 								SQLProvider sql = new SQLProvider(dbConn);
-								boolean created = sql.insertStudentUser(sign);
-								boolean create = sql.insertStudentContact(sign);
-								if (created == true) { //If database created successfully
-									JOptionPane.showMessageDialog(null, 
-											"Contact record Created!!!!", 
-											"Contact Creation", JOptionPane.INFORMATION_MESSAGE);
-									JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
 
+								boolean student_created = sql.insertStudentUser(sign);
+								boolean student_contact_created = sql.insertStudentContact(sign);
+								
+								if (student_created && student_contact_created) 
+								{
+									JOptionPane.showMessageDialog(null, 
+											"Student Record Created !!", 
+											"Student Creation", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, Please Login...");
+								
 								s = new Cover();
 								s.setVisible(true);
-								}	
-						      }catch (SQLException e11) {
-								System.out.println("HELP: " + e11.getMessage());
+								}
+								
+						      }
+							catch (SQLException e11) {
+								System.out.println("Error: " + e11.getMessage());
 							  }catch(RuntimeException o) {
 							    System.out.println("Database doesn't exist");
 							  }catch (IOException e2) {
@@ -269,8 +290,8 @@ public class Sign_up extends JFrame implements ActionListener {
 							e1.printStackTrace();
 						}
 						
-					
-                }else if(rdbtnStaff.isSelected())
+                }
+                else if(rdbtnStaff.isSelected())
                 {
                 	dispose();
                 	Cover s;
@@ -282,16 +303,18 @@ public class Sign_up extends JFrame implements ActionListener {
 						if(conn != null)
 						{
 							System.out.println("Connected Successfully!!!");
-							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
+							Sign_up sign = new Sign_up(ID, Fname,Lname,Email,Phone,password);
 							SQLProvider sql = new SQLProvider(conn);
-							boolean created = sql.insertStaffUser(sign);
-							boolean create = sql.insertStaffContact(sign);
+							
+							boolean staff_created = sql.insertStaffUser(sign);
+							boolean staff_contact_created = sql.insertStaffContact(sign);
 
-							if (created == true) {
+							if (staff_created && staff_contact_created) 
+							{
 								JOptionPane.showMessageDialog(null, 
-										"Contact record Created!!!!", 
-										"Contact Creation", JOptionPane.INFORMATION_MESSAGE);
-								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+										"Staff Record Created !!", 
+										"Staff Creation", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, Please Login...");
 
 							s = new Cover();
 							s.setVisible(true);
@@ -303,8 +326,8 @@ public class Sign_up extends JFrame implements ActionListener {
 				   	}catch(SQLException e1)
 						{
 				   		   JOptionPane.showMessageDialog(null, 
-								"Setting up Database and table", 
-								"DB Connection Status", JOptionPane.WARNING_MESSAGE);
+								"Setting Up Database And Table", 
+								"DataBase Connection Status", JOptionPane.WARNING_MESSAGE);
 				   		try 
 						{
 							dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","");
@@ -318,20 +341,23 @@ public class Sign_up extends JFrame implements ActionListener {
 										"Connected to Database", 
 										"DB Connection Status", JOptionPane.INFORMATION_MESSAGE);
 							}
-							Sign_up sign = new Sign_up(Fname,Lname,Email,Phone,password);
+							Sign_up sign = new Sign_up(ID, Fname,Lname,Email,Phone,password);
 							SQLProvider sql = new SQLProvider(dbConn);
-							boolean created = sql.insertStaffUser(sign);
-							boolean create = sql.insertStaffContact(sign);
 
-							if (created == true) { //If database created successfully
+							boolean staff_created = sql.insertStaffUser(sign);
+							boolean staff_contact_created = sql.insertStaffContact(sign);
+
+							if (staff_created && staff_contact_created) 
+							{
 								JOptionPane.showMessageDialog(null, 
-										"Contact record Created!!!!", 
-										"Contact Creation", JOptionPane.INFORMATION_MESSAGE);
-								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, You'll be redirected to Login");
+										"Staff Record Created !!", 
+										"Staff Creation", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, Please Login...");
 
 							s = new Cover();
 							s.setVisible(true);
-							}	
+							}
+							
 					      }catch (SQLException e11) {
 							System.out.println("HELP: " + e11.getMessage());
 						  } catch (IOException e2) {
@@ -406,14 +432,12 @@ public class Sign_up extends JFrame implements ActionListener {
         contentPane.add(lblNewLabel_1);
  }
 	
-	public int getID() {
+	public String getID() {
 		return ID;
 	}
-
-	public void setID(int iD) {
-		ID = iD;
+	public void setID(String id ){
+		ID = id;
 	}
-
 	public String getFname() {
 		return Fname;
 	}
@@ -446,8 +470,9 @@ public class Sign_up extends JFrame implements ActionListener {
 			this.password = password;
 		}
 	
-     public Sign_up(String fname, String lname, String email, String phone, String pass) throws HeadlessException {
+     public Sign_up(String id, String fname, String lname, String email, String phone, String pass) throws HeadlessException {
 		super();
+		ID = id; 
 		Fname = fname;
 		Lname = lname;
 		Email = email;

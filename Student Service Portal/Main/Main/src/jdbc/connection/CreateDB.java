@@ -20,7 +20,7 @@ private Connection dbConn = null;
 
 		String StudentTable = 
 		"CREATE TABLE student ( \r\n" + 
-		"		student_id INT(7) NOT NULL AUTO_INCREMENT, \r\n" + 
+		"		student_id INT NOT NULL, \r\n" + 
 		"		student_first_name VARCHAR(20), \r\n" + 
 		"		student_last_name VARCHAR(20), \r\n" + 
 		"		student_email VARCHAR(30), \r\n" + 
@@ -30,7 +30,7 @@ private Connection dbConn = null;
 		String StudentContactTable = 
 		"CREATE TABLE student_contact \r\n" + 
 		"		(\r\n" + 
-		"		student_id INT, \r\n" + 
+		"		student_id INT NOT NULL, \r\n" + 
 		"		student_contact_number VARCHAR(20), \r\n" + 
 		"		FOREIGN KEY (student_id)\r\n" + 
 		"		REFERENCES student (student_id),\r\n" + 
@@ -51,7 +51,7 @@ private Connection dbConn = null;
 		
 		String EnquiryResponseTable = 
 		"CREATE TABLE enquiry_response ( \r\n" + 
-		"		enquiry_id INT, \r\n" + 
+		"		enquiry_id INT(7) NOT NULL, \r\n" + 
 		"		enquiry_response VARCHAR(50), \r\n" + 
 		"		enquiry_response_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, \r\n" + 
 		"		FOREIGN KEY (enquiry_id)\r\n" + 
@@ -60,7 +60,7 @@ private Connection dbConn = null;
 
 		String StaffTable = 
 		"CREATE TABLE staff ( \r\n" + 
-		"		staff_id INT(7) AUTO_INCREMENT,\r\n" + 
+		"		staff_id INT(7),\r\n" + 
 		"		staff_first_name VARCHAR(20), \r\n" + 
 		"		staff_last_name VARCHAR(20), \r\n" + 
 		"		staff_email VARCHAR(30),  \r\n" + 
@@ -69,7 +69,7 @@ private Connection dbConn = null;
 
 		String StaffContactTable = 
 		"CREATE TABLE staff_contact ( \r\n" + 
-		"		staff_id INT, \r\n" + 
+		"		staff_id INT(7), \r\n" + 
 		"		staff_contact_number VARCHAR(20), \r\n" + 
 		"		FOREIGN KEY (staff_id)\r\n" + 
 		"		REFERENCES Staff (staff_id),\r\n" + 
@@ -77,8 +77,8 @@ private Connection dbConn = null;
 		
 		String StaffRespond = 
 		"CREATE TABLE respond ( \r\n" + 
-		"		enquiry_id INT(7),\r\n" + 
-		"		staff_id INT(7), \r\n" + 
+		"		enquiry_id INT,\r\n" + 
+		"		staff_id INT, \r\n" + 
 		"		respond_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n" + 
 		"		FOREIGN KEY (enquiry_id)\r\n" + 
 		"		REFERENCES Enquiry(enquiry_id), \r\n" + 
