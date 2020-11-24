@@ -17,21 +17,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.jdbc.Connection;
+
+import jdbc.connection.SQLProvider;
+
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 
 public class View_Enquiry extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private static JTextArea textArea;
@@ -77,22 +82,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		lblSubmittedEnquiries.setBounds(338, 10, 209, 45);
 		contentPane.add(lblSubmittedEnquiries);
 		
-		JLabel lblName_1 = new JLabel("Name");
-		lblName_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1.setBounds(249, 87, 80, 43);
-		contentPane.add(lblName_1);
-		
-		JLabel lblMobileNumber = new JLabel("Mobile number");
-		lblMobileNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMobileNumber.setBounds(190, 210, 139, 26);
-		contentPane.add(lblMobileNumber);
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblEmail.setBounds(249, 156, 80, 26);
-		contentPane.add(lblEmail);
+	
 		
 		JLabel lblComplaint = new JLabel("Complaint");
 		lblComplaint.setHorizontalAlignment(SwingConstants.CENTER);
@@ -111,27 +101,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		lblFurtherDetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblFurtherDetails.setBounds(190, 394, 139, 26);
 		contentPane.add(lblFurtherDetails);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField.setColumns(10);
-		textField.setBounds(330, 79, 228, 50);
-		textField.setEditable(false);
-		contentPane.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField_1.setColumns(10);
-		textField_1.setBounds(330, 140, 228, 50);
-		textField_1.setEditable(false);
-		contentPane.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		textField_2.setColumns(10);
-		textField_2.setBounds(330, 200, 228, 50);
-		textField_2.setEditable(false);
-		contentPane.add(textField_2);
+	
 		
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
@@ -266,11 +236,23 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(btnBack);
 		repaint();
 	}
-
+    
+	public void show_Enquiry(String E_id) throws SQLException
+	{
+		java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ResultSet res = sql.ViewStudentEnquiry(textField_5.getText());
+	    textField_3.replaceSelection(res.getString(4));
+	    textField_4.replaceSelection(res.getString(3));
+	    textArea.append(res.getString(5));
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
 			View_Enquiry frame = new View_Enquiry(getLoginId());
+			show_Enquiry(textField_5.getText());
 			frame.setVisible(true);
 		} catch (Exception f) {
 			f.printStackTrace();

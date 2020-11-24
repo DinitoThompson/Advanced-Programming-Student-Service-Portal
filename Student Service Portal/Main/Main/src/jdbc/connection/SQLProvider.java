@@ -113,9 +113,9 @@ public class SQLProvider
 
 	// ============= SQL FUNCTIONS ===============
 
-	public ResultSet ViewStudentEnquiry(int s_id, int e_id) //SELECTS THE ENQUIRY FOR A STUDENT
+	public ResultSet ViewStudentEnquiry(String e_id) //SELECTS THE ENQUIRY FOR A STUDENT
 	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id + "&& student_id = " + s_id;
+		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			result = stmt.executeQuery(selectSQL);

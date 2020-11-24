@@ -37,7 +37,7 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
 
 	
     String username, address = "localhost";
-    ArrayList<String> users = new ArrayList();
+    ArrayList<String> users = new ArrayList<String>();
     int port = 2222;
     Boolean isConnected = false;
     

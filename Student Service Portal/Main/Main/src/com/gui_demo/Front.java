@@ -33,6 +33,7 @@ public class Front extends JFrame implements ActionListener {
 	/**
 	 * Launch the application, Main class
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
