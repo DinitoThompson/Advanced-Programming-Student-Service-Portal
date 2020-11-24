@@ -16,6 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import client_Chat.Client_Chat;
+
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -200,6 +203,15 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		btnJoinSession.setBorder(null);
 		btnJoinSession.setBackground(new Color(25, 25, 112));
 		btnJoinSession.setBounds(31, 668, 122, 30);
+		btnJoinSession.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					Client_Chat c = new Client_Chat();
+					c.setVisible(true);
+			    
+			}
+		});
 		contentPane.add(btnJoinSession);
 		
 		JButton btnOpenEnquiry = new JButton("Open Enquiry");

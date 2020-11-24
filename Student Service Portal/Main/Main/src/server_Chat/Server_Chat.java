@@ -11,6 +11,8 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 
+import client_Chat.Client_Chat;
+
 public class Server_Chat extends javax.swing.JFrame {
 
 	private JPanel contentPane;
@@ -98,6 +100,7 @@ public class Server_Chat extends javax.swing.JFrame {
 
      public Server_Chat() 
      {
+    	 setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/images/utech.jpg")));
          initComponents();
      }
 
