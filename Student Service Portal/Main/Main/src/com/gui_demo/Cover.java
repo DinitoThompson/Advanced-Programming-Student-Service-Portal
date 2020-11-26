@@ -38,9 +38,11 @@ import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextPane;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.Point;
 import javax.swing.border.MatteBorder;
 
+import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
 public class Cover extends JFrame implements ActionListener {
@@ -65,6 +67,7 @@ public class Cover extends JFrame implements ActionListener {
 	public Cover() throws IOException {
 		setUndecorated(true);
 		setTitle("LOGIN");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 445);
 		contentPane = new JPanel();

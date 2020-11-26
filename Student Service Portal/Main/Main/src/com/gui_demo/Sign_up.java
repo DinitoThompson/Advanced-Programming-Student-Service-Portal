@@ -3,6 +3,7 @@ package com.gui_demo;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import client_Chat.Client_Chat;
 import jdbc.connection.CreateDB;
 import jdbc.connection.SQLProvider;
 
@@ -57,7 +59,9 @@ public class Sign_up extends JFrame implements ActionListener {
     
     public Sign_up()
     {
+    	setResizable(false);
     	setTitle("Sign up");
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(450, 190, 819, 776);
         setResizable(false);

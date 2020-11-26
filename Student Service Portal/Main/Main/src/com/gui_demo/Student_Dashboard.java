@@ -14,6 +14,8 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -21,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Statement;
 
+import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
 import javax.swing.JButton;
@@ -68,8 +71,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	public Student_Dashboard(String login_id) {
 		
 		setLoginId(login_id); 
-		
+		setResizable(false);
 		setTitle("DASHBOARD");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 929, 599);
 		contentPane = new JPanel();
@@ -97,6 +101,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textArea.setBounds(709, 308, 196, 45);
 		try {
 			java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
@@ -118,6 +123,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		
 		JTextArea textArea_1 = new JTextArea();
 		textArea_1.setEditable(false);
+		textArea_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea_1.setBounds(709, 400, 196, 45);
 		textArea_1.setText(getLoginId());
@@ -169,20 +175,21 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					dispose();
-					View_Enquiry v = new View_Enquiry(getLoginId(), textField.getText());
-					View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it to the enquiry Id fiels in view_enquiry frame
-					System.out.println(""+textField.getText());
-					
-					v.setVisible(true);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
-				
-			}
+					if(textField.getText().isEmpty())
+					{
+							JOptionPane.showMessageDialog(null, "Please select an Equiry to view","View Enquiry",JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						dispose();
+						View_Enquiry v = new View_Enquiry(getLoginId(), textField.getText());
+						View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it to the enquiry Id fiels in view_enquiry frame
+						System.out.println(""+textField.getText());
+						v.setVisible(true);
+					  } 
+					}catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			 }		
 		});
 		
 		JPanel panel_2 = new JPanel();
@@ -201,14 +208,21 @@ public class Student_Dashboard extends JFrame implements ActionListener {
         	public void actionPerformed(ActionEvent e) {
         		Edit s;
 				try {
-					s = new Edit(getLoginId(), textField.getText());
-					s.setVisible(true);
+					if(textField.getText().isEmpty())
+					{
+							JOptionPane.showMessageDialog(null, "Please select an Equiry to edit","Edit Enquiry",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						s = new Edit(getLoginId(), textField.getText());
+						s.setVisible(true);
+						dispose();
+		        		Edit.textField_5.setText(textField.getText());
+					}
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-        		dispose();
-        		Edit.textField_5.setText(textField.getText());
         		
         	}
         });
@@ -260,20 +274,25 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e)
 			{
 				try {
-				Connection conn;
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
-				SQLProvider sql = new SQLProvider(conn);
-				
-				boolean DeletedEnquiry = sql.CancelStudentEnquiry(textField.getText()); 
-				
-				if (DeletedEnquiry)
-				{
-					JOptionPane.showMessageDialog(null, "Enquiry Deleted !", "Status", JOptionPane.INFORMATION_MESSAGE);
-					Student_Dashboard p = new Student_Dashboard(getLoginId());
-					dispose(); 
-					p.setVisible(true);
-				}
-				
+					if(textField.getText().isEmpty())
+					{
+							JOptionPane.showMessageDialog(null, "Please select an Equiry to cancel","Cancel Enquiry",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						Connection conn;
+						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+						SQLProvider sql = new SQLProvider(conn);
+						
+						boolean DeletedEnquiry = sql.CancelStudentEnquiry(textField.getText()); 
+						
+						if (DeletedEnquiry)
+						{
+							JOptionPane.showMessageDialog(null, "Enquiry Deleted !", "Status", JOptionPane.INFORMATION_MESSAGE);
+							Student_Dashboard p = new Student_Dashboard(getLoginId());
+							dispose(); 
+							p.setVisible(true);
+						}
+					}
 				} 
 				catch (SQLException e1)
 				{
@@ -285,7 +304,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			}	
 		});	
 		
-		JButton btnViewResonses = new JButton("View resonses");
+		JButton btnViewResonses = new JButton("View responses");
 		btnViewResonses.setForeground(Color.WHITE);
 		btnViewResonses.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnViewResonses.setBorder(null);
@@ -294,12 +313,20 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(btnViewResonses);
 		btnViewResonses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				Past_Responses s;
+				
 				try {
-					s = new Past_Responses(getLoginId());
-					Past_Responses.textField.setText(textField.getText());
-					s.setVisible(true);
+					if(textField.getText().isEmpty())
+					{
+							JOptionPane.showMessageDialog(null, "Please select an Equiry to view response","View Response",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						dispose();
+						Past_Responses s;
+						s = new Past_Responses(getLoginId());
+						Past_Responses.textField.setText(textField.getText());
+						s.setVisible(true);
+					}
+					
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -310,6 +337,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		
 		textField = new JTextField();
 		textField.setBorder(new LineBorder(Color.BLACK, 1, true));
+		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField.setBounds(10, 296, 167, 39);
 		contentPane.add(textField);
 		textField.setEditable(false);

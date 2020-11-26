@@ -3,6 +3,7 @@ package com.gui_demo;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,6 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import client_Chat.Client_Chat;
 
 public class Past_Responses extends JFrame implements ActionListener {
 
@@ -45,7 +48,9 @@ public class Past_Responses extends JFrame implements ActionListener {
 	 */
 	public Past_Responses(String login_id) {
 		setLoginId(login_id); 
+		setResizable(false);
 		setTitle("Past_Responses");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 897, 564);
 		contentPane = new JPanel();
@@ -116,7 +121,7 @@ public class Past_Responses extends JFrame implements ActionListener {
 		contentPane.add(lblEnquiryId);
 		
 		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField.setEditable(false);
 		textField.setColumns(10);
 		textField.setBounds(0, 462, 208, 50);

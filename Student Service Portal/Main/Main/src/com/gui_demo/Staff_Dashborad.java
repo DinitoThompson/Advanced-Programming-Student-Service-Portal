@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -39,7 +41,9 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Staff_Dashborad() {
+		setResizable(false);
 		setTitle("Staff Dashboard");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 837, 775);
 		contentPane = new JPanel();
@@ -67,14 +71,14 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		
 		textField = new JTextField();
 		textField.setEnabled(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField.setColumns(10);
 		textField.setBounds(583, 383, 228, 50);
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
 		textField_1.setEnabled(false);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_1.setColumns(10);
 		textField_1.setBounds(585, 487, 228, 50);
 		contentPane.add(textField_1);
@@ -186,13 +190,13 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		contentPane.add(lblName_1_1_2_1);
 		
 		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_2.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_2.setColumns(10);
 		textField_2.setBounds(10, 608, 165, 50);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_3.setColumns(10);
 		textField_3.setBounds(10, 187, 165, 50);
 		contentPane.add(textField_3);

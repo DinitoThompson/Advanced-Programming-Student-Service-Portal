@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -21,6 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import client_Chat.Client_Chat;
+
 import javax.swing.ScrollPaneConstants;
 
 public class Enquiry_Response extends JFrame {
@@ -39,7 +43,9 @@ public class Enquiry_Response extends JFrame {
 	 */
 	public Enquiry_Response() 
 	{
+		setResizable(false);
 		setTitle("Student Enquiries");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 886, 585);
 		contentPane = new JPanel();
@@ -96,35 +102,35 @@ public class Enquiry_Response extends JFrame {
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField.setColumns(10);
 		textField.setBounds(330, 79, 228, 50);
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_1.setColumns(10);
 		textField_1.setBounds(330, 140, 228, 50);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_2.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_2.setColumns(10);
 		textField_2.setBounds(330, 200, 228, 50);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_3.setColumns(10);
 		textField_3.setBounds(330, 260, 228, 50);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_4.setColumns(10);
 		textField_4.setBounds(330, 320, 228, 50);
 		contentPane.add(textField_4);
@@ -172,7 +178,7 @@ public class Enquiry_Response extends JFrame {
 		contentPane.add(lblEnquiryId);
 		
 		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_5.setColumns(10);
 		textField_5.setBounds(27, 488, 228, 50);
 		contentPane.add(textField_5);

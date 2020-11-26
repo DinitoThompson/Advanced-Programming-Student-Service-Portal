@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -29,6 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
 public class Edit extends JFrame implements ActionListener{
@@ -68,8 +70,9 @@ public class Edit extends JFrame implements ActionListener{
 	{
 		setLoginId(login_id); 
 		setEnquiry_id(enquiry_id);  
-		
+		setResizable(false);
 	setTitle("Edit Enquiry");
+	setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setBounds(100, 100, 886, 585);
 	contentPane = new JPanel();
@@ -161,7 +164,7 @@ public class Edit extends JFrame implements ActionListener{
 	contentPane.add(lblEnquiryId);
 	
 	textField_5 = new JTextField();
-	textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_5.setEditable(false);
 	textField_5.setColumns(10);
 	textField_5.setBounds(27, 488, 228, 50);
@@ -221,7 +224,7 @@ public class Edit extends JFrame implements ActionListener{
 	
 	textField_6 = new JTextField();
 	textField_6.setEditable(false);
-	textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_6.setColumns(10);
 	textField_6.setBounds(634, 320, 228, 50);
 	try {
@@ -243,7 +246,7 @@ public class Edit extends JFrame implements ActionListener{
 	
 	textField_7 = new JTextField();
 	textField_7.setEditable(false);
-	textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_7.setColumns(10);
 	textField_7.setBounds(632, 417, 228, 50);
 	System.out.println(""+getLoginId());

@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -29,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Connection;
 
+import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
 import javax.swing.JRadioButton;
@@ -62,8 +64,9 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		
 		setLoginId(login_id); 
 		setEnquiry_id(enquiry_id); 
-		
+		setResizable(false);
 		setTitle("View Enquiry");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 886, 585);
 		contentPane = new JPanel();
@@ -105,14 +108,14 @@ public class View_Enquiry extends JFrame implements ActionListener {
 	
 		
 		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_3.setColumns(10);
 		textField_3.setBounds(330, 260, 228, 50);
 		contentPane.add(textField_3);
 		textField_3.setEditable(false);
 		
 		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_4.setColumns(10);
 		textField_4.setBounds(330, 320, 228, 50);
 		contentPane.add(textField_4);
@@ -161,7 +164,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblEnquiryId);
 		
 		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_5.setColumns(10);
 		textField_5.setBounds(27, 488, 228, 50);
 		textField_5.setEditable(false);
@@ -210,7 +213,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_6.setColumns(10);
 		textField_6.setBounds(634, 320, 228, 50);
 		try {
@@ -232,7 +235,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
-		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_7.setColumns(10);
 		textField_7.setBounds(632, 417, 228, 50);
 		contentPane.add(textField_7);

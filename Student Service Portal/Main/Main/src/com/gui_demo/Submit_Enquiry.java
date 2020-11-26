@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -68,8 +69,9 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 	public Submit_Enquiry(String login_id) {
 		
 		setLoginId(login_id);
-		
+		setResizable(false);
 		setTitle("Submit Enquiry");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 889, 593);
 		contentPane = new JPanel();
@@ -108,13 +110,13 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblFurtherDetails);
 		
 		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_3.setColumns(10);
 		textField_3.setBounds(339, 250, 228, 50);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_4.setColumns(10);
 		textField_4.setBounds(339, 310, 228, 50);
 		contentPane.add(textField_4);
@@ -156,20 +158,20 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Submit_Enquiry.class.getResource("/res/utech.jpg")));
-		lblNewLabel.setBounds(619, 39, 230, 214);
+		lblNewLabel.setBounds(617, 20, 230, 214);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblName_1_1 = new JLabel("Student Name");
 		lblName_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1_1.setBounds(655, 291, 155, 43);
+		lblName_1_1.setBounds(655, 250, 155, 43);
 		contentPane.add(lblName_1_1);
 		
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_6.setColumns(10);
-		textField_6.setBounds(619, 322, 228, 50);
+		textField_6.setBounds(617, 310, 228, 50);
 		try {
 			java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 			SQLProvider sql = new SQLProvider(conn);
@@ -184,14 +186,14 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		JLabel lblName_1_1_1 = new JLabel("Student ID");
 		lblName_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1_1_1.setBounds(655, 382, 155, 43);
+		lblName_1_1_1.setBounds(655, 359, 155, 43);
 		contentPane.add(lblName_1_1_1);
 		
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
-		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_7.setColumns(10);
-		textField_7.setBounds(621, 412, 228, 50);
+		textField_7.setBounds(619, 404, 228, 50);
 		textField_7.setText(getLoginId());
 		contentPane.add(textField_7);
 	

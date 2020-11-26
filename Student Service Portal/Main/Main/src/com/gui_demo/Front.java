@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -25,6 +26,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.MatteBorder;
+
+import client_Chat.Client_Chat;
 
 public class Front extends JFrame implements ActionListener {
 
@@ -52,8 +55,9 @@ public class Front extends JFrame implements ActionListener {
 	 * @throws IOException 
 	 */
 	public Front() throws IOException {
-		
+		setResizable(false);
 		setTitle("Utech JA");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 		setBounds(new Rectangle(100, 100, 800, 500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 860, 469);
