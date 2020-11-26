@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gui_demo.*;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,6 +16,7 @@ public class SQLProvider
 	private Statement stmt = null;
 	private ResultSet result = null;
 	private PreparedStatement prepStmt = null;
+	
 	private int numOfAffectedRows = 0;
 	private Sign_up s;
 	private Submit_Enquiry sign;
@@ -115,13 +117,17 @@ public class SQLProvider
 
 	public ResultSet ViewStudentEnquiry(String e_id) //SELECTS THE ENQUIRY FOR A STUDENT
 	{
-		String selectSQL = "SELECT * FROM Enquiry WHERE enquiry_id = " + e_id;
+		System.out.println("Message: " +e_id);
+		String selectSQL = "SELECT * FROM student_services_portal.enquiry WHERE enquiry_id = " +e_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			result = stmt.executeQuery(selectSQL);
+			result.next(); 
+			System.out.println("Message: " +result.getString(1));
 		}catch(SQLException e) {
-			System.out.println("Error getting data ....." + e.getMessage());
+			System.out.println("Error getting data: " + e.getMessage());
 		}
+		
 		return result;
 	}
 	
@@ -189,6 +195,23 @@ public class SQLProvider
 		 		return false;
 	} */
 
+	public boolean UpdateEnquiry (String enquiry_id, String enquiry_complaint, String enquiry_nature, String enquiry_detail)
+	{
+		String updateSQL = ""
+				+ "UPDATE student_services_portal.enquiry "
+				+ "SET enquiry_complaint = '"+enquiry_complaint+"', enquiry_nature = '"+enquiry_nature+"', enquiry_detail = '"+enquiry_detail+"'"
+				+ "WHERE enquiry_id = '"+enquiry_id+"';"; 
+		try
+		{
+			stmt = (Statement) dbConn.createStatement(); 
+			numOfAffectedRows = stmt.executeUpdate(updateSQL);
+		} catch (SQLException e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Enquiry Status", JOptionPane.INFORMATION_MESSAGE);  
+		}
+		return (numOfAffectedRows == 1); 
+	}
+	
 	public boolean CancelStudentEnquiry(String enquiry_id) // RUNS DELETE BASED OFF STUDENT (TO BE CHECKED)
 	{
 		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
@@ -240,7 +263,7 @@ public class SQLProvider
 				 enq = new Enquiry(result.getInt(2),result.getString(7),result.getString(3));
 				 //s.setID(result.getInt(1));
 			     EnquiryList.add(enq);
-		 }	
+		     }	
 			 
 		  }catch(Exception e)
 			{
@@ -277,7 +300,7 @@ public class SQLProvider
 	{
 		try{
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
-			prepStmt = conn.prepareStatement("SELECT * FROM `enquiry` WHERE enquiry_id = 26 "); 
+			prepStmt = conn.prepareStatement("SELECT * FROM `enquiry` WHERE enquiry_id = " +enquiry_id); 
 			ResultSet result = null; 
 			result = prepStmt.executeQuery();
 		}catch(SQLException e){
@@ -289,18 +312,18 @@ public class SQLProvider
 
 public String SelectStudentName (String student_id)
 {
-	String selectNameSQL = "SELECT student_first_name, student_last_name From student WHERE student_id = " + student_id; 
-	String studentName = ""; 
+	String selectNameSQL = "SELECT student_first_name, student_last_name From student_services_portal.student WHERE student_id = " + student_id; 
 	try {
-		stmt = (Statement) dbConn.createStatement();
+		stmt = (Statement) dbConn.createStatement(); 
 		result = stmt.executeQuery(selectNameSQL); 
-		//studentName = result.getString(2) + result.getString(3); 
+		result.next();
+		String student_name = "" +result.getString("student_first_name")+ " " +result.getString("student_last_name")+ ""; 
+		return student_name;
 	} catch (SQLException e)
 	{
 		System.out.println("Error Updating: " + e.getMessage());
 	}
-	
-	return studentName; 
+	return null; 
  }
 
 }

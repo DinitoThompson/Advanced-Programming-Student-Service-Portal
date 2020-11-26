@@ -49,7 +49,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	PreparedStatement pst;
 	Connection conn;
 	Cover c;
-	//SQLProvider SQL;
+	SQLProvider SQL;
 	
 	
 	JTable table;
@@ -98,7 +98,15 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textArea.setBounds(709, 308, 196, 45);
-		//textArea.setText(SQL.SelectStudentName(getLoginId()));
+		try {
+			java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			SQLProvider sql = new SQLProvider(conn);
+			textArea.setText(sql.SelectStudentName(getLoginId()));
+		}
+		catch (SQLException e)
+		{
+			e.getMessage(); 
+		}
 		contentPane.add(textArea);
 		
 		
@@ -160,10 +168,19 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnNewButton.setBorder(null);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				View_Enquiry v = new View_Enquiry(getLoginId());
-				dispose();
-				View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it to the enquiry Id fiels in view_enquiry frame
-				v.setVisible(true);
+				try {
+					dispose();
+					View_Enquiry v = new View_Enquiry(getLoginId(), textField.getText());
+					View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it to the enquiry Id fiels in view_enquiry frame
+					System.out.println(""+textField.getText());
+					
+					v.setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
 				
 			}
 		});
@@ -182,10 +199,17 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		btnEditEnquiry.setBounds(10, 0, 157, 54);
 		btnEditEnquiry.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Edit s = new Edit(getLoginId());
+        		Edit s;
+				try {
+					s = new Edit(getLoginId(), textField.getText());
+					s.setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		dispose();
         		Edit.textField_5.setText(textField.getText());
-        		s.setVisible(true);
+        		
         	}
         });
 		panel_2.add(btnEditEnquiry);
@@ -317,7 +341,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 				return columnTypes[columnIndex];
 			}
 			boolean[] columnEditables = new boolean[] {
-				false, true, true
+				false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -350,7 +374,6 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblAllEnquiries);
 	
 	}
-	
 	
 	public void show_enquiry(String id) throws SQLException
 	{

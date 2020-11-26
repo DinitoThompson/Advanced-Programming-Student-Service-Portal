@@ -43,6 +43,14 @@ public class Edit extends JFrame implements ActionListener{
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private String login_id; 
+	private String enquiry_id;
+	
+	public String getEnquiry_id() {
+		return enquiry_id;
+	}
+	public void setEnquiry_id(String enquiry_id) {
+		this.enquiry_id = enquiry_id;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -56,10 +64,10 @@ public class Edit extends JFrame implements ActionListener{
 		return this.login_id; 
 	}
 	
-	public Edit(String login_id) 
+	public Edit(String login_id, String enquiry_id) throws SQLException 
 	{
-		
-	setLoginId(login_id); 
+		setLoginId(login_id); 
+		setEnquiry_id(enquiry_id);  
 		
 	setTitle("Edit Enquiry");
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,7 +83,7 @@ public class Edit extends JFrame implements ActionListener{
 	label.setBounds(0, 0, 209, 200);
 	contentPane.add(label);
 	
-	JLabel lblSubmittedEnquiries = new JLabel("Submitted Enquiries");
+	JLabel lblSubmittedEnquiries = new JLabel("Edit Enquiry");
 	lblSubmittedEnquiries.setHorizontalAlignment(SwingConstants.CENTER);
 	lblSubmittedEnquiries.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	lblSubmittedEnquiries.setBounds(349, 10, 209, 45);
@@ -167,24 +175,37 @@ public class Edit extends JFrame implements ActionListener{
 	contentPane.add(rdbtnUrgent);
 	
 	JButton btnEdit = new JButton("Confirm");
-	btnEdit.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		}
-	});
 	btnEdit.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	btnEdit.setBackground(new Color(25, 25, 112));
 	btnEdit.setBorder(null);
 	btnEdit.setForeground(Color.WHITE);
 	btnEdit.setBounds(447, 511, 85, 21);
-	btnEdit.addActionListener(new ActionListener()
-	{
-		public void actionPerformed(ActionEvent e)
-		{
-			// CAPTURE THE INFO AND RUN UPDATE QUERY
-			// notify user data was updated successfully using JOptionPane.showmessagedialog.
+	btnEdit.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			Student_Dashboard v; 
+			try {
+				System.out.println("Out Here");
+				java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+				SQLProvider sql = new SQLProvider(conn); 
+				boolean UpdatedQuery = sql.UpdateEnquiry(getEnquiry_id(), textField_3.getText(), textField_4.getText(), textArea.getText());
+				if (UpdatedQuery)
+				{
+					JOptionPane.showMessageDialog(null, "Enquiry Updated Sucess...", "Enquiry Status", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Enquiry Updated Fail...", "Enquiry Status", JOptionPane.INFORMATION_MESSAGE);
+				}
+				v = new Student_Dashboard (getLoginId());
+				System.out.println("Pheee"); 
+				dispose(); 
+				v.setVisible(true);
+			}
+			catch (Exception e1)
+			{
+				e1.getMessage(); 
+			}
 		}
-		
-	});
+		});
 	contentPane.add(btnEdit);
 	
 	JLabel lblNewLabel = new JLabel("");
@@ -203,6 +224,15 @@ public class Edit extends JFrame implements ActionListener{
 	textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
 	textField_6.setColumns(10);
 	textField_6.setBounds(634, 320, 228, 50);
+	try {
+		java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		textField_6.setText(sql.SelectStudentName(getLoginId()));
+	}
+	catch (SQLException e)
+	{
+		e.getMessage(); 
+	}
 	contentPane.add(textField_6);
 	
 	JLabel lblName_1_1_1 = new JLabel("Student ID");
@@ -216,6 +246,9 @@ public class Edit extends JFrame implements ActionListener{
 	textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
 	textField_7.setColumns(10);
 	textField_7.setBounds(632, 417, 228, 50);
+	System.out.println(""+getLoginId());
+	// This keeps adding the ID number twice
+	textField_7.setText(getLoginId());
 	contentPane.add(textField_7);
 	
 	JButton btnBack = new JButton("Back");
@@ -239,9 +272,25 @@ public class Edit extends JFrame implements ActionListener{
 		}
 	});
 	contentPane.add(btnBack);
-	
+	show_Enquiry(getEnquiry_id()); 
 	repaint();
  }
+	
+	public void show_Enquiry(String enquiry_id) throws SQLException
+	{
+		try {
+		java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ResultSet res = sql.ViewStudentEnquiry(enquiry_id);
+	    textField_3.replaceSelection(res.getString("enquiry_complaint"));
+	    textField_4.replaceSelection(res.getString("enquiry_nature"));
+	    textArea.append(res.getString("enquiry_detail"));
+		} 
+		catch (SQLException e)
+		{
+			e.getMessage();
+		}
+	}
 
 	public void show_enquiry(String id) throws SQLException
 	{
@@ -262,7 +311,7 @@ public class Edit extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			Edit frame = new Edit(getLoginId());
+			Edit frame = new Edit(getLoginId(), getEnquiry_id());
 			try {
 				show_enquiry(textField_5.getText());
 			} catch (SQLException e1) {

@@ -180,7 +180,7 @@ public class Cover extends JFrame implements ActionListener {
 		rdbtnStaff.setBounds(307, 311, 93, 30);
 		contentPane.add(rdbtnStaff);
 		
-		JButton B = new JButton("You are a :");
+		JButton B = new JButton();
 		ButtonGroup G1 = new ButtonGroup();
 		G1.add(rdbtnStudent);
 		G1.add(rdbtnStaff);

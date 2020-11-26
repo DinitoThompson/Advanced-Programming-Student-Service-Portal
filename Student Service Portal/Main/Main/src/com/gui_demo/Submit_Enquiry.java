@@ -170,6 +170,15 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_6.setColumns(10);
 		textField_6.setBounds(619, 322, 228, 50);
+		try {
+			java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			SQLProvider sql = new SQLProvider(conn);
+			textField_6.setText(sql.SelectStudentName(getLoginId()));
+		}
+		catch (SQLException e)
+		{
+			e.getMessage(); 
+		}
 		contentPane.add(textField_6);
 		
 		JLabel lblName_1_1_1 = new JLabel("Student ID");
@@ -183,6 +192,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_7.setColumns(10);
 		textField_7.setBounds(621, 412, 228, 50);
+		textField_7.setText(getLoginId());
 		contentPane.add(textField_7);
 	
 		JButton btnBack = new JButton("Back");

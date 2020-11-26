@@ -44,8 +44,8 @@ public class View_Enquiry extends JFrame implements ActionListener {
      static JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
-	private String login_id; 
-	Student_Dashboard s;
+	private String login_id;
+	private String enquiry_id;
 	/**
 	 * Create the frame.
 	 */
@@ -58,9 +58,10 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		return this.login_id; 
 	}
 
-	public View_Enquiry(String login_id) {
+	public View_Enquiry(String login_id, String enquiry_id) throws SQLException {
 		
 		setLoginId(login_id); 
+		setEnquiry_id(enquiry_id); 
 		
 		setTitle("View Enquiry");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,7 +77,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		label.setBounds(0, 0, 209, 200);
 		contentPane.add(label);
 		
-		JLabel lblSubmittedEnquiries = new JLabel("Submitted Enquiry");
+		JLabel lblSubmittedEnquiries = new JLabel("View Enquiry");
 		lblSubmittedEnquiries.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSubmittedEnquiries.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		lblSubmittedEnquiries.setBounds(338, 10, 209, 45);
@@ -181,10 +182,17 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		btnEdit.setBounds(473, 508, 85, 21);
 		btnEdit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Edit s = new Edit(getLoginId ());
+        		Edit s;
+				try {
+					s = new Edit(getLoginId (), getEnquiry_id());
+					s.setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		dispose();
         		Edit.textField_5.setText(textField_5.getText());
-        		s.setVisible(true);
+        		
         	}
         });
 		contentPane.add(btnEdit);
@@ -205,6 +213,15 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		textField_6.setColumns(10);
 		textField_6.setBounds(634, 320, 228, 50);
+		try {
+			java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			SQLProvider sql = new SQLProvider(conn);
+			textField_6.setText(sql.SelectStudentName(getLoginId()));
+		}
+		catch (SQLException e)
+		{
+			e.getMessage(); 
+		}
 		contentPane.add(textField_6);
 		
 		JLabel lblName_1_1_1 = new JLabel("Student ID");
@@ -234,25 +251,40 @@ public class View_Enquiry extends JFrame implements ActionListener {
         	}
         });
 		contentPane.add(btnBack);
-		repaint();
+		System.out.println("Enquiry: " +getEnquiry_id());
+		show_Enquiry(getEnquiry_id());
+		repaint(); 
 	}
     
-	public void show_Enquiry(String E_id) throws SQLException
+	public void show_Enquiry(String enquiry_id) throws SQLException
 	{
+		try {
 		java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 		SQLProvider sql = new SQLProvider(conn);
-		ResultSet res = sql.ViewStudentEnquiry(textField_5.getText());
-	    textField_3.replaceSelection(res.getString(4));
-	    textField_4.replaceSelection(res.getString(3));
-	    textArea.append(res.getString(5));
-		
+		ResultSet res = sql.ViewStudentEnquiry(enquiry_id);
+	    textField_3.replaceSelection(res.getString("enquiry_complaint"));
+	    textField_4.replaceSelection(res.getString("enquiry_nature"));
+	    textArea.append(res.getString("enquiry_detail"));
+	    textField_7.replaceSelection(res.getString("student_id"));
+		} 
+		catch (SQLException e)
+		{
+			e.getMessage();
+		}
+	}
+	
+	public String getEnquiry_id() {
+		return enquiry_id;
+	}
+	public void setEnquiry_id(String enquiry_id) {
+		this.enquiry_id = enquiry_id;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			View_Enquiry frame = new View_Enquiry(getLoginId());
-			show_Enquiry(textField_5.getText());
+			View_Enquiry frame = new View_Enquiry(getLoginId(), getEnquiry_id());
+			
 			frame.setVisible(true);
 		} catch (Exception f) {
 			f.printStackTrace();
