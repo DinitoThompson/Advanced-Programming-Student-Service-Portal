@@ -51,7 +51,7 @@ public class Cover extends JFrame implements ActionListener {
 	private JTextField txtUser;
 	private JTextField txtPassword;
 	//Submit_Enquiry sign = new Submit_Enquiry(txtUser.getText());
-	String ID;
+	private String ID;
 	
 	public String getID() {
 		return ID;
@@ -317,7 +317,8 @@ public class Cover extends JFrame implements ActionListener {
 						    if(rs.next())
 						    {
 						    	dispose();
-						    	Staff_Dashborad s = new Staff_Dashborad();
+						    	Staff_Dashborad s = new Staff_Dashborad(txtUser.getText());
+						    	Staff_Dashborad.textField_1.setText(txtUser.getText()); 
 			            		s.setVisible(true);
 						    }
 						    else

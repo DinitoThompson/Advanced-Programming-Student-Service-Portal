@@ -20,10 +20,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import client_Chat.Client_Chat;
+import jdbc.connection.SQLProvider;
 
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -31,16 +38,30 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	protected static JTextField textField_1;
 	private JTable table;
 	private JTable table_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTable table_2;
+	private String login_id; 
 	/**
 	 * Create the frame.
 	 */
-	public Staff_Dashborad() {
+	
+	public void setLoginId (String login_id)
+	{
+		this.login_id = login_id; 
+	}
+	public String getLoginId ()
+	{
+		return this.login_id; 
+	}
+	
+	public Staff_Dashborad(String login_id) {
+		
+		setLoginId(login_id); 
+		
 		setResizable(false);
 		setTitle("Staff Dashboard");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
@@ -74,6 +95,15 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField.setColumns(10);
 		textField.setBounds(583, 383, 228, 50);
+		try {
+			java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			SQLProvider sql = new SQLProvider(conn);
+			textField.setText(sql.SelectStaffName(getLoginId()));
+		}
+		catch (SQLException e)
+		{
+			e.getMessage(); 
+		}
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
@@ -81,6 +111,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_1.setColumns(10);
 		textField_1.setBounds(585, 487, 228, 50);
+		//textField_1.setText(getLoginId());
 		contentPane.add(textField_1);
 		
 		JButton btnLogOut = new JButton("Log out");
@@ -139,6 +170,15 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				return columnEditables[column];
 			}
 		});
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel model = (DefaultTableModel)table.getModel();
+				int selectedRowIndex = table.getSelectedRow();
+				textField_3.setText(model.getValueAt(selectedRowIndex, 0).toString());
+			}
+		});
+
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setResizable(false);
@@ -147,6 +187,13 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(224, 511, 329, 187);
 		contentPane.add(scrollPane_1);
+		
+		try {
+			show_resolved_enquiry();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		table_1 = new JTable();
 		table_1.setModel(new DefaultTableModel(
@@ -199,6 +246,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_3.setColumns(10);
 		textField_3.setBounds(10, 187, 165, 50);
+		textField_3.setEditable(false);
 		contentPane.add(textField_3);
 		
 		JButton btnJoinSession = new JButton("Join Session");
@@ -240,6 +288,8 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		scrollPane_2.setBounds(222, 268, 331, 174);
 		contentPane.add(scrollPane_2);
 		
+	
+		
 		table_2 = new JTable();
 		table_2.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -261,20 +311,66 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				return columnEditables[column];
 			}
 		});
+		table_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel model = (DefaultTableModel)table_2.getModel();
+				int selectedRowIndex = table_2.getSelectedRow();
+				textField_3.setText(model.getValueAt(selectedRowIndex, 0).toString());
+			}
+		});
+
 		table_2.getColumnModel().getColumn(0).setResizable(false);
 		table_2.getColumnModel().getColumn(1).setResizable(false);
 		table_2.getColumnModel().getColumn(2).setResizable(false);
 		scrollPane_2.setViewportView(table_2);
+		try {
+			show_unresolved_enquiry();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			Staff_Dashborad frame = new Staff_Dashborad();
+			Staff_Dashborad frame = new Staff_Dashborad(getLoginId());
 			frame.setVisible(true);
 		} catch (Exception p) {
 			p.printStackTrace();
 		}
 		
+	}
+	
+	public void show_resolved_enquiry() throws SQLException
+	{
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ArrayList<Enquiry> List = sql.ResolvedEnquiry();
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		Object[] row = new Object[3];
+		for (int i =0; i<List.size(); i++)
+		{
+			row[0] = List.get(i).getE_id();
+			row[1] = List.get(i).getE_state();
+			row[2] = List.get(i).getE_nature();
+			model.addRow(row);
+		}
+	}
+	public void show_unresolved_enquiry() throws SQLException
+	{
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ArrayList<Enquiry> List = sql.UnresolvedEnquiry();
+		DefaultTableModel model = (DefaultTableModel)table_2.getModel();
+		Object[] row = new Object[3];
+		for (int i =0; i<List.size(); i++)
+		{
+			row[0] = List.get(i).getE_id();
+			row[1] = List.get(i).getE_state();
+			row[2] = List.get(i).getE_nature();
+			model.addRow(row);
+		}
 	}
 }

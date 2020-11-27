@@ -248,13 +248,13 @@ public class SQLProvider
 		return enquiryTable;
 	}
 
-	public ArrayList<Enquiry> EnquiryList()//USED FOR STAFF ENQUIRY TABLE (FINISHED)
+	public ArrayList<Enquiry> ResolvedEnquiry()//USED FOR STAFF ENQUIRY TABLE (FINISHED)
 	{
 		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
 		 try {
 			 Class.forName("com.mysql.jdbc.Driver").newInstance();
 			 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
-			 String selectSql = "SELECT * FROM student_services_portal.enquiry";
+			 String selectSql = "SELECT * FROM student_services_portal.enquiry Where enquiry_state = 'Resolved'";
 			 Statement stmt = (Statement) conn.createStatement();
 			 ResultSet result = stmt.executeQuery(selectSql);
 			 Enquiry enq;
@@ -271,6 +271,31 @@ public class SQLProvider
 			}
 		 return EnquiryList;
 	 }
+	public ArrayList<Enquiry> UnresolvedEnquiry()//USED FOR STAFF ENQUIRY TABLE (FINISHED)
+	{
+		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
+		 try {
+			 Class.forName("com.mysql.jdbc.Driver").newInstance();
+			 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			 String selectSql = "SELECT * FROM student_services_portal.enquiry Where enquiry_state = 'Unresolved'";
+			 Statement stmt = (Statement) conn.createStatement();
+			 ResultSet result = stmt.executeQuery(selectSql);
+			 Enquiry enq;
+			 while (result.next())
+			 {
+				 enq = new Enquiry(result.getInt(2),result.getString(7),result.getString(3));
+				 //s.setID(result.getInt(1));
+			     EnquiryList.add(enq);
+		     }	
+			 
+		  }catch(Exception e)
+			{
+				System.out.println("Error selecting All: " + e.getMessage());
+			}
+		 return EnquiryList;
+	 }
+	
+	
 	
 
 	
@@ -319,6 +344,22 @@ public String SelectStudentName (String student_id)
 		result.next();
 		String student_name = "" +result.getString("student_first_name")+ " " +result.getString("student_last_name")+ ""; 
 		return student_name;
+	} catch (SQLException e)
+	{
+		System.out.println("Error Updating: " + e.getMessage());
+	}
+	return null; 
+ }
+
+public String SelectStaffName (String staff_id)
+{
+	String selectNameSQL = "SELECT staff_first_name, staff_last_name From student_services_portal.staff WHERE staff_id = " + staff_id; 
+	try {
+		stmt = (Statement) dbConn.createStatement(); 
+		result = stmt.executeQuery(selectNameSQL); 
+		result.next();
+		String staff_name = "" +result.getString("staff_first_name")+ " " +result.getString("staff_last_name")+ ""; 
+		return staff_name;
 	} catch (SQLException e)
 	{
 		System.out.println("Error Updating: " + e.getMessage());
