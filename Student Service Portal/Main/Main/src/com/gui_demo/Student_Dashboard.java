@@ -21,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mysql.jdbc.Statement;
 
 import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
