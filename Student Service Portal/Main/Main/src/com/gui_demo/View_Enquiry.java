@@ -245,7 +245,8 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		btnBack.setBorder(null);
 		btnBack.setBackground(new Color(25, 25, 112));
 		btnBack.setBounds(718, 511, 85, 21);
-		btnBack.addActionListener(new ActionListener() {
+		btnBack.addActionListener(new ActionListener() 
+		{
         	public void actionPerformed(ActionEvent e) {
         		Student_Dashboard s = new Student_Dashboard(getLoginId());
         		dispose();

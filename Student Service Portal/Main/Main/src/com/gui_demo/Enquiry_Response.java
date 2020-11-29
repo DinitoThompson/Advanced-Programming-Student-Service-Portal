@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,28 +27,49 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import client_Chat.Client_Chat;
+import jdbc.connection.SQLProvider;
 
 import javax.swing.ScrollPaneConstants;
 
 public class Enquiry_Response extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private static JTextArea textArea;
 	private static JScrollPane pane;
-	private JTextField textField_5;
+	protected static JTextField textField_5;
+	protected static JTextField textField;
+	protected static JTextField textField_1;
+	private String login_id; 
+	private String enquiry_id; 
+	
+	public String getEnquiry_id() {
+		return enquiry_id;
+	}
+	public void setEnquiry_id(String enquiry_id) {
+		this.enquiry_id = enquiry_id;
+	}
+	public void setLoginId (String login_id)
+	{
+		this.login_id = login_id; 
+	}
+	public String getLoginId ()
+	{
+		return this.login_id; 
+	}
 	/**
 	 * Create the frame.
 	 */
-	public Enquiry_Response() 
+	public Enquiry_Response(String login_id, String enquiry_id) 
 	{
+		setLoginId(login_id);
+		setEnquiry_id(enquiry_id); 
+		
 		setResizable(false);
 		setTitle("Student Enquiries");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 886, 585);
 		contentPane = new JPanel();
@@ -65,80 +89,42 @@ public class Enquiry_Response extends JFrame {
 		lblSubmittedEnquiries.setBounds(349, 10, 209, 45);
 		contentPane.add(lblSubmittedEnquiries);
 		
-		JLabel lblName_1 = new JLabel("Name");
-		lblName_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1.setBounds(249, 87, 80, 43);
-		contentPane.add(lblName_1);
-		
-		JLabel lblMobileNumber = new JLabel("Mobile number");
-		lblMobileNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMobileNumber.setBounds(190, 210, 139, 26);
-		contentPane.add(lblMobileNumber);
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblEmail.setBounds(249, 156, 80, 26);
-		contentPane.add(lblEmail);
-		
 		JLabel lblComplaint = new JLabel("Complaint");
 		lblComplaint.setHorizontalAlignment(SwingConstants.CENTER);
 		lblComplaint.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblComplaint.setBounds(220, 276, 105, 26);
+		lblComplaint.setBounds(205, 132, 105, 26);
 		contentPane.add(lblComplaint);
 		
 		JLabel lblNatureOfEnquiry = new JLabel("Nature of Enquiry");
 		lblNatureOfEnquiry.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNatureOfEnquiry.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNatureOfEnquiry.setBounds(159, 336, 170, 26);
+		lblNatureOfEnquiry.setBounds(151, 210, 170, 26);
 		contentPane.add(lblNatureOfEnquiry);
 		
 		JLabel lblFurtherDetails = new JLabel("Further Details");
 		lblFurtherDetails.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFurtherDetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblFurtherDetails.setBounds(190, 394, 139, 26);
+		lblFurtherDetails.setBounds(182, 292, 139, 26);
 		contentPane.add(lblFurtherDetails);
-		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField.setColumns(10);
-		textField.setBounds(330, 79, 228, 50);
-		contentPane.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_1.setColumns(10);
-		textField_1.setBounds(330, 140, 228, 50);
-		contentPane.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_2.setColumns(10);
-		textField_2.setBounds(330, 200, 228, 50);
-		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_3.setColumns(10);
-		textField_3.setBounds(330, 260, 228, 50);
+		textField_3.setBounds(330, 132, 228, 50);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_4.setColumns(10);
-		textField_4.setBounds(330, 320, 228, 50);
+		textField_4.setBounds(330, 202, 228, 50);
 		contentPane.add(textField_4);
 		
 		pane = new JScrollPane();
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textArea = new JTextArea("If Necessarry");
-		textArea.setEditable(false);
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textArea.addFocusListener(new FocusAdapter()
 		{
 			@Override
@@ -166,7 +152,7 @@ public class Enquiry_Response extends JFrame {
 		textArea.setBounds(330, 380, 228, 65);
 		textArea.setBorder(new LineBorder(Color.BLACK));
 		
-		pane.setBounds(330,380,228,65);
+		pane.setBounds(331,270,228,65);
 		pane.getViewport().setBackground(Color.black);
 		pane.setViewportView(textArea);
 		getContentPane().add(pane);
@@ -178,19 +164,18 @@ public class Enquiry_Response extends JFrame {
 		contentPane.add(lblEnquiryId);
 		
 		textField_5 = new JTextField();
+		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_5.setEditable(false);
 		textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_5.setColumns(10);
 		textField_5.setBounds(27, 488, 228, 50);
+		textField_5.setText(getEnquiry_id());
 		contentPane.add(textField_5);
 		
-		JRadioButton rdbtnUrgent = new JRadioButton("Urgent");
-		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
-		rdbtnUrgent.setBackground(Color.WHITE);
-		rdbtnUrgent.setBounds(331, 488, 105, 21);
-		contentPane.add(rdbtnUrgent);
 		
 		JButton btnEdit = new JButton("Submit Response");
-		btnEdit.addActionListener(new ActionListener() {
+		btnEdit.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) {
 				// This is a mystery .... we could run an update query to capture the staff response then send an email to the student email provided??
 			}
@@ -210,7 +195,7 @@ public class Enquiry_Response extends JFrame {
 		JLabel lblName_1_1 = new JLabel("Response");
 		lblName_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblName_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName_1_1.setBounds(632, 292, 155, 43);
+		lblName_1_1.setBounds(229, 379, 92, 32);
 		contentPane.add(lblName_1_1);
 		
 		JButton btnBack = new JButton("Back");
@@ -221,8 +206,10 @@ public class Enquiry_Response extends JFrame {
 		btnBack.setBounds(777, 508, 85, 21);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Staff_Dashborad g = new Staff_Dashborad(getLoginId());
+				//Staff_Dashborad.textField_1.setText(textField.getText());
 				dispose();
-				Staff_Dashborad g = new Staff_Dashborad();
 				g.setVisible(true);
 			}
 		});
@@ -231,10 +218,11 @@ public class Enquiry_Response extends JFrame {
 		
 		JScrollPane pane_1 = new JScrollPane();
 		pane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		pane_1.setBounds(634, 336, 228, 65);
+		pane_1.setBounds(330, 369, 228, 65);
 		contentPane.add(pane_1);
 		
 		JTextArea textArea_1 = new JTextArea("Response");
+		textArea_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textArea_1.setBorder(new LineBorder(Color.BLACK));
 		pane_1.setViewportView(textArea_1);
 		
@@ -242,8 +230,79 @@ public class Enquiry_Response extends JFrame {
 		rdbtnNewRadioButton.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnNewRadioButton.setBackground(Color.WHITE);
 		rdbtnNewRadioButton.setBounds(445, 488, 113, 21);
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					Client_Chat c = new Client_Chat();
+					c.setVisible(true);
+			    
+			}
+		});
+
 		contentPane.add(rdbtnNewRadioButton);
+		
+		JLabel lblStaffId = new JLabel("Staff ID");
+		lblStaffId.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStaffId.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblStaffId.setBounds(689, 292, 105, 26);
+		contentPane.add(lblStaffId);
+		
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		textField.setEditable(false);
+		textField.setColumns(10);
+		textField.setBounds(632, 324, 228, 50);
+		contentPane.add(textField);
+		
+		JLabel lblStaffName = new JLabel("Staff Name");
+		lblStaffName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStaffName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblStaffName.setBounds(689, 393, 105, 26);
+		contentPane.add(lblStaffName);
+		
+		textField_1 = new JTextField();
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		textField_1.setEditable(false);
+		textField_1.setColumns(10);
+		textField_1.setBounds(634, 429, 228, 50);
+		try {
+		java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		textField_1.setText(sql.SelectStaffName(getLoginId()));
+	}
+	catch (SQLException e)
+	{
+		e.getMessage(); 
+	}
+		
+		contentPane.add(textField_1);
 		repaint();
+		
+		try {
+			show_Enquiry(getEnquiry_id());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	public void show_Enquiry(String enquiry_id) throws SQLException
+	{
+		try {
+		java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ResultSet res = sql.ViewStudentEnquiry(enquiry_id);
+	    textField_3.replaceSelection(res.getString("enquiry_complaint"));
+	    textField_4.replaceSelection(res.getString("enquiry_nature"));
+	    textArea.append(res.getString("enquiry_detail"));
+	    textField.replaceSelection(res.getString("staff_id"));
+		} 
+		catch (SQLException e)
+		{
+			e.getMessage();
+		}
 	}
 
 }

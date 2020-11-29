@@ -111,7 +111,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_1.setColumns(10);
 		textField_1.setBounds(585, 487, 228, 50);
-		//textField_1.setText(getLoginId());
+		textField_1.setText(getLoginId());
 		contentPane.add(textField_1);
 		
 		JButton btnLogOut = new JButton("Log out");
@@ -255,15 +255,6 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		btnJoinSession.setBorder(null);
 		btnJoinSession.setBackground(new Color(25, 25, 112));
 		btnJoinSession.setBounds(31, 668, 122, 30);
-		btnJoinSession.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-					Client_Chat c = new Client_Chat();
-					c.setVisible(true);
-			    
-			}
-		});
 		contentPane.add(btnJoinSession);
 		
 		JButton btnOpenEnquiry = new JButton("Open Enquiry");
@@ -278,7 +269,18 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 			{
 				dispose();
 				//capture the enquiry ID selected and display the info on the Enquiry_Response() frame.
-				Enquiry_Response v = new Enquiry_Response();
+				Enquiry_Response v = new Enquiry_Response(getLoginId(), textField_3.getText());
+				//Enquiry_Response.textField_5.setText(textField_3.getText());
+				Enquiry_Response.textField.setText(getLoginId());
+				try {
+					java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+					SQLProvider sql = new SQLProvider(conn);
+					Enquiry_Response.textField_1.setText(sql.SelectStaffName(getLoginId()));
+				}
+				catch (SQLException e1)
+				{
+					e1.getMessage(); 
+				}
 				v.setVisible(true);
 			}
 		});
