@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
@@ -267,21 +268,30 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				dispose();
-				//capture the enquiry ID selected and display the info on the Enquiry_Response() frame.
-				Enquiry_Response v = new Enquiry_Response(getLoginId(), textField_3.getText());
-				//Enquiry_Response.textField_5.setText(textField_3.getText());
-				Enquiry_Response.textField.setText(getLoginId());
-				try {
-					java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
-					SQLProvider sql = new SQLProvider(conn);
-					Enquiry_Response.textField_1.setText(sql.SelectStaffName(getLoginId()));
-				}
-				catch (SQLException e1)
+				
+				if (textField_3.getText().isEmpty())
 				{
-					e1.getMessage(); 
+					JOptionPane.showMessageDialog(null, "Please select an enquiry","Enquiry Selection",JOptionPane.INFORMATION_MESSAGE);
 				}
-				v.setVisible(true);
+				else {
+					//capture the enquiry ID selected and display the info on the Enquiry_Response() frame.
+					Enquiry_Response v = new Enquiry_Response(getLoginId(), textField_3.getText());
+					//Enquiry_Response.textField_5.setText(textField_3.getText());
+					Enquiry_Response.textField.setText(getLoginId());
+					try {
+						java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+						SQLProvider sql = new SQLProvider(conn);
+						Enquiry_Response.textField_1.setText(sql.SelectStaffName(getLoginId()));
+						dispose();
+					}
+					catch (SQLException e1)
+					{
+						e1.getMessage(); 
+					}
+					v.setVisible(true);
+					
+				}
+					
 			}
 		});
 		contentPane.add(btnOpenEnquiry);

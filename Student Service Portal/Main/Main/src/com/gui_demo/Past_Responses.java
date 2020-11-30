@@ -6,12 +6,20 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -26,6 +34,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import client_Chat.Client_Chat;
+import jdbc.connection.SQLProvider;
 
 public class Past_Responses extends JFrame implements ActionListener {
 
@@ -33,7 +42,14 @@ public class Past_Responses extends JFrame implements ActionListener {
 	protected static JTextField textField;
 	private JTable table;
 	private String login_id; 
+	private String enquiry_id; 
 	
+	public String getEnquiry_id() {
+		return enquiry_id;
+	}
+	public void setEnquiry_id(String enquiry_id) {
+		this.enquiry_id = enquiry_id;
+	}
 	public void setLoginId (String login_id)
 	{
 		this.login_id = login_id; 
@@ -46,8 +62,11 @@ public class Past_Responses extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Past_Responses(String login_id) {
+	public Past_Responses(String login_id, String enquiry_id) {
+		
 		setLoginId(login_id); 
+		setEnquiry_id(enquiry_id);
+		
 		setResizable(false);
 		setTitle("Past_Responses");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
@@ -74,7 +93,7 @@ public class Past_Responses extends JFrame implements ActionListener {
 		pane_1.setBounds(634, 336, 249, 100);
 		contentPane.add(pane_1);
 		
-		JTextArea txtrNoResponseMade = new JTextArea("No Response made");
+		JTextArea txtrNoResponseMade = new JTextArea("");
 		txtrNoResponseMade.setEditable(false);
 		txtrNoResponseMade.setBorder(new LineBorder(Color.BLACK));
 		pane_1.setViewportView(txtrNoResponseMade);
@@ -94,25 +113,39 @@ public class Past_Responses extends JFrame implements ActionListener {
         });
 		contentPane.add(btnBack);
 		
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnSubmit.setForeground(Color.WHITE);
-		btnSubmit.setBackground(new Color(25, 25, 112));
-		btnSubmit.setBorder(null);
-		btnSubmit.setBounds(577, 483, 85, 21);
-		contentPane.add(btnSubmit);
-		
 		JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
 		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnUrgent.setBackground(Color.WHITE);
 		rdbtnUrgent.setBounds(222, 483, 139, 21);
 		contentPane.add(rdbtnUrgent);
 		
-		JRadioButton rdbtnUnresolved = new JRadioButton("Unresolved");
-		rdbtnUnresolved.setFont(new Font("Times New Roman", Font.PLAIN, 19));
-		rdbtnUnresolved.setBackground(Color.WHITE);
-		rdbtnUnresolved.setBounds(375, 483, 139, 21);
-		contentPane.add(rdbtnUnresolved);
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		btnSubmit.setForeground(Color.WHITE);
+		btnSubmit.setBackground(new Color(25, 25, 112));
+		btnSubmit.setBorder(null);
+		btnSubmit.setBounds(577, 483, 85, 21);
+		btnSubmit.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(rdbtnUrgent.isSelected())
+						{
+							Client_Chat c = new Client_Chat();
+							c.setVisible(true);
+						}
+						else 
+						{
+							JOptionPane.showMessageDialog(null, "Please Select An Option", "Selection Error", JOptionPane.INFORMATION_MESSAGE);
+						}
+						
+					}
+			
+				});
+		contentPane.add(btnSubmit);
+		
+	
 		
 		JLabel lblEnquiryId = new JLabel("Enquiry ID");
 		lblEnquiryId.setHorizontalAlignment(SwingConstants.CENTER);
@@ -153,18 +186,53 @@ public class Past_Responses extends JFrame implements ActionListener {
 			}
 		});
 		table.getColumnModel().getColumn(0).setResizable(false);
+		table.addMouseListener(new MouseAdapter()
+				{
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel model = (DefaultTableModel)table.getModel();
+				int selectedRowIndex = table.getSelectedRow();
+				txtrNoResponseMade.setText(model.getValueAt(selectedRowIndex, 0).toString());
+			}
+
+			
+		});
 		scrollPane.setViewportView(table);
 		repaint();
+		try {
+			showResponse(getEnquiry_id());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
+	
+	public void showResponse (String enquiry_id) throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+		SQLProvider sql = new SQLProvider(conn);
+		ArrayList<Enquiry> List = sql.EnquiryResponse(enquiry_id);
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		Object[] row = new Object[3];
+		for (int i =0; i<List.size(); i++)
+		{
+			row[0] = List.get(i).getEnquiry_response(); 
+			row[1] = List.get(i).getEnquiry_response_date();
+			model.addRow(row);
+		}
+		
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 			try {
-				Past_Responses frame = new Past_Responses(getLoginId());
+				Past_Responses frame = new Past_Responses(getLoginId(), getEnquiry_id());
 				frame.setVisible(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 	}
+	
 	
 }

@@ -117,13 +117,11 @@ public class SQLProvider
 
 	public ResultSet ViewStudentEnquiry(String e_id) //SELECTS THE ENQUIRY FOR A STUDENT
 	{
-		System.out.println("Message: " +e_id);
 		String selectSQL = "SELECT * FROM student_services_portal.enquiry WHERE enquiry_id = " +e_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
 			result = stmt.executeQuery(selectSQL);
 			result.next(); 
-			System.out.println("Message: " +result.getString(1));
 		}catch(SQLException e) {
 			System.out.println("Error getting data: " + e.getMessage());
 		}
@@ -145,56 +143,22 @@ public class SQLProvider
 		return false;
 	}
 	
-	public boolean SubmitResponse(int E_id, String response) // USED TO SUBMIT A RESPONSE TO THE AN ENQUIRY (TO BE CHECKED)
+	public boolean SubmitResponse(String enquiry_id, String enquiry_response) // USED TO SUBMIT A RESPONSE TO THE AN ENQUIRY (TO BE CHECKED)
 	{
-		String updateSQL = "UPDATE Enquiry SET Enquiry_response WHERE enquiry_id = " + E_id;
+		String insertSQL = "INSERT INTO student_services_portal.enquiry_response (enquiry_id, enquiry_response) "
+				+ "VALUES ('"+enquiry_id+"', '"+enquiry_response+"')";
+		String updateSQL = "Update student_services_portal.enquiry SET enquiry_state = 'Resolved' WHERE enquiry_id = " + enquiry_id;
+		String responseUpdate = insertSQL + updateSQL; 
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.executeUpdate(updateSQL);
+			numOfAffectedRows = stmt.executeUpdate(responseUpdate);
 		}catch(SQLException e)
 		   {
 			   System.out.println("Error Updating: " + e.getMessage());
 		   }
-		   return(numOfAffectedRows ==1);
-	} 
-	
-	
-	/*
-	public ArrayList<Sign_up> selectAllStudent() //SELECTS ALL STUDENTS IN THE DATABASE(TO BE CHECKED)
-	{
-		 ArrayList<Sign_up> contactList = new ArrayList<Sign_up>();
-		 String selectSql = "SELECT * FROM student_services_portal.student where 1 = 1";
-		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 result = stmt.executeQuery(selectSql);
-			 while (result.next())
-			 {
-				 s = new Sign_up(result.getString(1), result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6));
-			     contactList.add(s);
-			 }	
-		  }catch(SQLException e)
-			{
-				System.out.println("Error selecting All: " + e.getMessage());
-			}
-			return contactList;
+		   return(numOfAffectedRows == 1);
 	}
-	*/
-
-	/*
-	public boolean updateStudent(int id) //????
-	{
-		 String updateSql = "UPDATE student SET student_email = 'testupdate@ymail.com' where id = "+ id;
-		 try {
-			 stmt = (Statement) dbConn.createStatement();
-			 numOfAffectedRows = stmt.executeUpdate(updateSql);
-			 return(numOfAffectedRows ==1);
-		 }catch(SQLException e)
-			{
-				System.out.println("Error Updating: " + e.getMessage());
-			}
-		 		return false;
-	} */
-
+	
 	public boolean UpdateEnquiry (String enquiry_id, String enquiry_complaint, String enquiry_nature, String enquiry_detail)
 	{
 		String updateSQL = ""
@@ -223,6 +187,41 @@ public class SQLProvider
 		}
 		return (numOfAffectedRows == 1);
 	}
+	
+	public ArrayList<Enquiry> EnquiryResponse (String enquiry_id)
+	{
+		ArrayList<Enquiry> enquiry_response = new ArrayList<>(); 
+		String selectResponseSQL = "SELECT enquiry_response, enquiry_response_date From student_services_portal.enquiry_response WHERE enquiry_id = " + enquiry_id; 
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			Statement stmt = (Statement) conn.createStatement();
+			stmt = (Statement) dbConn.createStatement(); 
+			result = stmt.executeQuery(selectResponseSQL); 
+			Enquiry per; 
+			while (result.next())
+			{
+				per = new Enquiry(result.getString(1), result.getString(2));
+				enquiry_response.add(per); 
+			}
+			
+		} catch (SQLException e)
+		{
+			System.out.println("Error Updating: " + e.getMessage());
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return enquiry_response; 
+	 }
+
 
     public ArrayList<Enquiry> StudentEnquiryTable(String student_id)// USED FOR STUDENT ENQUIRY TABLE (FINISHED)
 	{
@@ -295,32 +294,6 @@ public class SQLProvider
 		 return EnquiryList;
 	 }
 	
-	
-	
-
-	
-	
-
-	 // =============== ENQUIRY FUNCTIONS =============
-	/*public ArrayList<Enquiry> EditEnquiry(String enquiry_id) //RUNS UPDATE BASED OFF ENQUIRY ID
-	{
-		ArrayList<Enquiry> EditEnquiryList = new ArrayList<>(); 
-		try{
-			String SelectSQL = "SELECT enquiry_nature, enquiry_complaint, enquiry_detail FROM enquiry WHERE enquiry_id = " + enquiry_id;
-			stmt = (Statement) dbConn.createStatement();
-			ResultSet result = stmt.executeQuery(SelectSQL);
-			Enquiry e; 
-			while (result.next())
-			{
-				e = new Enquiry(result.getString(3), result.getString(4), result.getString(5)); 
-				EditEnquiryList.add(e); 
-			}
-		}catch(SQLException e){
-			System.out.println("Error Updating: " + e.getMessage());
-		}
-		return EditEnquiryList; 
-	}*/
-	
 	public ResultSet EditEnquiry(String enquiry_id) //RUNS UPDATE BASED OFF ENQUIRY ID
 	{
 		try{
@@ -366,5 +339,7 @@ public String SelectStaffName (String staff_id)
 	}
 	return null; 
  }
+
+
 
 }

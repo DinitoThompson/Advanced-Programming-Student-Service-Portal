@@ -8,7 +8,26 @@ public class Enquiry {
 	String E_nature;
 	String enquiry_complaint; 
 	String enquiry_detail; 
+	String enquiry_response_date; 
+	String enquiry_response; 
 
+	public Enquiry (String enquiry_response, String enquiry_response_date)
+	{
+		this.enquiry_response = enquiry_response; 
+		this.enquiry_response_date = enquiry_response_date; 
+	}
+	public String getEnquiry_response_date() {
+		return enquiry_response_date;
+	}
+	public void setEnquiry_response_date(String enquiry_response_date) {
+		this.enquiry_response_date = enquiry_response_date;
+	}
+	public String getEnquiry_response() {
+		return enquiry_response;
+	}
+	public void setEnquiry_response(String enquiry_response) {
+		this.enquiry_response = enquiry_response;
+	}
 	public  Enquiry(int e_id, String e_state, String e_nature) throws HeadlessException {
 		this.e_id = e_id;
 		this.e_state = e_state;

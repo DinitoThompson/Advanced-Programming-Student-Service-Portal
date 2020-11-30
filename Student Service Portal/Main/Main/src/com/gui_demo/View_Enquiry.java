@@ -85,8 +85,6 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		lblSubmittedEnquiries.setBounds(338, 10, 209, 45);
 		contentPane.add(lblSubmittedEnquiries);
 		
-	
-		
 		JLabel lblComplaint = new JLabel("Complaint");
 		lblComplaint.setHorizontalAlignment(SwingConstants.CENTER);
 		lblComplaint.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -254,7 +252,6 @@ public class View_Enquiry extends JFrame implements ActionListener {
         	}
         });
 		contentPane.add(btnBack);
-		System.out.println("Enquiry: " +getEnquiry_id());
 		show_Enquiry(getEnquiry_id());
 		repaint(); 
 	}

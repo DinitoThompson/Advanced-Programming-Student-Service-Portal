@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -41,6 +42,7 @@ public class Enquiry_Response extends JFrame {
 	protected static JTextField textField_5;
 	protected static JTextField textField;
 	protected static JTextField textField_1;
+	protected static JTextArea textArea_1; 
 	private String login_id; 
 	private String enquiry_id; 
 	
@@ -123,33 +125,10 @@ public class Enquiry_Response extends JFrame {
 		
 		pane = new JScrollPane();
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		textArea = new JTextArea("If Necessarry");
+		textArea = new JTextArea();
 		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textArea.addFocusListener(new FocusAdapter()
-		{
-			@Override
-			public void focusGained(FocusEvent arg0)
-			{
-				if(textArea.getText().equals("If Necessary"))
-				{
-				    
-					textArea.setText("");
-				}
-				else {
-					textArea.selectAll();
-				}
-				
-			}
-			@Override
-			public void focusLost(FocusEvent arg0)
-			{
-				if(textArea.getText().equals(""))
-				{
-					textArea.setText("If Necessary");	
-				}
-			}
-		});
 		textArea.setBounds(330, 380, 228, 65);
+		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(Color.BLACK));
 		
 		pane.setBounds(331,270,228,65);
@@ -178,6 +157,28 @@ public class Enquiry_Response extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e) {
 				// This is a mystery .... we could run an update query to capture the staff response then send an email to the student email provided??
+				try {
+						java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+						SQLProvider sql = new SQLProvider(conn);
+						boolean ResponseCreated = sql.SubmitResponse(textField_5.getText(), textArea_1.getText()); 
+						
+						if (ResponseCreated)
+						{
+							JOptionPane.showMessageDialog(null, "Respone Submitted Successfully","Response Status",JOptionPane.INFORMATION_MESSAGE);
+							Staff_Dashborad g = new Staff_Dashborad(getLoginId());
+							//Staff_Dashborad.textField_1.setText(textField.getText());
+							dispose();
+							g.setVisible(true);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Respone Not Submitted","Response Status",JOptionPane.INFORMATION_MESSAGE);
+						}
+						
+					} 
+					catch (SQLException e1)
+					{
+						e1.getMessage();
+					}
 			}
 		});
 		btnEdit.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -221,7 +222,7 @@ public class Enquiry_Response extends JFrame {
 		pane_1.setBounds(330, 369, 228, 65);
 		contentPane.add(pane_1);
 		
-		JTextArea textArea_1 = new JTextArea("Response");
+		textArea_1 = new JTextArea();
 		textArea_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textArea_1.setBorder(new LineBorder(Color.BLACK));
 		pane_1.setViewportView(textArea_1);

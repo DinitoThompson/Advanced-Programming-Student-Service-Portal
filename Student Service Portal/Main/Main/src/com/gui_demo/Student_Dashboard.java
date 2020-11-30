@@ -303,7 +303,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			}	
 		});	
 		
-		JButton btnViewResonses = new JButton("View responses");
+		JButton btnViewResonses = new JButton("View Responses");
 		btnViewResonses.setForeground(Color.WHITE);
 		btnViewResonses.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnViewResonses.setBorder(null);
@@ -320,8 +320,8 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 					}
 					else {
 						dispose();
-						Past_Responses s;
-						s = new Past_Responses(getLoginId());
+						Past_Responses s; 
+						s = new Past_Responses(getLoginId(), textField.getText());
 						Past_Responses.textField.setText(textField.getText());
 						s.setVisible(true);
 					}
@@ -417,6 +417,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			model.addRow(row);
 		}
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
