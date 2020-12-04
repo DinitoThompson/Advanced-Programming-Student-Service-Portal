@@ -43,3 +43,23 @@
 [INFO ] 2020-12-04 00:22:36.015 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Video Session From View Enquiry
 [INFO ] 2020-12-04 14:28:13.602 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
 [INFO ] 2020-12-04 14:31:09.781 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:01:09.304 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:01:14.279 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:01:16.839 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Video Session From View Enquiry
+[INFO ] 2020-12-04 16:03:12.526 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:03:15.534 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:03:23.391 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Video Session From View Enquiry
+[INFO ] 2020-12-04 16:13:00.406 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:13:17.302 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:13:20.293 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Session From View Enquiry
+[INFO ] 2020-12-04 16:18:20.934 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:18:30.357 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:20:55.443 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:21:46.357 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:22:01.731 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Session From View Enquiry
+[INFO ] 2020-12-04 16:26:09.152 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:26:55.420 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:27:04.609 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Session From View Enquiry
+[INFO ] 2020-12-04 16:37:45.076 [AWT-EventQueue-0] Cover - Student Sign In: 1801202
+[INFO ] 2020-12-04 16:38:32.916 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 1
+[INFO ] 2020-12-04 16:38:38.484 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Session From View Enquiry

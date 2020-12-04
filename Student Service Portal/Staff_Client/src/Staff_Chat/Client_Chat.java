@@ -44,7 +44,6 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
     private javax.swing.JTextField tf_chat;
     private javax.swing.JTextField tf_port;
     private javax.swing.JTextField tf_username;
-	private static JLabel img_server;
 	private JPanel contentPane;
     // End of variables declaration//GEN-END:variables
 
@@ -206,23 +205,11 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
         b_send.setBackground(new Color(25, 25, 112));
         b_send.setForeground(Color.WHITE);
         lb_name = new javax.swing.JLabel();
-        ImageIcon ic;
-        setBounds(100, 100, 682, 676);
+  
 
 		JButton button = new JButton("End");
 		button.setBounds(400, 600, 88, 30);
-
-		img_server = new JLabel("");
-		img_server.setHorizontalAlignment(SwingConstants.CENTER);
-		img_server.setBounds(42, 45, 576, 403);
-		contentPane.add(img_server);
-		
-		ServerSocket serverSock = new ServerSocket(port);
-		sock = server.accept();
-		ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
-		
-		ic = (ImageIcon) in.readObject();
-		img_server.setIcon(ic);
+       // contentPane.add(button);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat - Staff");

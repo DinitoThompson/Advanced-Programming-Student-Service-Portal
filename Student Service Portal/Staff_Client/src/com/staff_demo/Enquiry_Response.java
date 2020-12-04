@@ -248,8 +248,10 @@ public class Enquiry_Response extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				sever s = new sever();
 				Client_Chat c = new Client_Chat();
 				c.setVisible(true);
+				s.setVisible(true);
 
 			}
 		});
