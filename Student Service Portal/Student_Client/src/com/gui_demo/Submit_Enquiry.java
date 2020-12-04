@@ -1,19 +1,12 @@
 package com.gui_demo;
 
-import java.awt.BorderLayout;
-
-
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,32 +16,36 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-
 import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
+//import javax.swing.JRadioButton;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger; 
 
 public class Submit_Enquiry extends JFrame implements ActionListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private String login_id; 
+	public static final Logger logger = LogManager.getLogger(Submit_Enquiry.class);
 	
 	PreparedStatement pst;
 	Connection conn;
@@ -63,11 +60,11 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 	{
 		return this.login_id; 
 	}
-	/**
+	/*
 	 * Create the frame.
 	 */
-	public Submit_Enquiry(String login_id) {
-		
+	public Submit_Enquiry(String login_id) 
+	{
 		setLoginId(login_id);
 		setResizable(false);
 		setTitle("Submit Enquiry");
@@ -219,6 +216,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		btnBack.setBounds(725, 511, 85, 21);
 		contentPane.add(btnBack);
 		
+		/*
 		JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
 		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnUrgent.setBackground(Color.WHITE);
@@ -229,6 +227,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnUrgent.isSelected())
 				{
+					logger.info("Student ID: " + getLoginId() + " Opted To Schedule A Live Via Submit Enquiry.");
 					Client_Chat c = new Client_Chat();
 					c.setVisible(true);
 			    }
@@ -236,6 +235,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 			
 		});
 		contentPane.add(rdbtnUrgent);
+		*/
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.setForeground(Color.WHITE);
@@ -257,6 +257,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 					
 					if (SubmitedEnquiry)
 					{
+						logger.info("Student ID: " + getLoginId() + " Submited A New Brand.");
 						JOptionPane.showMessageDialog(null, "Enquiry Submitted !", "Status", JOptionPane.INFORMATION_MESSAGE);
 						Student_Dashboard p = new Student_Dashboard(getLoginId());
 						dispose(); 

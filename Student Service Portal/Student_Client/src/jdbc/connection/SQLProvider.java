@@ -2,13 +2,8 @@ package jdbc.connection;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
 import com.gui_demo.*;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 public class SQLProvider 
 {
@@ -19,8 +14,6 @@ public class SQLProvider
 	
 	private int numOfAffectedRows = 0;
 	private Sign_up s;
-	private Submit_Enquiry sign;
-	
 	public SQLProvider(Connection dbConn)
 	{
 		this.dbConn = dbConn;
@@ -178,16 +171,17 @@ public class SQLProvider
 	
 	public boolean CancelStudentEnquiry(String enquiry_id) // RUNS DELETE BASED OFF STUDENT (TO BE CHECKED)
 	{
-		String deleteSQL = "DELETE FROM Enquiry WHERE enquiry_id = " + enquiry_id;
+		String updateSQL = "UPDATE student_services_portal.enquiry SET enquiry_state = 'Resolved' WHERE enquiry_id = " + enquiry_id;
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.executeUpdate(deleteSQL);
+			numOfAffectedRows = stmt.executeUpdate(updateSQL);
 		}catch(SQLException e) {
 			System.out.println("Error getting data ....." + e.getMessage());
 		}
 		return (numOfAffectedRows == 1);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ArrayList<Enquiry> EnquiryResponse (String enquiry_id)
 	{
 		ArrayList<Enquiry> enquiry_response = new ArrayList<>(); 
@@ -223,7 +217,8 @@ public class SQLProvider
 	 }
 
 
-    public ArrayList<Enquiry> StudentEnquiryTable(String student_id)// USED FOR STUDENT ENQUIRY TABLE (FINISHED)
+    @SuppressWarnings("deprecation")
+	public ArrayList<Enquiry> StudentEnquiryTable(String student_id)// USED FOR STUDENT ENQUIRY TABLE (FINISHED)
 	{
 		ArrayList<Enquiry> enquiryTable = new ArrayList<>();
 		String selectSQL = "SELECT * FROM Enquiry WHERE student_id = " + student_id;
@@ -247,6 +242,7 @@ public class SQLProvider
 		return enquiryTable;
 	}
 
+	@SuppressWarnings("deprecation")
 	public ArrayList<Enquiry> ResolvedEnquiry()//USED FOR STAFF ENQUIRY TABLE (FINISHED)
 	{
 		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
@@ -270,6 +266,7 @@ public class SQLProvider
 			}
 		 return EnquiryList;
 	 }
+	@SuppressWarnings("deprecation")
 	public ArrayList<Enquiry> UnresolvedEnquiry()//USED FOR STAFF ENQUIRY TABLE (FINISHED)
 	{
 		 ArrayList<Enquiry> EnquiryList = new ArrayList<>();
@@ -299,8 +296,7 @@ public class SQLProvider
 		try{
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 			prepStmt = conn.prepareStatement("SELECT * FROM `enquiry` WHERE enquiry_id = " +enquiry_id); 
-			ResultSet result = null; 
-			result = prepStmt.executeQuery();
+			prepStmt.executeQuery();
 		}catch(SQLException e){
 			System.out.println("Error Updating: " + e.getMessage());
 		}

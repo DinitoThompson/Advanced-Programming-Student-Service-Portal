@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="Student Service Portal/Main/Main/src"/>
+	<classpathentry kind="src" path="Student Service Portal/VideoChat"/>
 	<classpathentry kind="src" path="Student Service Portal/Student_Client/src"/>
 	<classpathentry kind="src" path="Student Service Portal/Staff_Client/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-14">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="Student Service Portal/Database/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49-bin.jar"/>
 	<classpathentry kind="lib" path="Student Service Portal/Database/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49.jar"/>
+	<classpathentry kind="lib" path="Student Service Portal/Database/apache-log4j-2.12.1-bin/log4j-core-2.12.1.jar"/>
+	<classpathentry kind="lib" path="Student Service Portal/Database/apache-log4j-2.12.1-bin/log4j-api-2.12.1.jar"/>
+	<classpathentry kind="lib" path="properties"/>
+	<classpathentry kind="lib" path="Student Service Portal/Staff_Client/bin/res"/>
+	<classpathentry kind="lib" path="Student Service Portal/Database/hibernate-required"/>
+	<classpathentry kind="lib" path="Student Service Portal/VideoChat/jar_files/bridj-0.7.0.jar"/>
+	<classpathentry kind="lib" path="Student Service Portal/VideoChat/jar_files/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="Student Service Portal/VideoChat/jar_files/webcam-capture-0.3.11.jar"/>
 	<classpathentry kind="output" path="Student Service Portal/Main/Main/bin"/>
 </classpath>

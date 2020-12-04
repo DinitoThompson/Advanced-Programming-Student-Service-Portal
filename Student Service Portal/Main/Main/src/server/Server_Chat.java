@@ -1,22 +1,22 @@
 package server;
 
-import javax.swing.JPanel;
 import java.io.*;
-import java.net.*;
 import java.util.*;
 import java.awt.Toolkit;
-import java.awt.Color;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.LineBorder;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-import client_Chat.Client_Chat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Server_Chat extends javax.swing.JFrame {
 
-	private JPanel contentPane;
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// Private JPanel contentPane;
+	// Variables declaration - do not modify
     private javax.swing.JButton b_clear;
     private javax.swing.JButton b_end;
     private javax.swing.JButton b_start;
@@ -24,9 +24,9 @@ public class Server_Chat extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_name;
     private javax.swing.JTextArea ta_chat;
-    // End of variables declaration//GEN-END:variables
+    private static final Logger log = LogManager.getLogger(Server_Chat.class); 
 
-    ArrayList clientOutputStreams;
+    ArrayList<PrintWriter> clientOutputStreams;
     ArrayList<String> users;
 
     public class ClientHandler implements Runnable	
@@ -100,11 +100,11 @@ public class Server_Chat extends javax.swing.JFrame {
 
      public Server_Chat() 
      {
-    	 setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/utech.jpg")));
+    	 setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/utech.jpg")));
          initComponents();
      }
 
-     @SuppressWarnings("unchecked")
+     
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
@@ -123,6 +123,7 @@ public class Server_Chat extends javax.swing.JFrame {
 
          ta_chat.setColumns(20);
          ta_chat.setRows(5);
+         ta_chat.setEditable(false);
          jScrollPane1.setViewportView(ta_chat);
 
          b_start.setText("START");
@@ -239,6 +240,7 @@ public class Server_Chat extends javax.swing.JFrame {
              @Override
              public void run() {
                  new Server_Chat().setVisible(true);
+                 log.info("Server Has Been Created.");
              }
          });
      }
@@ -248,12 +250,13 @@ public class Server_Chat extends javax.swing.JFrame {
          @Override
          public void run() 
          {
-             clientOutputStreams = new ArrayList();
-             users = new ArrayList();  
+             clientOutputStreams = new ArrayList<PrintWriter>();
+             users = new ArrayList<String>();  
 
              try 
              {
-                 ServerSocket serverSock = new ServerSocket(2222);
+                 @SuppressWarnings("resource")
+				ServerSocket serverSock = new ServerSocket(2222);
 
                  while (true) 
                  {
@@ -264,11 +267,13 @@ public class Server_Chat extends javax.swing.JFrame {
  				Thread listener = new Thread(new ClientHandler(clientSock, writer));
  				listener.start();
  				ta_chat.append("Got a connection. \n");
+ 				log.info("Server Started.");
                  }
              }
              catch (Exception ex)
              {
                  ta_chat.append("Error making a connection. \n");
+                 log.error("Server Failed to Connect");
              }
          }
      }
@@ -288,6 +293,7 @@ public class Server_Chat extends javax.swing.JFrame {
              tellEveryone(message);
          }
          tellEveryone(done);
+         log.info("User Added to server");
      }
      
      public void userRemove (String data) 
@@ -303,11 +309,12 @@ public class Server_Chat extends javax.swing.JFrame {
              tellEveryone(message);
          }
          tellEveryone(done);
+         log.info("User Removed from server");
      }
      
      public void tellEveryone(String message) 
      {
- 	Iterator it = clientOutputStreams.iterator();
+ 	Iterator<PrintWriter> it = clientOutputStreams.iterator();
 
          while (it.hasNext()) 
          {

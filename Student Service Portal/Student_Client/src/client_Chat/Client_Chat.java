@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
-import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.Color;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -16,7 +19,10 @@ import java.awt.Toolkit;
 
 public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_anonymous;
     private javax.swing.JButton b_connect;
@@ -34,6 +40,8 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
     private javax.swing.JTextField tf_port;
     private javax.swing.JTextField tf_username;
     // End of variables declaration//GEN-END:variables
+    
+    private static final Logger logger = LogManager.getLogger(Client_Chat.class); 
 
 	
     String username, address = "localhost";
@@ -73,7 +81,7 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
     {
          String[] tempList = new String[(users.size())];
          users.toArray(tempList);
-         for (String token:tempList) 
+         for (@SuppressWarnings("unused") String token:tempList) 
          {
              //users.append(token + "\n");
          }
@@ -159,7 +167,7 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
 
     //--------------------------//
     
-    @SuppressWarnings("unchecked")
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -450,6 +458,7 @@ public class Client_Chat extends  javax.swing.JFrame implements ActionListener {
 			public void run() {
 				try {
 					Client_Chat frame = new Client_Chat();
+					logger.info("We In Class");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

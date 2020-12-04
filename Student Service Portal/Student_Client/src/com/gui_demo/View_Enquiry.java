@@ -1,14 +1,8 @@
 package com.gui_demo;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -16,8 +10,6 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,17 +18,22 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-
-
 import client_Chat.Client_Chat;
+import chat_video.client;
 import jdbc.connection.SQLProvider;
 
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger; 
+
 public class View_Enquiry extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_3;
 	private JTextField textField_4;
@@ -47,6 +44,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
 	private JTextField textField_7;
 	private String login_id;
 	private String enquiry_id;
+	public static final Logger logger = LogManager.getLogger(View_Enquiry.class);
 	/**
 	 * Create the frame.
 	 */
@@ -58,7 +56,6 @@ public class View_Enquiry extends JFrame implements ActionListener {
 	{
 		return this.login_id; 
 	}
-
 	public View_Enquiry(String login_id, String enquiry_id) throws SQLException {
 		
 		setLoginId(login_id); 
@@ -143,17 +140,37 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		textField_5.setEditable(false);
 		contentPane.add(textField_5);
 		
+		JRadioButton rdbtnLiveChat = new JRadioButton("Video Chat");
+		rdbtnLiveChat.setIcon(null);
+		rdbtnLiveChat.setFont(new Font("Times New Roman", Font.PLAIN, 19));
+		rdbtnLiveChat.setBackground(Color.WHITE);
+		rdbtnLiveChat.setBounds(308, 480, 139, 21);
+		rdbtnLiveChat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnLiveChat.isSelected())
+				{
+					logger.info("Student ID: " + getLoginId() + " Scheduled/Started A Live Video Session From View Enquiry");
+					dispose(); 
+					client c = new client();
+					c.setVisible(true);
+			    }
+			}
+			
+		});
+		contentPane.add(rdbtnLiveChat);
+		
 		JRadioButton rdbtnUrgent = new JRadioButton("Schedule Live");
 		rdbtnUrgent.setIcon(null);
 		rdbtnUrgent.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnUrgent.setBackground(Color.WHITE);
 		rdbtnUrgent.setBounds(308, 511, 139, 21);
 		rdbtnUrgent.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnUrgent.isSelected())
 				{
+					logger.info("Student ID: " + getLoginId() + " Scheduled/Started A Live Session From View Enquiry");
 					Client_Chat c = new Client_Chat();
 					c.setVisible(true);
 			    }
@@ -172,6 +189,7 @@ public class View_Enquiry extends JFrame implements ActionListener {
         	public void actionPerformed(ActionEvent e) {
         		Edit s;
 				try {
+					logger.info("Student ID: " + getLoginId() + " Opted To Edit Enquiry: " +getEnquiry_id()+ " From View Enquiry");
 					s = new Edit(getLoginId (), getEnquiry_id());
 					s.setVisible(true);
 				} catch (SQLException e1) {

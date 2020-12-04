@@ -11,7 +11,7 @@ private Connection dbConn = null;
 		this.dbConn = dbConn;				
 	}
 	// Shanice: DINITO ADD THE FOREIGN KEY CONSTRAINTS !!!!! - SINCERLY SHAN
-	// Dinito: DONE, THIS SHOULD WORK WELL (^_^)
+	// Dinito: DONE, THIS SHOULD WORK WELL (^_^) MI HOT LIKE WATA
 	
 	   public boolean createDataBaseAndTable() {
 

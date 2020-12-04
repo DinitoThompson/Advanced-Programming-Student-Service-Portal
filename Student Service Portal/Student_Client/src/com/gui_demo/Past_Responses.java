@@ -1,14 +1,11 @@
 package com.gui_demo;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,13 +33,21 @@ import javax.swing.table.DefaultTableModel;
 import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Past_Responses extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	protected static JTextField textField;
 	private JTable table;
 	private String login_id; 
 	private String enquiry_id; 
+	private static final Logger logger = LogManager.getLogger(Past_Responses.class); 
 	
 	public String getEnquiry_id() {
 		return enquiry_id;
@@ -144,6 +149,7 @@ public class Past_Responses extends JFrame implements ActionListener {
 					public void actionPerformed(ActionEvent e) {
 						if(rdbtnUrgent.isSelected())
 						{
+							logger.info("Student ID: " + getLoginId() + " Opted To View Responses For Enquiry: " + getEnquiry_id());
 							Client_Chat c = new Client_Chat();
 							c.setVisible(true);
 						}
@@ -184,9 +190,15 @@ public class Past_Responses extends JFrame implements ActionListener {
 				"Response", "Response Date"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, String.class
 			};
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}

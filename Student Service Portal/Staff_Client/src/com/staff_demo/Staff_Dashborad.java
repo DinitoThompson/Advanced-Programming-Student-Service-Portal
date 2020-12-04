@@ -1,11 +1,7 @@
 package com.staff_demo;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
@@ -20,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import client_Chat.Client_Chat;
+import Staff_Chat.Client_Chat;
 import jdbc.connection1.SQLProvider;
 
 import javax.swing.border.LineBorder;
@@ -158,10 +154,11 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				"Resolved", "Nature", "Date"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				Short.class, Long.class, Long.class
 			};
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 			boolean[] columnEditables = new boolean[] {
@@ -204,10 +201,11 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				"Status", "Session ID", "Student ID", "Nature"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, Integer.class, Integer.class, Long.class
 			};
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 			boolean[] columnEditables = new boolean[] {
@@ -310,10 +308,11 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				"Unresolved", "Nature", "Date"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				Short.class, Long.class, Long.class
 			};
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 			boolean[] columnEditables = new boolean[] {

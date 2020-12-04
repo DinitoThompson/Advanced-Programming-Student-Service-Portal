@@ -80,7 +80,4 @@ public class Enquiry {
 	public void setEnquiry_detail(String enquiry_detail) {
 		this.enquiry_detail = enquiry_detail;
 	}	
-	
-	
-
 }

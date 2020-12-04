@@ -81,6 +81,4 @@ public class Enquiry {
 		this.enquiry_detail = enquiry_detail;
 	}	
 	
-	
-
 }

@@ -1,11 +1,9 @@
 package com.staff_demo;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,22 +13,18 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.border.MatteBorder;
-
-import client_Chat.Client_Chat;
 
 public class Head extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -85,7 +79,7 @@ public class Head extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(552, 164, 294, 268);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblStudentServicesPortal = new JLabel("Student Services Portal");
+		JLabel lblStudentServicesPortal = new JLabel("Staff Services Portal");
 		lblStudentServicesPortal.setBounds(329, 265, 210, 26);
 		lblStudentServicesPortal.setFont(new Font("Times New Roman", Font.ITALIC, 22));
 		lblStudentServicesPortal.setHorizontalAlignment(SwingConstants.CENTER);

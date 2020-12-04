@@ -1,20 +1,14 @@
 package com.gui_demo;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,14 +20,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-
 import client_Chat.Client_Chat;
 import jdbc.connection.SQLProvider;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger; 
+
 public class Edit extends JFrame implements ActionListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 	
@@ -46,6 +45,8 @@ public class Edit extends JFrame implements ActionListener{
 	private JTextField textField_7;
 	private String login_id; 
 	private String enquiry_id;
+	
+	public static Logger logger = LogManager.getLogger(Edit.class);
 	
 	public String getEnquiry_id() {
 		return enquiry_id;
@@ -68,9 +69,9 @@ public class Edit extends JFrame implements ActionListener{
 	
 	public Edit(String login_id, String enquiry_id) throws SQLException 
 	{
-		setLoginId(login_id); 
-		setEnquiry_id(enquiry_id);  
-		setResizable(false);
+	setLoginId(login_id); 
+	setEnquiry_id(enquiry_id);  
+	setResizable(false);
 	setTitle("Edit Enquiry");
 	setIconImage(Toolkit.getDefaultToolkit().getImage(Client_Chat.class.getResource("/res/utech.jpg")));
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,6 +158,7 @@ public class Edit extends JFrame implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(rdbtnUrgent.isSelected())
 			{
+				logger.info("Student ID: " + getLoginId() + " Scheduled/Started A Live Session");
 				Client_Chat c = new Client_Chat();
 				c.setVisible(true);
 		    }
@@ -175,19 +177,18 @@ public class Edit extends JFrame implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			Student_Dashboard v; 
 			try {
-				System.out.println("Out Here");
 				java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
 				SQLProvider sql = new SQLProvider(conn); 
 				boolean UpdatedQuery = sql.UpdateEnquiry(getEnquiry_id(), textField_3.getText(), textField_4.getText(), textArea.getText());
 				if (UpdatedQuery)
 				{
-					JOptionPane.showMessageDialog(null, "Enquiry Updated Sucess...", "Enquiry Status", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Enquiry Updated Success...", "Enquiry Status", JOptionPane.INFORMATION_MESSAGE);
+					logger.info("Student ID: " + getLoginId() + " Added A New Enquiry");
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Enquiry Updated Fail...", "Enquiry Status", JOptionPane.INFORMATION_MESSAGE);
 				}
 				v = new Student_Dashboard (getLoginId());
-				System.out.println("Pheee"); 
 				dispose(); 
 				v.setVisible(true);
 			}
@@ -237,8 +238,6 @@ public class Edit extends JFrame implements ActionListener{
 	textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 	textField_7.setColumns(10);
 	textField_7.setBounds(632, 417, 228, 50);
-	System.out.println(""+getLoginId());
-	// This keeps adding the ID number twice
 	textField_7.setText(getLoginId());
 	contentPane.add(textField_7);
 	
