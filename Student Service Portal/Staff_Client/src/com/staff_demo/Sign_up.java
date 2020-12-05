@@ -148,7 +148,7 @@ public class Sign_up extends JFrame implements ActionListener {
 		 * 30); contentPane.add(rdbtnStudent);
 		 */
 
-		JRadioButton rdbtnStaff = new JRadioButton("Staff");
+		JRadioButton rdbtnStaff = new JRadioButton("Confirm - Staff");
 		rdbtnStaff.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-people-26.png")));
 		rdbtnStaff.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnStaff.setBackground(Color.WHITE);
@@ -188,8 +188,10 @@ public class Sign_up extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(passwordField, "Enter Password");
 				} else if (passwordField.getText().equals(passwordField_1.getText()) == false) {
 					JOptionPane.showMessageDialog(passwordField_1, "Passwords Do Not Match");
-				}
-				if (rdbtnStaff.isSelected()) {
+				} else if (!rdbtnStaff.isSelected()) {
+					JOptionPane.showMessageDialog(null, "Please Confirm...", "Sign Up Status",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (rdbtnStaff.isSelected()) {
 					dispose();
 					try {
 						// Connection dbConn = null;
@@ -217,7 +219,8 @@ public class Sign_up extends JFrame implements ActionListener {
 									s.setVisible(true);
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "ID Number Already Registered", "Sign Up Status", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "ID Number Already Registered", "Sign Up Status",
+										JOptionPane.INFORMATION_MESSAGE);
 								s = new Login();
 								s.setVisible(true);
 							}
@@ -270,17 +273,7 @@ public class Sign_up extends JFrame implements ActionListener {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "ID Number Already Registered", "Sign Up Status",
-							JOptionPane.INFORMATION_MESSAGE);
-					try {
-						s = new Login();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					s.setVisible(true);
-				}
+				} 
 			}
 		});
 		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 22));

@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -113,6 +112,7 @@ public class Enquiry_Response extends JFrame {
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setColumns(10);
 		textField_3.setBounds(330, 132, 228, 50);
 		contentPane.add(textField_3);
@@ -120,6 +120,7 @@ public class Enquiry_Response extends JFrame {
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setColumns(10);
 		textField_4.setBounds(330, 202, 228, 50);
 		contentPane.add(textField_4);
@@ -240,22 +241,19 @@ public class Enquiry_Response extends JFrame {
 		 * }); contentPane.add(rdbtnLiveChat);
 		 */
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Live Chat");
+		JButton rdbtnNewRadioButton = new JButton("Live Chat");
 		rdbtnNewRadioButton.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		rdbtnNewRadioButton.setBackground(Color.WHITE);
 		rdbtnNewRadioButton.setBounds(445, 488, 113, 21);
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				sever s = new sever();
 				Client_Chat c = new Client_Chat();
 				c.setVisible(true);
 				s.setVisible(true);
-
 			}
 		});
-
 		contentPane.add(rdbtnNewRadioButton);
 
 		JLabel lblStaffId = new JLabel("Staff ID");

@@ -16,6 +16,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import Staff_Chat.Client_Chat;
 import jdbc.connection1.SQLProvider;
 
@@ -33,6 +36,8 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class Staff_Dashborad extends JFrame implements ActionListener {
 
+	private static final Logger logger = LogManager.getLogger(Staff_Dashborad.class);
+	
 	private JPanel contentPane;
 	private JTextField textField;
 	protected static JTextField textField_1;
@@ -89,6 +94,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		
 		textField = new JTextField();
 		textField.setEnabled(false);
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField.setColumns(10);
 		textField.setBounds(583, 383, 228, 50);
@@ -105,9 +111,10 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		
 		textField_1 = new JTextField();
 		textField_1.setEnabled(false);
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textField_1.setColumns(10);
-		textField_1.setBounds(585, 487, 228, 50);
+		textField_1.setBounds(585, 400, 228, 50);
 		textField_1.setText(getLoginId());
 		contentPane.add(textField_1);
 		
@@ -266,7 +273,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				logger.info("Staff ID:" + getLoginId() + "Opted To Open Enquiry: " +textField_3.getText());
 				if (textField_3.getText().isEmpty())
 				{
 					JOptionPane.showMessageDialog(null, "Please select an enquiry","Enquiry Selection",JOptionPane.INFORMATION_MESSAGE);

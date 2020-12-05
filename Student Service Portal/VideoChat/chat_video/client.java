@@ -1,6 +1,8 @@
 package chat_video;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -30,13 +32,23 @@ public class client extends JFrame {
 	public client() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 775, 602);
+		setTitle("Video Chat - Client");
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JButton button = new JButton("End");
-		button.setBounds(500, 530, 88, 30);
+		button.setBounds(500, 425, 88, 30);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+
+		});
 		contentPane.add(button);
 
 		img_client = new JLabel("");

@@ -1,6 +1,8 @@
 package chat_video;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
@@ -24,19 +26,29 @@ public class sever extends JFrame {
 	 */
 	public sever() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 682, 676);
+		setTitle("Video Chat - Server");
+		setBounds(100, 100, 775, 602);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JButton button = new JButton("End");
-		button.setBounds(400, 600, 88, 30);
+		button.setBounds(500, 425, 88, 30);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose(); 
+			}
+			
+		});
 		contentPane.add(button);
 
 		img_server = new JLabel("");
 		img_server.setHorizontalAlignment(SwingConstants.CENTER);
-		img_server.setBounds(42, 45, 576, 403);
+		img_server.setBounds(34, 48, 694, 467);
 		contentPane.add(img_server);
 	}
 
