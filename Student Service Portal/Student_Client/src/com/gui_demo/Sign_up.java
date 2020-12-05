@@ -195,6 +195,9 @@ public class Sign_up extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(passwordField, "Enter Password");
 				} else if (passwordField.getText().equals(passwordField_1.getText()) == false) {
 					JOptionPane.showMessageDialog(passwordField_1, "Passwords Do Not Match");
+				} else if (!rdbtnStudent.isSelected()) {
+					JOptionPane.showMessageDialog(null, "Please Confirm...", "Sign Up Status",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else if (rdbtnStudent.isSelected()) {
 					dispose();
 					Cover s;
@@ -285,9 +288,6 @@ public class Sign_up extends JFrame implements ActionListener {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Please Confirm Details", "DB Connection Status",
-							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

@@ -98,9 +98,10 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		 * textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		 * textArea.setBounds(709, 308, 196, 45);
 		 */
-		JTextArea textArea = new JTextArea();
+		JTextField textArea = new JTextField();
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textArea.setHorizontalAlignment(SwingConstants.CENTER);
 		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textArea.setEnabled(false);
 		textArea.setBounds(709, 308, 196, 45);
@@ -120,10 +121,12 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		lblStudentId.setBounds(734, 359, 150, 31);
 		contentPane.add(lblStudentId);
 
-		JTextArea textArea_1 = new JTextArea();
+		JTextField textArea_1 = new JTextField();
 		textArea_1.setEditable(false);
+		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textArea_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textArea_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		textArea_1.setEnabled(false);
 		textArea_1.setBounds(709, 400, 196, 45);
 		textArea_1.setText(getLoginId());
 		contentPane.add(textArea_1);

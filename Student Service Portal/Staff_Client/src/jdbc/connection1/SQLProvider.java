@@ -12,6 +12,7 @@ public class SQLProvider {
 	private PreparedStatement prepStmt = null;
 
 	private int numOfAffectedRows = 0;
+	private int numOfAffectedRows2 = 0; 
 	private Sign_up s;
 
 	public SQLProvider(Connection dbConn) {
@@ -141,21 +142,18 @@ public class SQLProvider {
 		return false;
 	}
 
-	public boolean SubmitResponse(String enquiry_id, String enquiry_response) // USED TO SUBMIT A RESPONSE TO THE AN
-																				// ENQUIRY (TO BE CHECKED)
-	{
+	public boolean SubmitResponse(String enquiry_id, String enquiry_response) {
 		String insertSQL = "INSERT INTO student_services_portal.enquiry_response (enquiry_id, enquiry_response) "
 				+ "VALUES ('" + enquiry_id + "', '" + enquiry_response + "')";
-		String updateSQL = "Update student_services_portal.enquiry SET enquiry_state = 'Resolved' WHERE enquiry_id = "
-				+ enquiry_id;
-		String responseUpdate = insertSQL + updateSQL;
+		String updateSQL = "Update student_services_portal.enquiry SET enquiry_state = 'Resolved' WHERE enquiry_id = "+enquiry_id ;
 		try {
 			stmt = (Statement) dbConn.createStatement();
-			numOfAffectedRows = stmt.executeUpdate(responseUpdate);
+			numOfAffectedRows = stmt.executeUpdate(insertSQL);
+			numOfAffectedRows2 = stmt.executeUpdate(updateSQL);
 		} catch (SQLException e) {
 			System.out.println("Error Updating: " + e.getMessage());
 		}
-		return (numOfAffectedRows == 1);
+		return (numOfAffectedRows == 1 && numOfAffectedRows == 1);
 	}
 
 	public boolean UpdateEnquiry(String enquiry_id, String enquiry_complaint, String enquiry_nature,

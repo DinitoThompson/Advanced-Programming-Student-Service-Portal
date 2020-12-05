@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import Staff_Chat.Client_Chat;
-import chat_video.sever;
+//import chat_video.sever;
 import jdbc.connection1.SQLProvider;
 
 import javax.swing.ScrollPaneConstants;
@@ -248,10 +248,10 @@ public class Enquiry_Response extends JFrame {
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sever s = new sever();
+				//sever s = new sever();
 				Client_Chat c = new Client_Chat();
 				c.setVisible(true);
-				s.setVisible(true);
+				//s.setVisible(true);
 			}
 		});
 		contentPane.add(rdbtnNewRadioButton);

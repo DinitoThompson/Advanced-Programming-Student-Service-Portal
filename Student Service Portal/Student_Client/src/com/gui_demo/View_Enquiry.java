@@ -21,10 +21,9 @@ import javax.swing.border.LineBorder;
 
 
 import client_Chat.Client_Chat;
-import chat_video.client;
+//import chat_video.client;
 import jdbc.connection.SQLProvider;
 
-import javax.swing.JRadioButton;
 import javax.swing.JButton;
 
 import org.apache.logging.log4j.LogManager;
@@ -104,23 +103,30 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblFurtherDetails);
 
 		textField_3 = new JTextField();
+		textField_3.setEditable(false);
+		textField_3.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_3.setColumns(10);
+		textField_3.setEnabled(false);
 		textField_3.setBounds(330, 260, 228, 50);
 		contentPane.add(textField_3);
-		textField_3.setEditable(false);
 
 		textField_4 = new JTextField();
+		textField_4.setEditable(false);
+		textField_4.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_4.setColumns(10);
+		textField_4.setEnabled(false);
 		textField_4.setBounds(330, 320, 228, 50);
 		contentPane.add(textField_4);
-		textField_4.setEditable(false);
 
 		pane = new JScrollPane();
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		textArea = new JTextArea();
 		textArea.setEditable(false);
+		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		textArea.setEnabled(false);
 		textArea.setBounds(330, 380, 228, 65);
 		textArea.setBorder(new LineBorder(Color.BLACK));
 
@@ -136,8 +142,10 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		contentPane.add(lblEnquiryId);
 
 		textField_5 = new JTextField();
+		textField_5.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_5.setColumns(10);
+		textField_5.setEnabled(false);
 		textField_5.setBounds(27, 488, 228, 50);
 		textField_5.setEditable(false);
 		contentPane.add(textField_5);
@@ -147,15 +155,15 @@ public class View_Enquiry extends JFrame implements ActionListener {
 		rdbtnLiveChat.setBackground(new Color(25, 25, 112));
 		rdbtnLiveChat.setBorder(null);
 		rdbtnLiveChat.setForeground(Color.WHITE);
-		rdbtnLiveChat.setBounds(308, 480, 139, 21);
+		rdbtnLiveChat.setBounds(308, 508, 139, 21);
 		rdbtnLiveChat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					logger.info("Student ID: " + getLoginId() + " Scheduled/Started A Live Session From View Enquiry");
 					Client_Chat c1 = new Client_Chat();
-					client c = new client();
+					//client c = new client();
 					c1.setVisible(true);
-					c.setVisible(true);
+					//c.setVisible(true);
 					dispose();
 			}
 
@@ -215,8 +223,10 @@ public class View_Enquiry extends JFrame implements ActionListener {
 
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
+		textField_6.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_6.setColumns(10);
+		textField_6.setEnabled(false);
 		textField_6.setBounds(634, 320, 228, 50);
 		try {
 			java.sql.Connection conn = DriverManager
@@ -236,8 +246,10 @@ public class View_Enquiry extends JFrame implements ActionListener {
 
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
+		textField_7.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_7.setColumns(10);
+		textField_7.setEnabled(false);
 		textField_7.setBounds(632, 417, 228, 50);
 		contentPane.add(textField_7);
 
