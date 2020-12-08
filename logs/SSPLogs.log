@@ -41,3 +41,10 @@
 [INFO ] 2020-12-04 22:26:24.351 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Responses: 2
 [INFO ] 2020-12-04 22:27:04.382 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1801202 Opted To View Enquiry: 2
 [INFO ] 2020-12-04 22:27:42.902 [AWT-EventQueue-0] View_Enquiry - Student ID: 1801202 Scheduled/Started A Live Session From View Enquiry
+[INFO ] 2020-12-06 10:09:49.348 [AWT-EventQueue-0] Sign_up - New Student Sign Up : Student ID : 1234567
+[INFO ] 2020-12-06 10:09:59.203 [AWT-EventQueue-0] Cover - Student Sign In: 1234567
+[INFO ] 2020-12-06 10:10:03.554 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1234567 Opted To Submit An Enquiry
+[INFO ] 2020-12-06 10:10:28.731 [AWT-EventQueue-0] Submit_Enquiry - Student ID: 1234567 Submited A Brand New Enquiry.
+[INFO ] 2020-12-06 10:12:39.511 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1234567 Opted To View Enquiry: 3
+[INFO ] 2020-12-06 10:12:54.501 [AWT-EventQueue-0] Student_Dashboard - Student ID: 1234567 Opted To View Responses: 3
+[INFO ] 2020-12-06 10:13:15.275 [AWT-EventQueue-0] Student_Dashboard - Student ID:1234567Logged Out
