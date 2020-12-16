@@ -1,7 +1,13 @@
 package com.gui_demo;
 
-import java.awt.EventQueue;
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Rectangle;
@@ -9,7 +15,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -104,12 +109,11 @@ public class Front extends JFrame implements ActionListener {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Cover s;
+				Cover cover;
 				try {
-					s = new Cover();
-					s.setVisible(true);
+					cover = new Cover();
+					cover.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 

@@ -1,5 +1,12 @@
 package com.gui_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -43,8 +50,8 @@ public class Past_Responses extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	protected static JTextField textField;
-	private JTable table;
+	protected static JTextField enquiryID;
+	private JTable responseDisplay;
 	private String login_id;
 	private String enquiry_id;
 	private static final Logger logger = LogManager.getLogger(Past_Responses.class);
@@ -135,8 +142,8 @@ public class Past_Responses extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnUrgent.isSelected()) {
-					logger.info(
-							"Student ID: " + getLoginId() + " Opted To Schedule A Live For Enquiry: " + getEnquiry_id());
+					logger.info("Student ID: " + getLoginId() + " Opted To Schedule A Live For Enquiry: "
+							+ getEnquiry_id());
 					Client_Chat c = new Client_Chat();
 					c.setVisible(true);
 				} else {
@@ -153,19 +160,19 @@ public class Past_Responses extends JFrame implements ActionListener {
 		lblEnquiryId.setBounds(21, 410, 144, 26);
 		contentPane.add(lblEnquiryId);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField.setEditable(false);
-		textField.setColumns(10);
-		textField.setBounds(0, 462, 208, 50);
-		contentPane.add(textField);
+		enquiryID = new JTextField();
+		enquiryID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		enquiryID.setEditable(false);
+		enquiryID.setColumns(10);
+		enquiryID.setBounds(0, 462, 208, 50);
+		contentPane.add(enquiryID);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(218, 102, 404, 348);
-		contentPane.add(scrollPane);
+		JScrollPane responseArea = new JScrollPane();
+		responseArea.setBounds(218, 102, 404, 348);
+		contentPane.add(responseArea);
 
-		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Response", "Response Date" }) {
+		responseDisplay = new JTable();
+		responseDisplay.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Response", "Response Date" }) {
 			/**
 			 * 
 			 */
@@ -184,22 +191,22 @@ public class Past_Responses extends JFrame implements ActionListener {
 				return columnEditables[column];
 			}
 		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.addMouseListener(new MouseAdapter() {
+		responseDisplay.getColumnModel().getColumn(0).setResizable(false);
+		responseDisplay.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				int selectedRowIndex = table.getSelectedRow();
+				DefaultTableModel model = (DefaultTableModel) responseDisplay.getModel();
+				int selectedRowIndex = responseDisplay.getSelectedRow();
 				txtrNoResponseMade.setText(model.getValueAt(selectedRowIndex, 0).toString());
 			}
 
 		});
-		scrollPane.setViewportView(table);
+		responseArea.setViewportView(responseDisplay);
 		repaint();
 		try {
 			showResponse(getEnquiry_id());
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 
@@ -210,7 +217,7 @@ public class Past_Responses extends JFrame implements ActionListener {
 				"");
 		SQLProvider sql = new SQLProvider(conn);
 		ArrayList<Enquiry> List = sql.EnquiryResponse(enquiry_id);
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		DefaultTableModel model = (DefaultTableModel) responseDisplay.getModel();
 		Object[] row = new Object[3];
 		for (int i = 0; i < List.size(); i++) {
 			row[0] = List.get(i).getEnquiry_response();
@@ -222,7 +229,7 @@ public class Past_Responses extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		try {
 			Past_Responses frame = new Past_Responses(getLoginId(), getEnquiry_id());
 			frame.setVisible(true);

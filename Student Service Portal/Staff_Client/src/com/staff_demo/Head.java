@@ -1,5 +1,12 @@
 package com.staff_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,7 +16,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -104,7 +110,6 @@ public class Head extends JFrame implements ActionListener {
 					s = new Login();
 					s.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 

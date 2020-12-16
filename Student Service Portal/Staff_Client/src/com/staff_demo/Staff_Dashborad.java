@@ -1,5 +1,12 @@
 package com.staff_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -39,12 +46,12 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 	private static final Logger logger = LogManager.getLogger(Staff_Dashborad.class);
 
 	private JPanel contentPane;
-	private JTextField textField;
-	protected static JTextField textField_1;
-	private JTable table;
-	private JTable table_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField staffName;
+	protected static JTextField staffID;
+	private JTable resolvedTable;
+	private JTable unresolvedTable;
+	private JTextField sessionID;
+	private JTextField enquiryID;
 	private JTable table_2;
 	private String login_id;
 
@@ -92,30 +99,30 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		lblName_1_1_1.setBounds(619, 434, 155, 43);
 		contentPane.add(lblName_1_1_1);
 
-		textField = new JTextField();
-		textField.setEnabled(false);
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField.setColumns(10);
-		textField.setBounds(583, 383, 228, 50);
+		staffName = new JTextField();
+		staffName.setEnabled(false);
+		staffName.setHorizontalAlignment(SwingConstants.CENTER);
+		staffName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		staffName.setColumns(10);
+		staffName.setBounds(583, 383, 228, 50);
 		try {
 			java.sql.Connection conn = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/student_services_portal", "root", "");
 			SQLProvider sql = new SQLProvider(conn);
-			textField.setText(sql.SelectStaffName(getLoginId()));
+			staffName.setText(sql.SelectStaffName(getLoginId()));
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-		contentPane.add(textField);
+		contentPane.add(staffName);
 
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_1.setColumns(10);
-		textField_1.setBounds(585, 485, 228, 50);
-		textField_1.setText(getLoginId());
-		contentPane.add(textField_1);
+		staffID = new JTextField();
+		staffID.setEnabled(false);
+		staffID.setHorizontalAlignment(SwingConstants.CENTER);
+		staffID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		staffID.setColumns(10);
+		staffID.setBounds(585, 485, 228, 50);
+		staffID.setText(getLoginId());
+		contentPane.add(staffID);
 
 		JButton btnLogOut = new JButton("Log out");
 		btnLogOut.setForeground(Color.WHITE);
@@ -131,7 +138,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 					f = new Head();
 					f.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 
@@ -149,11 +156,11 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		scrollPane.setBounds(222, 73, 326, 164);
 		contentPane.add(scrollPane);
 
-		table = new JTable();
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		table.setGridColor(Color.WHITE);
-		table.setBackground(Color.WHITE);
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Resolved", "Nature", "Date" }) {
+		resolvedTable = new JTable();
+		resolvedTable.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		resolvedTable.setGridColor(Color.WHITE);
+		resolvedTable.setBackground(Color.WHITE);
+		resolvedTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Resolved", "Nature", "Date" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { Short.class, Long.class, Long.class };
 
@@ -167,19 +174,19 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				return columnEditables[column];
 			}
 		});
-		table.addMouseListener(new MouseAdapter() {
+		resolvedTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				int selectedRowIndex = table.getSelectedRow();
-				textField_3.setText(model.getValueAt(selectedRowIndex, 0).toString());
+				DefaultTableModel model = (DefaultTableModel) resolvedTable.getModel();
+				int selectedRowIndex = resolvedTable.getSelectedRow();
+				enquiryID.setText(model.getValueAt(selectedRowIndex, 0).toString());
 			}
 		});
 
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(2).setResizable(false);
-		scrollPane.setViewportView(table);
+		resolvedTable.getColumnModel().getColumn(0).setResizable(false);
+		resolvedTable.getColumnModel().getColumn(1).setResizable(false);
+		resolvedTable.getColumnModel().getColumn(2).setResizable(false);
+		scrollPane.setViewportView(resolvedTable);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(224, 511, 329, 187);
@@ -188,12 +195,12 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		try {
 			show_resolved_enquiry();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(new Object[][] {},
+		unresolvedTable = new JTable();
+		unresolvedTable.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Status", "Session ID", "Student ID", "Nature" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, Integer.class, Integer.class, Long.class };
@@ -208,7 +215,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				return columnEditables[column];
 			}
 		});
-		scrollPane_1.setViewportView(table_1);
+		scrollPane_1.setViewportView(unresolvedTable);
 
 		JLabel lblNewLabel_2 = new JLabel("All Live Sessions");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -228,18 +235,18 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		lblName_1_1_2_1.setBounds(20, 145, 155, 43);
 		contentPane.add(lblName_1_1_2_1);
 
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_2.setColumns(10);
-		textField_2.setBounds(10, 608, 165, 50);
-		contentPane.add(textField_2);
+		sessionID = new JTextField();
+		sessionID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		sessionID.setColumns(10);
+		sessionID.setBounds(10, 608, 165, 50);
+		contentPane.add(sessionID);
 
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_3.setColumns(10);
-		textField_3.setBounds(10, 187, 165, 50);
-		textField_3.setEditable(false);
-		contentPane.add(textField_3);
+		enquiryID = new JTextField();
+		enquiryID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		enquiryID.setColumns(10);
+		enquiryID.setBounds(10, 187, 165, 50);
+		enquiryID.setEditable(false);
+		contentPane.add(enquiryID);
 
 		JButton btnJoinSession = new JButton("Join Session");
 		btnJoinSession.setForeground(Color.WHITE);
@@ -257,21 +264,21 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		btnOpenEnquiry.setBounds(20, 247, 122, 30);
 		btnOpenEnquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				logger.info("Staff ID:" + getLoginId() + "Opted To Open Enquiry: " + textField_3.getText());
-				if (textField_3.getText().isEmpty()) {
+				logger.info("Staff ID:" + getLoginId() + "Opted To Open Enquiry: " + enquiryID.getText());
+				if (enquiryID.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Please select an enquiry", "Enquiry Selection",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					// capture the enquiry ID selected and display the info on the
 					// Enquiry_Response() frame.
-					Enquiry_Response v = new Enquiry_Response(getLoginId(), textField_3.getText());
-					// Enquiry_Response.textField_5.setText(textField_3.getText());
-					Enquiry_Response.textField.setText(getLoginId());
+					Enquiry_Response v = new Enquiry_Response(getLoginId(), enquiryID.getText());
+					// Enquiry_Response.textField_5.setText(enquiryID.getText());
+					Enquiry_Response.staffName.setText(getLoginId());
 					try {
 						java.sql.Connection conn = DriverManager
 								.getConnection("jdbc:mysql://localhost:3306/student_services_portal", "root", "");
 						SQLProvider sql = new SQLProvider(conn);
-						Enquiry_Response.textField_1.setText(sql.SelectStaffName(getLoginId()));
+						Enquiry_Response.staffID.setText(sql.SelectStaffName(getLoginId()));
 						dispose();
 					} catch (SQLException e1) {
 						e1.getMessage();
@@ -308,7 +315,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table_2.getModel();
 				int selectedRowIndex = table_2.getSelectedRow();
-				textField_3.setText(model.getValueAt(selectedRowIndex, 0).toString());
+				enquiryID.setText(model.getValueAt(selectedRowIndex, 0).toString());
 			}
 		});
 
@@ -319,7 +326,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 		try {
 			show_unresolved_enquiry();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 	}
@@ -340,7 +347,7 @@ public class Staff_Dashborad extends JFrame implements ActionListener {
 				"");
 		SQLProvider sql = new SQLProvider(conn);
 		ArrayList<com.gui_demo.Enquiry> List = sql.ResolvedEnquiry();
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		DefaultTableModel model = (DefaultTableModel) resolvedTable.getModel();
 		Object[] row = new Object[3];
 		for (int i = 0; i < List.size(); i++) {
 			row[0] = List.get(i).getE_id();

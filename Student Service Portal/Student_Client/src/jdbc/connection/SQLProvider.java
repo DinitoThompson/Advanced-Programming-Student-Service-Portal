@@ -1,5 +1,13 @@
 package jdbc.connection;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
+
 import java.sql.*;
 import java.util.ArrayList;
 import com.gui_demo.*;
@@ -19,7 +27,7 @@ public class SQLProvider
 		this.dbConn = dbConn;
 	}
 
-	// ============= SIGN UP FUNCTIONS ===============
+	// ============= STUDENT SIGN UP FUNCTIONS ===============
 
 	public boolean insertStudentUser(Sign_up sign2) //USED TO ENTER STUDENTS INTO THE DATABSE (FINISHED)
 	{
@@ -50,7 +58,7 @@ public class SQLProvider
 		}
 		return false;
 	}
-	
+	/*
 	public boolean insertStaffUser(Sign_up sign2) //USED TO ENTER STAFF INTO THE DATABSE (FINISHED)
 	{
 		String insertstaffSql = "INSERT INTO student_services_portal.staff (staff_id, staff_first_name, staff_last_name, staff_email, staff_password)"
@@ -79,8 +87,9 @@ public class SQLProvider
 		}
 		return false;
 	}
+	*/
 	
-	// ============= LOG IN FUNCTIONS ================
+	// ============= STUDENT LOG IN FUNCTIONS ================
 
 	public Sign_up selectStudentUser(int id)
 	 {
@@ -106,7 +115,7 @@ public class SQLProvider
 		 return null;
 	 }
 
-	// ============= SQL FUNCTIONS ===============
+	// ============= VIEW STUDENT ENQUIRY FUNCTIONS ===============
 
 	public ResultSet ViewStudentEnquiry(String e_id) //SELECTS THE ENQUIRY FOR A STUDENT
 	{
@@ -121,7 +130,7 @@ public class SQLProvider
 		
 		return result;
 	}
-	
+	// ============= SUBMIT STUDENT ENQUIRY FUNCTIONS ===============
 	public boolean SubmitEnquiry(String student_id, String enquiry_nature, String enquiry_complaint, String enquiry_detail)
 	{
 		String insertSQL = "INSERT INTO student_services_portal.enquiry (student_id, enquiry_nature, enquiry_complaint, enquiry_detail) "
@@ -136,6 +145,7 @@ public class SQLProvider
 		return false;
 	}
 	
+	/*
 	public boolean SubmitResponse(String enquiry_id, String enquiry_response) // USED TO SUBMIT A RESPONSE TO THE AN ENQUIRY (TO BE CHECKED)
 	{
 		String insertSQL = "INSERT INTO student_services_portal.enquiry_response (enquiry_id, enquiry_response) "
@@ -151,7 +161,9 @@ public class SQLProvider
 		   }
 		   return(numOfAffectedRows == 1);
 	}
-	
+	*/ 
+
+	// ============= EDIT STUDENT ENQUIRY FUNCTIONS ===============
 	public boolean UpdateEnquiry (String enquiry_id, String enquiry_complaint, String enquiry_nature, String enquiry_detail)
 	{
 		String updateSQL = ""
@@ -168,7 +180,20 @@ public class SQLProvider
 		}
 		return (numOfAffectedRows == 1); 
 	}
+
+	public ResultSet EditEnquiry(String enquiry_id) //RUNS UPDATE BASED OFF ENQUIRY ID
+	{
+		try{
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
+			prepStmt = conn.prepareStatement("SELECT * FROM `enquiry` WHERE enquiry_id = " +enquiry_id); 
+			prepStmt.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Error Updating: " + e.getMessage());
+		}
+		return result;
+	}
 	
+	// ============= CANCEL STUDENT ENQUIRY FUNCTIONS ===============
 	public boolean CancelStudentEnquiry(String enquiry_id) // RUNS DELETE BASED OFF STUDENT (TO BE CHECKED)
 	{
 		String updateSQL = "UPDATE student_services_portal.enquiry SET enquiry_state = 'Resolved' WHERE enquiry_id = " + enquiry_id;
@@ -181,6 +206,7 @@ public class SQLProvider
 		return (numOfAffectedRows == 1);
 	}
 	
+	// ============= VIEW ENQUIRY RESPONSES FUNCTION ===============
 	@SuppressWarnings("deprecation")
 	public ArrayList<Enquiry> EnquiryResponse (String enquiry_id)
 	{
@@ -204,19 +230,16 @@ public class SQLProvider
 		{
 			System.out.println("Error Updating: " + e.getMessage());
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return enquiry_response; 
 	 }
 
-
+	// ============= VIEW ALL STUDENT ENQUIRY FUNCTIONS | STUDENT DASHBOARD===============
     @SuppressWarnings("deprecation")
 	public ArrayList<Enquiry> StudentEnquiryTable(String student_id)// USED FOR STUDENT ENQUIRY TABLE (FINISHED)
 	{
@@ -242,6 +265,7 @@ public class SQLProvider
 		return enquiryTable;
 	}
 
+	/*
 	@SuppressWarnings("deprecation")
 	public ArrayList<Enquiry> ResolvedEnquiry()//USED FOR STAFF ENQUIRY TABLE (FINISHED)
 	{
@@ -290,20 +314,9 @@ public class SQLProvider
 			}
 		 return EnquiryList;
 	 }
-	
-	public ResultSet EditEnquiry(String enquiry_id) //RUNS UPDATE BASED OFF ENQUIRY ID
-	{
-		try{
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal","root","");
-			prepStmt = conn.prepareStatement("SELECT * FROM `enquiry` WHERE enquiry_id = " +enquiry_id); 
-			prepStmt.executeQuery();
-		}catch(SQLException e){
-			System.out.println("Error Updating: " + e.getMessage());
-		}
-		return result;
-	}
+	*/
 
-
+	// ============= GENERAL STUDENT FUNCTIONS ===============
 public String SelectStudentName (String student_id)
 {
 	String selectNameSQL = "SELECT student_first_name, student_last_name From student_services_portal.student WHERE student_id = " + student_id; 
@@ -320,6 +333,7 @@ public String SelectStudentName (String student_id)
 	return null; 
  }
 
+ /*
 public String SelectStaffName (String staff_id)
 {
 	String selectNameSQL = "SELECT staff_first_name, staff_last_name From student_services_portal.staff WHERE staff_id = " + staff_id; 
@@ -335,7 +349,6 @@ public String SelectStaffName (String staff_id)
 	}
 	return null; 
  }
-
-
+*/
 
 }

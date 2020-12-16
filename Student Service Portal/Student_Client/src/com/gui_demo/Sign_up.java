@@ -1,5 +1,12 @@
 package com.gui_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -39,14 +46,14 @@ public class Sign_up extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField id;
-	private JTextField firstname;
-	private JTextField lastname;
-	private JTextField email;
-	private JTextField mob;
-	private JPasswordField passwordField;
+	private JTextField studentID;
+	private JTextField studentFirstName;
+	private JTextField studentLastName;
+	private JTextField studentEmail;
+	private JTextField studentMobile;
+	private JPasswordField studentPassword;
 	private JButton btnNewButton;
-	private JPasswordField passwordField_1;
+	private JPasswordField studentConfirmPassword;
 
 	private static final Logger logger = LogManager.getLogger(Sign_up.class);
 
@@ -99,29 +106,29 @@ public class Sign_up extends JFrame implements ActionListener {
 		lblEmailAddress.setBounds(115, 330, 124, 36);
 		contentPane.add(lblEmailAddress);
 
-		id = new JTextField();
-		id.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		id.setBounds(267, 104, 228, 50);
-		contentPane.add(id);
-		id.setColumns(10);
+		studentID = new JTextField();
+		studentID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentID.setBounds(267, 104, 228, 50);
+		contentPane.add(studentID);
+		studentID.setColumns(10);
 
-		firstname = new JTextField();
-		firstname.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		firstname.setBounds(264, 177, 228, 50);
-		contentPane.add(firstname);
-		firstname.setColumns(10);
+		studentFirstName = new JTextField();
+		studentFirstName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentFirstName.setBounds(264, 177, 228, 50);
+		contentPane.add(studentFirstName);
+		studentFirstName.setColumns(10);
 
-		lastname = new JTextField();
-		lastname.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		lastname.setBounds(261, 250, 228, 50);
-		contentPane.add(lastname);
-		lastname.setColumns(10);
+		studentLastName = new JTextField();
+		studentLastName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentLastName.setBounds(261, 250, 228, 50);
+		contentPane.add(studentLastName);
+		studentLastName.setColumns(10);
 
-		email = new JTextField();
-		email.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		email.setBounds(261, 319, 228, 50);
-		contentPane.add(email);
-		email.setColumns(10);
+		studentEmail = new JTextField();
+		studentEmail.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentEmail.setBounds(261, 319, 228, 50);
+		contentPane.add(studentEmail);
+		studentEmail.setColumns(10);
 
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 22));
@@ -133,24 +140,24 @@ public class Sign_up extends JFrame implements ActionListener {
 		lblMobileNumber.setBounds(100, 406, 139, 26);
 		contentPane.add(lblMobileNumber);
 
-		mob = new JTextField();
-		mob.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		mob.setBounds(264, 390, 228, 50);
-		contentPane.add(mob);
-		mob.setColumns(10);
+		studentMobile = new JTextField();
+		studentMobile.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentMobile.setBounds(264, 390, 228, 50);
+		contentPane.add(studentMobile);
+		studentMobile.setColumns(10);
 
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		passwordField.setBounds(264, 464, 228, 50);
-		contentPane.add(passwordField);
+		studentPassword = new JPasswordField();
+		studentPassword.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		studentPassword.setBounds(264, 464, 228, 50);
+		contentPane.add(studentPassword);
 
-		JRadioButton rdbtnStudent = new JRadioButton();
-		rdbtnStudent.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-student-male-30.png")));
-		rdbtnStudent.setText("Confirm");
-		rdbtnStudent.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtnStudent.setBackground(Color.WHITE);
-		rdbtnStudent.setBounds(330, 617, 88, 30);
-		contentPane.add(rdbtnStudent);
+		JRadioButton studentConfirm = new JRadioButton();
+		studentConfirm.setIcon(new ImageIcon(Sign_up.class.getResource("/res/icons8-student-male-30.png")));
+		studentConfirm.setText("Confirm");
+		studentConfirm.setHorizontalAlignment(SwingConstants.CENTER);
+		studentConfirm.setBackground(Color.WHITE);
+		studentConfirm.setBounds(330, 617, 88, 30);
+		contentPane.add(studentConfirm);
 
 		/*
 		 * JRadioButton rdbtnStaff = new JRadioButton("Staff"); rdbtnStaff.setIcon(new
@@ -163,7 +170,7 @@ public class Sign_up extends JFrame implements ActionListener {
 		@SuppressWarnings("unused")
 		JButton B = new JButton();
 		ButtonGroup G1 = new ButtonGroup();
-		G1.add(rdbtnStudent);
+		G1.add(studentConfirm);
 		// G1.add(rdbtnStaff);
 
 		btnNewButton = new JButton("Sign up");
@@ -173,32 +180,32 @@ public class Sign_up extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				ID = id.getText();
-				Fname = firstname.getText();
-				Lname = lastname.getText();
-				Email = email.getText();
-				Phone = mob.getText();
-				password = passwordField.getText();
+				ID = studentID.getText();
+				Fname = studentFirstName.getText();
+				Lname = studentLastName.getText();
+				Email = studentEmail.getText();
+				Phone = studentMobile.getText();
+				password = studentPassword.getText();
 
 				// check for any blank fields
-				if (id.getText().length() == 0) {
+				if (studentID.getText().length() == 0) {
 					JOptionPane.showMessageDialog(lblName, "Missing ID");
-				} else if (firstname.getText().length() == 0) {
+				} else if (studentFirstName.getText().length() == 0) {
 					JOptionPane.showMessageDialog(lblName, "Missing First Name");
-				} else if (lastname.getText().length() == 0) {
-					JOptionPane.showMessageDialog(lastname, "Missing Last Name");
-				} else if (email.getText().length() == 0) {
-					JOptionPane.showMessageDialog(email, "Missing Email");
-				} else if (mob.getText().length() == 0) {
-					JOptionPane.showMessageDialog(mob, "Missing Phone Number");
-				} else if (passwordField.getText().length() == 0) {
-					JOptionPane.showMessageDialog(passwordField, "Enter Password");
-				} else if (passwordField.getText().equals(passwordField_1.getText()) == false) {
-					JOptionPane.showMessageDialog(passwordField_1, "Passwords Do Not Match");
-				} else if (!rdbtnStudent.isSelected()) {
+				} else if (studentLastName.getText().length() == 0) {
+					JOptionPane.showMessageDialog(studentLastName, "Missing Last Name");
+				} else if (studentEmail.getText().length() == 0) {
+					JOptionPane.showMessageDialog(studentEmail, "Missing Email");
+				} else if (studentMobile.getText().length() == 0) {
+					JOptionPane.showMessageDialog(studentMobile, "Missing Phone Number");
+				} else if (studentPassword.getText().length() == 0) {
+					JOptionPane.showMessageDialog(studentPassword, "Enter Password");
+				} else if (studentPassword.getText().equals(studentConfirmPassword.getText()) == false) {
+					JOptionPane.showMessageDialog(studentConfirmPassword, "Passwords Do Not Match");
+				} else if (!studentConfirm.isSelected()) {
 					JOptionPane.showMessageDialog(null, "Please Confirm...", "Sign Up Status",
 							JOptionPane.INFORMATION_MESSAGE);
-				} else if (rdbtnStudent.isSelected()) {
+				} else if (studentConfirm.isSelected()) {
 					dispose();
 					Cover s;
 					try {
@@ -220,7 +227,7 @@ public class Sign_up extends JFrame implements ActionListener {
 								if (student_contact_created) {
 									JOptionPane.showMessageDialog(null, "Student Record Created !!", "Student Creation",
 											JOptionPane.INFORMATION_MESSAGE);
-									JOptionPane.showMessageDialog(passwordField_1,
+									JOptionPane.showMessageDialog(studentConfirmPassword,
 											"Successful Sign Up, Please Login...");
 									logger.info("New Student Sign Up : Student ID : " + getID());
 									s = new Cover();
@@ -256,7 +263,8 @@ public class Sign_up extends JFrame implements ActionListener {
 							if (student_created && student_contact_created) {
 								JOptionPane.showMessageDialog(null, "Student Record Created !!", "Student Creation",
 										JOptionPane.INFORMATION_MESSAGE);
-								JOptionPane.showMessageDialog(passwordField_1, "Successful Sign Up, Please Login...");
+								JOptionPane.showMessageDialog(studentConfirmPassword,
+										"Successful Sign Up, Please Login...");
 								logger.info("New Student Sign Up : Student ID : " + getID());
 								s = new Cover();
 								s.setVisible(true);
@@ -271,21 +279,21 @@ public class Sign_up extends JFrame implements ActionListener {
 						} catch (RuntimeException o) {
 							System.out.println("Database doesn't exist");
 						} catch (IOException e2) {
-							// TODO Auto-generated catch block
+
 							e2.printStackTrace();
 						}
 
 					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					}
 				}
@@ -300,10 +308,10 @@ public class Sign_up extends JFrame implements ActionListener {
 		lblConfirmPassword.setBounds(79, 550, 160, 24);
 		contentPane.add(lblConfirmPassword);
 
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		passwordField_1.setBounds(264, 533, 228, 50);
-		contentPane.add(passwordField_1);
+		studentConfirmPassword = new JPasswordField();
+		studentConfirmPassword.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		studentConfirmPassword.setBounds(264, 533, 228, 50);
+		contentPane.add(studentConfirmPassword);
 
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Sign_up.class.getResource("/res/FrameLiner.png")));
@@ -319,7 +327,7 @@ public class Sign_up extends JFrame implements ActionListener {
 					d = new Cover();
 					d.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 
@@ -347,8 +355,8 @@ public class Sign_up extends JFrame implements ActionListener {
 		return ID;
 	}
 
-	public void setID(String id) {
-		ID = id;
+	public void setID(String studentID) {
+		ID = studentID;
 	}
 
 	public String getFname() {
@@ -391,19 +399,19 @@ public class Sign_up extends JFrame implements ActionListener {
 		this.password = password;
 	}
 
-	public Sign_up(String id, String fname, String lname, String email, String phone, String pass)
+	public Sign_up(String studentID, String fname, String lname, String studentEmail, String phone, String pass)
 			throws HeadlessException {
 		super();
-		ID = id;
+		ID = studentID;
 		Fname = fname;
 		Lname = lname;
-		Email = email;
+		Email = studentEmail;
 		Phone = phone;
 		password = pass;
 	}
 
 	public Sign_up(int i, String string2, String string3) {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

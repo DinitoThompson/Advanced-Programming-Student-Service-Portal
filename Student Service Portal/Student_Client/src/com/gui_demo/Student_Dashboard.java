@@ -1,5 +1,12 @@
 package com.gui_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,9 +44,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected static JTextArea TextArea_1;
+	protected static JTextArea studentID;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField enquiryID;
 	private static final Logger logger = LogManager.getLogger(Student_Dashboard.class);
 	private String login_id;
 
@@ -93,27 +100,27 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(lblStudent);
 
 		/*
-		 * JTextArea textArea = new JTextArea(); textArea.setEditable(false);
-		 * textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		 * textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		 * textArea.setBounds(709, 308, 196, 45);
+		 * JTextArea studentName = new JTextArea(); studentName.setEditable(false);
+		 * studentName.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		 * studentName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		 * studentName.setBounds(709, 308, 196, 45);
 		 */
-		JTextField textArea = new JTextField();
-		textArea.setEditable(false);
-		textArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
-		textArea.setHorizontalAlignment(SwingConstants.CENTER);
-		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textArea.setEnabled(false);
-		textArea.setBounds(709, 308, 196, 45);
+		JTextField studentName = new JTextField();
+		studentName.setEditable(false);
+		studentName.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		studentName.setHorizontalAlignment(SwingConstants.CENTER);
+		studentName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentName.setEnabled(false);
+		studentName.setBounds(709, 308, 196, 45);
 		try {
 			java.sql.Connection conn = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/student_services_portal", "root", "");
 			SQLProvider sql = new SQLProvider(conn);
-			textArea.setText(sql.SelectStudentName(getLoginId()));
+			studentName.setText(sql.SelectStudentName(getLoginId()));
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-		contentPane.add(textArea);
+		contentPane.add(studentName);
 
 		JLabel lblStudentId = new JLabel("Student ID");
 		lblStudentId.setHorizontalAlignment(SwingConstants.CENTER);
@@ -121,15 +128,15 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		lblStudentId.setBounds(734, 359, 150, 31);
 		contentPane.add(lblStudentId);
 
-		JTextField textArea_1 = new JTextField();
-		textArea_1.setEditable(false);
-		textArea_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
-		textArea_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textArea_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textArea_1.setEnabled(false);
-		textArea_1.setBounds(709, 400, 196, 45);
-		textArea_1.setText(getLoginId());
-		contentPane.add(textArea_1);
+		JTextField studentID = new JTextField();
+		studentID.setEditable(false);
+		studentID.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		studentID.setHorizontalAlignment(SwingConstants.CENTER);
+		studentID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentID.setEnabled(false);
+		studentID.setBounds(709, 400, 196, 45);
+		studentID.setText(getLoginId());
+		contentPane.add(studentID);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(25, 25, 112));
@@ -137,13 +144,13 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JButton btnLogOut = new JButton("LOG OUT");
-		btnLogOut.setForeground(Color.WHITE);
-		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-		btnLogOut.setBackground(new Color(25, 25, 112));
-		btnLogOut.setBorder(null);
-		btnLogOut.setBounds(0, 0, 122, 45);
-		btnLogOut.addActionListener(new ActionListener() {
+		JButton logoutBtn = new JButton("LOG OUT");
+		logoutBtn.setForeground(Color.WHITE);
+		logoutBtn.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		logoutBtn.setBackground(new Color(25, 25, 112));
+		logoutBtn.setBorder(null);
+		logoutBtn.setBounds(0, 0, 122, 45);
+		logoutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				Front f;
@@ -152,12 +159,12 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 					f = new Front();
 					f.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 			}
 		});
-		panel.add(btnLogOut);
+		panel.add(logoutBtn);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(25, 25, 112));
@@ -167,30 +174,28 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JButton btnNewButton = new JButton("View Enquiry");
-		btnNewButton.setBounds(0, 0, 167, 54);
-		panel_1.add(btnNewButton);
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnNewButton.setBackground(new Color(25, 25, 112));
-		btnNewButton.setBorder(null);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton viewEnquiry = new JButton("View Enquiry");
+		viewEnquiry.setBounds(0, 0, 167, 54);
+		panel_1.add(viewEnquiry);
+		viewEnquiry.setForeground(Color.WHITE);
+		viewEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		viewEnquiry.setBackground(new Color(25, 25, 112));
+		viewEnquiry.setBorder(null);
+		viewEnquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textField.getText().isEmpty()) {
+					if (enquiryID.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Please select an Equiry to view", "View Enquiry",
 								JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						logger.info("Student ID: " + getLoginId() + " Opted To View Enquiry: " + textField.getText());
+						logger.info("Student ID: " + getLoginId() + " Opted To View Enquiry: " + enquiryID.getText());
 						dispose();
-						View_Enquiry v = new View_Enquiry(getLoginId(), textField.getText());
-						View_Enquiry.textField_5.setText(textField.getText()); // get the enquiry selected and passes it
-																				// to the enquiry Id fiels in
-																				// view_enquiry frame
+						View_Enquiry v = new View_Enquiry(getLoginId(), enquiryID.getText());
+						View_Enquiry.enquiryID.setText(enquiryID.getText()); 
 						v.setVisible(true);
 					}
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 			}
@@ -202,35 +207,35 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
-		JButton btnEditEnquiry = new JButton("Edit Enquiry");
-		btnEditEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnEditEnquiry.setForeground(Color.WHITE);
-		btnEditEnquiry.setBackground(new Color(25, 25, 112));
-		btnEditEnquiry.setBorder(null);
-		btnEditEnquiry.setBounds(10, 0, 157, 54);
-		btnEditEnquiry.addActionListener(new ActionListener() {
+		JButton editEnquiry = new JButton("Edit Enquiry");
+		editEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		editEnquiry.setForeground(Color.WHITE);
+		editEnquiry.setBackground(new Color(25, 25, 112));
+		editEnquiry.setBorder(null);
+		editEnquiry.setBounds(10, 0, 157, 54);
+		editEnquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Edit s;
 				try {
-					if (textField.getText().isEmpty()) {
+					if (enquiryID.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Please select an Equiry to edit", "Edit Enquiry",
 								JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						logger.info("Student ID: " + getLoginId() + " Opted To Edit Enquiry: " + textField.getText());
-						s = new Edit(getLoginId(), textField.getText());
+						logger.info("Student ID: " + getLoginId() + " Opted To Edit Enquiry: " + enquiryID.getText());
+						s = new Edit(getLoginId(), enquiryID.getText());
 						s.setVisible(true);
 						dispose();
-						Edit.textField_5.setText(textField.getText());
+						Edit.enquiryID.setText(enquiryID.getText());
 					}
 
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 
 			}
 		});
-		panel_2.add(btnEditEnquiry);
+		panel_2.add(editEnquiry);
 
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setLayout(null);
@@ -238,14 +243,14 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		panel_2_1.setBounds(509, 490, 167, 54);
 		contentPane.add(panel_2_1);
 
-		JButton btnNewButton_2 = new JButton("Submit Enquiry");
-		btnNewButton_2.setBounds(0, 10, 167, 34);
-		panel_2_1.add(btnNewButton_2);
-		btnNewButton_2.setForeground(Color.WHITE);
-		btnNewButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 19));
-		btnNewButton_2.setBackground(new Color(25, 25, 112));
-		btnNewButton_2.setBorder(null);
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton submitEnquiry = new JButton("Submit Enquiry");
+		submitEnquiry.setBounds(0, 10, 167, 34);
+		panel_2_1.add(submitEnquiry);
+		submitEnquiry.setForeground(Color.WHITE);
+		submitEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 19));
+		submitEnquiry.setBackground(new Color(25, 25, 112));
+		submitEnquiry.setBorder(null);
+		submitEnquiry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				Submit_Enquiry s;
@@ -254,7 +259,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 					s = new Submit_Enquiry(getLoginId());
 					s.setVisible(true);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 
@@ -267,18 +272,18 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		panel_2_1_1.setBounds(10, 498, 167, 54);
 		contentPane.add(panel_2_1_1);
 
-		JButton btnNewButton_1 = new JButton("Cancel Enquiry");
-		btnNewButton_1.setBounds(10, 0, 167, 54);
-		panel_2_1_1.add(btnNewButton_1);
-		btnNewButton_1.setBorder(null);
-		btnNewButton_1.setBackground(new Color(25, 25, 112));
-		btnNewButton_1.setForeground(Color.WHITE);
-		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton cancelEnquiry = new JButton("Cancel Enquiry");
+		cancelEnquiry.setBounds(10, 0, 167, 54);
+		panel_2_1_1.add(cancelEnquiry);
+		cancelEnquiry.setBorder(null);
+		cancelEnquiry.setBackground(new Color(25, 25, 112));
+		cancelEnquiry.setForeground(Color.WHITE);
+		cancelEnquiry.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		cancelEnquiry.addActionListener(new ActionListener() {
 			// Change this to just change the state of the enquiry
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textField.getText().isEmpty()) {
+					if (enquiryID.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Please select an Equiry to cancel", "Cancel Enquiry",
 								JOptionPane.INFORMATION_MESSAGE);
 					} else {
@@ -287,11 +292,11 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 								"root", "");
 						SQLProvider sql = new SQLProvider(conn);
 
-						boolean CancelEnquiry = sql.CancelStudentEnquiry(textField.getText());
+						boolean CancelEnquiry = sql.CancelStudentEnquiry(enquiryID.getText());
 
 						if (CancelEnquiry) {
 							logger.info("Student ID: " + getLoginId() + " Opted To Cancel An Enquiry: "
-									+ textField.getText());
+									+ enquiryID.getText());
 							JOptionPane.showMessageDialog(null, "Enquiry Canceled !", "Status",
 									JOptionPane.INFORMATION_MESSAGE);
 							Student_Dashboard p = new Student_Dashboard(getLoginId());
@@ -309,44 +314,44 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			}
 		});
 
-		JButton btnViewResonses = new JButton("View Responses");
-		btnViewResonses.setForeground(Color.WHITE);
-		btnViewResonses.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnViewResonses.setBorder(null);
-		btnViewResonses.setBackground(new Color(25, 25, 112));
-		btnViewResonses.setBounds(225, 489, 167, 54);
-		contentPane.add(btnViewResonses);
-		btnViewResonses.addActionListener(new ActionListener() {
+		JButton viewResponses = new JButton("View Responses");
+		viewResponses.setForeground(Color.WHITE);
+		viewResponses.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		viewResponses.setBorder(null);
+		viewResponses.setBackground(new Color(25, 25, 112));
+		viewResponses.setBounds(225, 489, 167, 54);
+		contentPane.add(viewResponses);
+		viewResponses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					if (textField.getText().isEmpty()) {
+					if (enquiryID.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Please select an Equiry to view response", "View Response",
 								JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						logger.info("Student ID: " + getLoginId() + " Opted To View Responses: " + textField.getText());
+						logger.info("Student ID: " + getLoginId() + " Opted To View Responses: " + enquiryID.getText());
 						dispose();
 						Past_Responses s;
-						s = new Past_Responses(getLoginId(), textField.getText());
-						Past_Responses.textField.setText(textField.getText());
+						s = new Past_Responses(getLoginId(), enquiryID.getText());
+						Past_Responses.enquiryID.setText(enquiryID.getText());
 						s.setVisible(true);
 					}
 
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 
 			}
 		});
 
-		textField = new JTextField();
-		textField.setBorder(new LineBorder(Color.BLACK, 1, true));
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField.setBounds(10, 296, 167, 39);
-		contentPane.add(textField);
-		textField.setEditable(false);
-		textField.setColumns(10);
+		enquiryID = new JTextField();
+		enquiryID.setBorder(new LineBorder(Color.BLACK, 1, true));
+		enquiryID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		enquiryID.setBounds(10, 296, 167, 39);
+		contentPane.add(enquiryID);
+		enquiryID.setEditable(false);
+		enquiryID.setColumns(10);
 
 		JLabel lblEnquiryId = new JLabel("Enquiry Id");
 		lblEnquiryId.setHorizontalAlignment(SwingConstants.CENTER);
@@ -384,7 +389,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				int selectedRowIndex = table.getSelectedRow();
-				textField.setText(model.getValueAt(selectedRowIndex, 0).toString());
+				enquiryID.setText(model.getValueAt(selectedRowIndex, 0).toString());
 			}
 		});
 		table.getColumnModel().getColumn(0).setResizable(false);
@@ -393,9 +398,9 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 		scrollPane.setViewportView(table);
 
 		try {
-			show_enquiry(textArea_1.getText());
+			show_enquiry(studentID.getText());
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
 		}
 
@@ -426,7 +431,7 @@ public class Student_Dashboard extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			Student_Dashboard frame = new Student_Dashboard(getLoginId());
-			TextArea_1.setText(getLoginId());
+			studentID.setText(getLoginId());
 			frame.setVisible(true);
 		} catch (Exception D) {
 			D.printStackTrace();

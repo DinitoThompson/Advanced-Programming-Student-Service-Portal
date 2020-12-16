@@ -1,5 +1,12 @@
 package com.gui_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/ 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -40,10 +47,10 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField enquiryComplaint;
+	private JTextField enquiryNature;
+	private JTextField studentName;
+	private JTextField studentID;
 	private String login_id;
 	public static final Logger logger = LogManager.getLogger(Submit_Enquiry.class);
 
@@ -105,23 +112,23 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		lblFurtherDetails.setBounds(190, 387, 139, 26);
 		contentPane.add(lblFurtherDetails);
 
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_3.setColumns(10);
-		textField_3.setBounds(339, 250, 228, 50);
-		contentPane.add(textField_3);
+		enquiryComplaint = new JTextField();
+		enquiryComplaint.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		enquiryComplaint.setColumns(10);
+		enquiryComplaint.setBounds(339, 250, 228, 50);
+		contentPane.add(enquiryComplaint);
 
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_4.setColumns(10);
-		textField_4.setBounds(339, 310, 228, 50);
-		contentPane.add(textField_4);
+		enquiryNature = new JTextField();
+		enquiryNature.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		enquiryNature.setColumns(10);
+		enquiryNature.setBounds(339, 310, 228, 50);
+		contentPane.add(enquiryNature);
 
-		JScrollPane pane = new JScrollPane();
-		pane.setBackground(Color.WHITE);
-		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		pane.setBounds(339, 387, 228, 65);
-		contentPane.add(pane);
+		JScrollPane enquiryDetail = new JScrollPane();
+		enquiryDetail.setBackground(Color.WHITE);
+		enquiryDetail.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		enquiryDetail.setBounds(339, 387, 228, 65);
+		contentPane.add(enquiryDetail);
 
 		JTextArea textArea = new JTextArea("If Necessarry");
 		textArea.addFocusListener(new FocusAdapter() {
@@ -142,7 +149,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 				}
 			}
 		});
-		pane.setViewportView(textArea);
+		enquiryDetail.setViewportView(textArea);
 		textArea.setBorder(new LineBorder(Color.BLACK));
 
 		JLabel lblNewLabel = new JLabel("");
@@ -156,22 +163,22 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		lblName_1_1.setBounds(655, 250, 155, 43);
 		contentPane.add(lblName_1_1);
 
-		textField_6 = new JTextField();
-		textField_6.setEditable(false);
-		textField_6.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
-		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_6.setEnabled(false);
-		textField_6.setBounds(617, 310, 228, 50);
+		studentName = new JTextField();
+		studentName.setEditable(false);
+		studentName.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		studentName.setHorizontalAlignment(SwingConstants.CENTER);
+		studentName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentName.setEnabled(false);
+		studentName.setBounds(617, 310, 228, 50);
 		try {
 			java.sql.Connection conn = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/student_services_portal", "root", "");
 			SQLProvider sql = new SQLProvider(conn);
-			textField_6.setText(sql.SelectStudentName(getLoginId()));
+			studentName.setText(sql.SelectStudentName(getLoginId()));
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-		contentPane.add(textField_6);
+		contentPane.add(studentName);
 
 		JLabel lblName_1_1_1 = new JLabel("Student ID");
 		lblName_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -179,15 +186,15 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 		lblName_1_1_1.setBounds(655, 359, 155, 43);
 		contentPane.add(lblName_1_1_1);
 
-		textField_7 = new JTextField();
-		textField_7.setEditable(false);
-		textField_7.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
-		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		textField_7.setColumns(10);
-		textField_7.setBounds(619, 404, 228, 50);
-		textField_7.setText(getLoginId());
-		contentPane.add(textField_7);
+		studentID = new JTextField();
+		studentID.setEditable(false);
+		studentID.setBorder(new LineBorder(new Color(0, 0, 0), 2, false));
+		studentID.setHorizontalAlignment(SwingConstants.CENTER);
+		studentID.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		studentID.setColumns(10);
+		studentID.setBounds(619, 404, 228, 50);
+		studentID.setText(getLoginId());
+		contentPane.add(studentID);
 
 		JButton btnBack = new JButton("Back");
 		btnBack.setForeground(Color.WHITE);
@@ -202,7 +209,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 					p = new Student_Dashboard(getLoginId());
 					p.setVisible(true);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 
@@ -240,8 +247,8 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 					conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_services_portal", "root",
 							"");
 					SQLProvider sql = new SQLProvider(conn);
-					boolean SubmitedEnquiry = sql.SubmitEnquiry(getLoginId(), textField_4.getText(),
-							textField_3.getText(), textArea.getText());
+					boolean SubmitedEnquiry = sql.SubmitEnquiry(getLoginId(), enquiryNature.getText(),
+							enquiryComplaint.getText(), textArea.getText());
 
 					if (SubmitedEnquiry) {
 						logger.info("Student ID: " + getLoginId() + " Submited A Brand New Enquiry.");
@@ -253,7 +260,7 @@ public class Submit_Enquiry extends JFrame implements ActionListener {
 					}
 
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+
 					JOptionPane.showMessageDialog(null, "Enquiry NOT Submitted !", "Status",
 							JOptionPane.INFORMATION_MESSAGE);
 					Student_Dashboard p = new Student_Dashboard(getLoginId());

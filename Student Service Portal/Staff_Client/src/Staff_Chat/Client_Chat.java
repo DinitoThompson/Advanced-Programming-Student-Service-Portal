@@ -1,5 +1,10 @@
 package Staff_Chat;
 
+/*
+Member Contribution
+Shanice Facey 
+*/ 
+
 import java.net.*;
 
 import java.awt.event.ActionEvent;

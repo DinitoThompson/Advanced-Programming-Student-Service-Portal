@@ -1,5 +1,12 @@
 package com.gui_demo;
 
+/*
+Member Contribution
+Shanice Facey 
+Tyeree Tinker 
+Dinito Thompson
+*/
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -39,17 +46,17 @@ public class Cover extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUser;
-	private JTextField txtPassword;
-	private String ID;
+	private JTextField studentIDNumber;
+	private JTextField studentPassword;
+	private String studentID;
 	private static final Logger logger = LogManager.getLogger(Cover.class);
 
-	public String getID() {
-		return ID;
+	public String getUserID() {
+		return studentID;
 	}
 
-	public void setID(String iD) {
-		ID = iD;
+	public void setUserID(String studentID) {
+		this.studentID = studentID;
 	}
 
 	/**
@@ -75,32 +82,32 @@ public class Cover extends JFrame implements ActionListener {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		txtUser = new JTextField();
-		txtUser.setName("");
-		txtUser.addFocusListener(new FocusAdapter() {
+		studentIDNumber = new JTextField();
+		studentIDNumber.setName("");
+		studentIDNumber.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				if (txtUser.getText().equals("ID Number")) {
-					txtUser.setText("");
+				if (studentIDNumber.getText().equals("ID Number")) {
+					studentIDNumber.setText("");
 				} else {
-					txtUser.selectAll();
+					studentIDNumber.selectAll();
 				}
 			}
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				if (txtUser.getText().equals("")) {
-					txtUser.setText("ID Number");
+				if (studentIDNumber.getText().equals("")) {
+					studentIDNumber.setText("ID Number");
 				}
 			}
 		});
-		// txtUser.setText("ID Number");
-		txtUser.setBorder(new LineBorder(Color.BLACK, 1, true));
-		txtUser.setFont(new Font("Times New Roman", Font.ITALIC, 13));
-		setID(txtUser.getText());
-		txtUser.setBounds(10, 10, 192, 33);
-		panel_1.add(txtUser);
-		txtUser.setColumns(10);
+		// studentIDNumber.setText("ID Number");
+		studentIDNumber.setBorder(new LineBorder(Color.BLACK, 1, true));
+		studentIDNumber.setFont(new Font("Times New Roman", Font.ITALIC, 13));
+		setUserID(studentIDNumber.getText());
+		studentIDNumber.setBounds(10, 10, 192, 33);
+		panel_1.add(studentIDNumber);
+		studentIDNumber.setColumns(10);
 
 		JLabel lblUser = new JLabel("");
 		lblUser.setBounds(210, 0, 40, 40);
@@ -114,35 +121,35 @@ public class Cover extends JFrame implements ActionListener {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
-		txtPassword = new JPasswordField();
-		txtPassword.addFocusListener(new FocusAdapter() {
+		studentPassword = new JPasswordField();
+		studentPassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				if (txtPassword.getText().equals("Password")) {
-					((JPasswordField) txtPassword).setEchoChar('*');
-					txtPassword.setText("");
+				if (studentPassword.getText().equals("Password")) {
+					((JPasswordField) studentPassword).setEchoChar('*');
+					studentPassword.setText("");
 				} else {
-					txtPassword.selectAll();
+					studentPassword.selectAll();
 				}
 
 			}
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				if (txtPassword.getText().equals("")) {
-					txtPassword.setText("Password");
-					((JPasswordField) txtPassword).setEchoChar((char) 0);
+				if (studentPassword.getText().equals("")) {
+					studentPassword.setText("Password");
+					((JPasswordField) studentPassword).setEchoChar((char) 0);
 
 				}
 			}
 		});
-		txtPassword.setText("Password");
-		((JPasswordField) txtPassword).setEchoChar((char) 0);
-		txtPassword.setBorder(new LineBorder(Color.BLACK, 1, true));
-		txtPassword.setFont(new Font("Times New Roman", Font.ITALIC, 13));
-		txtPassword.setBounds(10, 10, 192, 31);
-		panel_2.add(txtPassword);
-		txtPassword.setColumns(10);
+		studentPassword.setText("Password");
+		((JPasswordField) studentPassword).setEchoChar((char) 0);
+		studentPassword.setBorder(new LineBorder(Color.BLACK, 1, true));
+		studentPassword.setFont(new Font("Times New Roman", Font.ITALIC, 13));
+		studentPassword.setBounds(10, 10, 192, 31);
+		panel_2.add(studentPassword);
+		studentPassword.setColumns(10);
 
 		JLabel lblPassword = new JLabel("");
 		lblPassword.setAutoscrolls(true);
@@ -191,7 +198,7 @@ public class Cover extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 
 				// need to check credentials, if correct do the code below if not use
-				if (txtUser.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+				if (studentIDNumber.getText().isEmpty() || studentPassword.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(btnLogin, "ID or Password Blank");
 				} else {
 					try {
@@ -202,20 +209,20 @@ public class Cover extends JFrame implements ActionListener {
 								.getConnection("jdbc:mysql://localhost:3306/student_services_portal", "root", "");
 						PreparedStatement pas = conn.prepareStatement(
 								"select * from student where student_id = ? and student_password = ?");
-						pas.setString(1, txtUser.getText());
-						pas.setString(2, txtPassword.getText());
+						pas.setString(1, studentIDNumber.getText());
+						pas.setString(2, studentPassword.getText());
 						ResultSet rs = pas.executeQuery();
 
 						if (rs.next()) {
-							logger.info("Student Sign In: " + txtUser.getText());
-							Student_Dashboard s = new Student_Dashboard(txtUser.getText());
+							logger.info("Student Sign In: " + studentIDNumber.getText());
+							Student_Dashboard s = new Student_Dashboard(studentIDNumber.getText());
 							dispose();
 							s.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(btnLogin, "ID or Password Incorrect");
-							txtUser.setText("");
-							txtPassword.setText("");
-							txtUser.requestFocus();
+							studentIDNumber.setText("");
+							studentPassword.setText("");
+							studentIDNumber.requestFocus();
 						}
 
 					} catch (SQLException e1) {
@@ -227,31 +234,31 @@ public class Cover extends JFrame implements ActionListener {
 									"");
 
 						} catch (ClassNotFoundException e11) {
-							// TODO Auto-generated catch block
+
 							e11.printStackTrace();
 						} catch (SQLException e11) {
-							// TODO Auto-generated catch block
+
 							JOptionPane.showMessageDialog(null, "Your Not Currently Signed Up...", "Login Status",
 									JOptionPane.INFORMATION_MESSAGE);
 							Sign_up sign_up = new Sign_up();
 							sign_up.setVisible(true);
 							dispose();
 						} catch (InstantiationException e11) {
-							// TODO Auto-generated catch block
+
 							e1.printStackTrace();
 						} catch (IllegalAccessException e11) {
-							// TODO Auto-generated catch block
+
 							e1.printStackTrace();
 						}
 
 					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					}
 				}
@@ -315,13 +322,13 @@ public class Cover extends JFrame implements ActionListener {
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
-		JButton btnSignUp = new JButton("SIGN UP");
-		btnSignUp.setBorder(null);
-		btnSignUp.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		btnSignUp.setForeground(Color.GRAY);
-		btnSignUp.setBackground(new Color(25, 25, 112));
-		btnSignUp.setBounds(0, 10, 101, 21);
-		btnSignUp.addActionListener(new ActionListener() {
+		JButton signUpBtn = new JButton("SIGN UP");
+		signUpBtn.setBorder(null);
+		signUpBtn.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		signUpBtn.setForeground(Color.GRAY);
+		signUpBtn.setBackground(new Color(25, 25, 112));
+		signUpBtn.setBounds(0, 10, 101, 21);
+		signUpBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				Sign_up s;
@@ -329,13 +336,12 @@ public class Cover extends JFrame implements ActionListener {
 					s = new Sign_up();
 					s.setVisible(true);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
 			}
 		});
-		panel_3.add(btnSignUp);
+		panel_3.add(signUpBtn);
 	}
 
 	@Override
